@@ -21,7 +21,8 @@ let n = 0;
 for (const file of walk(OUT).filter((f) => f.endsWith(".html") || f.endsWith(".webmanifest"))) {
   let h = readFileSync(file, "utf8");
   h = h
-    .replace(/(href|src|srcset)="\/(?!\/)/g, `$1="${BASE}/`)
+    .replace(/(href|src|srcset|poster|data-src|data-src-sm)="\/(?!\/)/g, `$1="${BASE}/`)
+    .replace(/srcset="[^"]*"/g, (m) => m.replace(/, \/assets/g, `, ${BASE}/assets`))
     .replace(/"(src|start_url)": "\/(?!\/)/g, `"$1": "${BASE}/`)
     .replace(/<link rel="canonical"[^>]*>/, '<meta name="robots" content="noindex, nofollow">');
   writeFileSync(file, h);
