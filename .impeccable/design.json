@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T18:28:55.671Z",
+  "title": "Design System: E.F.O. Ltda.",
+  "extensions": {
+    "colorMeta": {
+      "forecourt-night": {
+        "role": "primary",
+        "displayName": "Forecourt Night",
+        "canonical": "#031F36",
+        "oklch": "oklch(23.2% 0.056 247.0)",
+        "tonalRamp": [
+          "#000C1E",
+          "#09263D",
+          "#26425C",
+          "#43617C",
+          "#6584A0",
+          "#89A9C6",
+          "#AECFEE",
+          "#D1F3FF"
+        ]
+      },
+      "forecourt-night-2": {
+        "role": "neutral",
+        "displayName": "Forecourt Night 2",
+        "canonical": "#04284A",
+        "oklch": "oklch(27.3% 0.074 251.3)",
+        "tonalRamp": [
+          "#000B1E",
+          "#012546",
+          "#1F4266",
+          "#3D6086",
+          "#5F83AC",
+          "#82A8D2",
+          "#A7CFFA",
+          "#CAF3FF"
+        ]
+      },
+      "forecourt-night-3": {
+        "role": "neutral",
+        "displayName": "Forecourt Night 3",
+        "canonical": "#0A3459",
+        "oklch": "oklch(31.9% 0.080 249.9)",
+        "tonalRamp": [
+          "#000B1E",
+          "#002547",
+          "#1A4268",
+          "#386189",
+          "#5B84AE",
+          "#7EA9D5",
+          "#A3CFFD",
+          "#C9F3FF"
+        ]
+      },
+      "footer-night": {
+        "role": "neutral",
+        "displayName": "Footer Night",
+        "canonical": "#021829",
+        "oklch": "oklch(20.1% 0.045 243.7)",
+        "tonalRamp": [
+          "#000C1C",
+          "#0F2638",
+          "#2A4356",
+          "#486175",
+          "#69849A",
+          "#8DA8BF",
+          "#B2CFE6",
+          "#D6F3FF"
+        ]
+      },
+      "canopy-blue": {
+        "role": "primary",
+        "displayName": "Canopy Blue",
+        "canonical": "#063B66",
+        "oklch": "oklch(34.5% 0.091 249.4)",
+        "tonalRamp": [
+          "#000B1E",
+          "#002547",
+          "#0F426D",
+          "#31618F",
+          "#5484B4",
+          "#77A9DC",
+          "#9DD0FF",
+          "#C9F3FF"
+        ]
+      },
+      "canopy-blue-top": {
+        "role": "primary",
+        "displayName": "Canopy Blue (gradient top)",
+        "canonical": "#074272",
+        "oklch": "oklch(37.2% 0.099 249.7)",
+        "tonalRamp": [
+          "#000B1E",
+          "#002547",
+          "#064171",
+          "#2C6193",
+          "#4F84B9",
+          "#73A9E1",
+          "#98D0FF",
+          "#C9F3FF"
+        ]
+      },
+      "light-line-cyan": {
+        "role": "secondary",
+        "displayName": "Light-Line Cyan",
+        "canonical": "#00AEEF",
+        "oklch": "oklch(70.8% 0.149 234.4)",
+        "tonalRamp": [
+          "#000D1C",
+          "#002843",
+          "#00466F",
+          "#00679E",
+          "#008CCB",
+          "#31B1ED",
+          "#82D6FF",
+          "#BEF8FF"
+        ]
+      },
+      "stamp-cyan-text": {
+        "role": "secondary",
+        "displayName": "Stamp Cyan Text",
+        "canonical": "#7FD6F7",
+        "oklch": "oklch(83.3% 0.096 224.5)",
+        "tonalRamp": [
+          "#000E1A",
+          "#002A40",
+          "#004965",
+          "#006886",
+          "#318CAB",
+          "#5AB1D1",
+          "#81D8F9",
+          "#B8FAFF"
+        ]
+      },
+      "energy-green": {
+        "role": "tertiary",
+        "displayName": "Energy Green",
+        "canonical": "#39A935",
+        "oklch": "oklch(64.8% 0.184 142.6)",
+        "tonalRamp": [
+          "#011001",
+          "#062D06",
+          "#144D12",
+          "#22701F",
+          "#33982F",
+          "#6EBA69",
+          "#A2DC9D",
+          "#D2FCCE"
+        ]
+      },
+      "energy-green-deep": {
+        "role": "tertiary",
+        "displayName": "Energy Green Deep",
+        "canonical": "#23781F",
+        "oklch": "oklch(50.4% 0.148 142.4)",
+        "tonalRamp": [
+          "#011001",
+          "#072D05",
+          "#144D11",
+          "#23701F",
+          "#43953E",
+          "#6EBA68",
+          "#A3DC9D",
+          "#D2FCCE"
+        ]
+      },
+      "bolivia-gold": {
+        "role": "tertiary",
+        "displayName": "Bolivia Gold",
+        "canonical": "#D5A928",
+        "oklch": "oklch(75.5% 0.144 88.2)",
+        "tonalRamp": [
+          "#130900",
+          "#332000",
+          "#573A00",
+          "#7D5600",
+          "#A47900",
+          "#C89F24",
+          "#E7C778",
+          "#FFEDB5"
+        ]
+      },
+      "signage-white": {
+        "role": "neutral",
+        "displayName": "Signage White",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#808080",
+          "#A4A4A4",
+          "#CACACA",
+          "#EEEEEE"
+        ]
+      },
+      "shop-day": {
+        "role": "neutral",
+        "displayName": "Shop Day",
+        "canonical": "#F1F5F9",
+        "oklch": "oklch(96.8% 0.007 247.9)",
+        "tonalRamp": [
+          "#090B0E",
+          "#212427",
+          "#3D4043",
+          "#5B5E61",
+          "#7D8184",
+          "#A1A5A9",
+          "#C7CBCF",
+          "#EBEFF3"
+        ]
+      },
+      "shop-day-2": {
+        "role": "neutral",
+        "displayName": "Shop Day 2",
+        "canonical": "#E3EBF2",
+        "oklch": "oklch(93.6% 0.013 244.3)",
+        "tonalRamp": [
+          "#070C10",
+          "#1F252A",
+          "#3A4146",
+          "#585F64",
+          "#7A8187",
+          "#9EA6AC",
+          "#C4CCD2",
+          "#E8F0F7"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#031F36",
+        "oklch": "oklch(23.2% 0.056 247.0)",
+        "tonalRamp": [
+          "#000C1E",
+          "#09263D",
+          "#26425C",
+          "#43617C",
+          "#6584A0",
+          "#89A9C6",
+          "#AECFEE",
+          "#D1F3FF"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "#33536E",
+        "oklch": "oklch(43.0% 0.059 245.2)",
+        "tonalRamp": [
+          "#000C1E",
+          "#05263E",
+          "#23435D",
+          "#41617D",
+          "#6384A1",
+          "#86A9C8",
+          "#ABCFEF",
+          "#CFF4FF"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "#A9C2D6",
+        "oklch": "oklch(80.2% 0.039 242.2)",
+        "tonalRamp": [
+          "#000C1A",
+          "#112635",
+          "#2D4253",
+          "#4A6172",
+          "#6C8496",
+          "#90A8BC",
+          "#B5CEE3",
+          "#D8F2FF"
+        ]
+      },
+      "mist-2": {
+        "role": "neutral",
+        "displayName": "Mist 2",
+        "canonical": "#7F9DB5",
+        "oklch": "oklch(68.2% 0.049 242.6)",
+        "tonalRamp": [
+          "#000C1D",
+          "#0B263A",
+          "#284358",
+          "#456177",
+          "#67849B",
+          "#8BA9C1",
+          "#B0CFE8",
+          "#D3F3FF"
+        ]
+      },
+      "hero-lead": {
+        "role": "neutral",
+        "displayName": "Hero Lead",
+        "canonical": "#D4E3EF",
+        "oklch": "oklch(90.8% 0.023 241.9)",
+        "tonalRamp": [
+          "#040C14",
+          "#1A262E",
+          "#35414B",
+          "#53606A",
+          "#75828D",
+          "#99A7B2",
+          "#BECDD9",
+          "#E2F1FD"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "canonical": "#C5D3DF",
+        "oklch": "oklch(86.0% 0.023 243.8)",
+        "tonalRamp": [
+          "#040C14",
+          "#1B252E",
+          "#36414B",
+          "#535F6A",
+          "#75828D",
+          "#99A7B2",
+          "#BFCDD8",
+          "#E2F1FD"
+        ]
+      },
+      "field-bg": {
+        "role": "neutral",
+        "displayName": "Field Background",
+        "canonical": "#FBFDFE",
+        "oklch": "oklch(99.3% 0.003 228.8)",
+        "tonalRamp": [
+          "#0A0B0C",
+          "#232425",
+          "#3E4041",
+          "#5C5E5F",
+          "#7F8081",
+          "#A3A5A6",
+          "#C9CBCC",
+          "#EDEFF0"
+        ]
+      },
+      "error-red": {
+        "role": "neutral",
+        "displayName": "Error Red",
+        "canonical": "#B42318",
+        "oklch": "oklch(50.0% 0.182 29.5)",
+        "tonalRamp": [
+          "#1B0302",
+          "#42110B",
+          "#6D231B",
+          "#9C372B",
+          "#D24E3F",
+          "#EE8171",
+          "#FFB1A3",
+          "#FFDDD2"
+        ]
+      },
+      "success-bg": {
+        "role": "neutral",
+        "displayName": "Success Tint",
+        "canonical": "#E6F6E5",
+        "oklch": "oklch(95.7% 0.028 143.7)",
+        "tonalRamp": [
+          "#050E04",
+          "#1C281B",
+          "#374436",
+          "#546254",
+          "#778576",
+          "#9BA99A",
+          "#C0D0BF",
+          "#E4F4E3"
+        ]
+      },
+      "success-ink": {
+        "role": "neutral",
+        "displayName": "Success Ink",
+        "canonical": "#14501A",
+        "oklch": "oklch(38.0% 0.104 144.7)",
+        "tonalRamp": [
+          "#001001",
+          "#032D08",
+          "#104D17",
+          "#336D36",
+          "#569158",
+          "#7AB67B",
+          "#A0DDA0",
+          "#D0FCD0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "One per page: hero or page-hero h1, uppercase, one phrase lit in cyan."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section h2, usually an energy-line node; one lit phrase (cyan on night, green in electric sections, Canopy Blue on day)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sub-blocks inside a section."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Paragraph under a heading, max 58ch; Mist on night, Ink 2 on day."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; legal capped at 72ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Row, card and plate names: 800 uppercase, 0.86-1.12rem."
+      },
+      "label-micro": {
+        "displayName": "Micro Label",
+        "purpose": "Stamps, pylon cap, contact captions, footer heads: 0.7-0.78rem, tracked 0.12-0.16em."
+      }
+    },
+    "shadows": [
+      {
+        "name": "glow-cyan",
+        "value": "0 0 0 1px rgba(0,174,239,0.55), 0 0 24px -4px rgba(0,174,239,0.55)",
+        "purpose": "Lit, hovered or focused pylon row."
+      },
+      {
+        "name": "glow-green",
+        "value": "0 0 0 1px rgba(57,169,53,0.6), 0 0 24px -4px rgba(57,169,53,0.55)",
+        "purpose": "Lit electric row."
+      },
+      {
+        "name": "pylon-stand",
+        "value": "0 0 0 1px rgba(0,174,239,0.3), 0 40px 80px -30px rgba(0,0,0,0.9)",
+        "purpose": "The pylon panel."
+      },
+      {
+        "name": "forecourt-drop",
+        "value": "0 40px 80px -40px rgba(0,0,0,0.9)",
+        "purpose": "Photos and the concept case card."
+      },
+      {
+        "name": "canopy",
+        "value": "0 18px 40px -24px rgba(0,0,0,0.8)",
+        "purpose": "Fixed header band."
+      },
+      {
+        "name": "canopy-light-line",
+        "value": "0 0 18px rgba(0,174,239,0.7)",
+        "purpose": "Glow of the 3px light line under the canopy."
+      },
+      {
+        "name": "button-lift",
+        "value": "0 12px 26px -14px rgba(0,0,0,0.75)",
+        "purpose": "Filled cyan and green buttons."
+      },
+      {
+        "name": "hairline-ring-night",
+        "value": "0 0 0 1px rgba(169,194,214,0.16)",
+        "purpose": "Card, tile and frame edge on night."
+      },
+      {
+        "name": "hairline-ring-day",
+        "value": "0 0 0 1px rgba(3,31,54,0.12)",
+        "purpose": "Panel and frame edge on day."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid #00AEEF; outline-offset: 3px",
+        "purpose": "Global focus-visible."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px rgba(0,174,239,0.22)",
+        "purpose": "Focused input, with cyan border."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All transitions and reveals."
+      },
+      {
+        "name": "pylon-sequence",
+        "value": "520ms per row, once on load",
+        "purpose": "Rows light in sequence, then go dark; hover and focus take over."
+      },
+      {
+        "name": "canopy-light-flow",
+        "value": "background-position 9s linear infinite",
+        "purpose": "Cyan-to-green flow along the canopy light line."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity + translateY(18px), 0.9s",
+        "purpose": "Blocks entering the viewport."
+      },
+      {
+        "name": "energy-charge",
+        "value": "scaleY(0.04 to 1) on scroll(root)",
+        "purpose": "Energy line grows with scroll where supported."
+      },
+      {
+        "name": "route-trace",
+        "value": "stroke-dashoffset, 2.4s world / 1.6s Bolivia, staggered",
+        "purpose": "Map routes draw when visible."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation and transition durations ~0",
+        "purpose": "Rows, routes and line render in their final state."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "520px"
+      },
+      {
+        "name": "gutter",
+        "value": "768px"
+      },
+      {
+        "name": "rows-2col",
+        "value": "860px"
+      },
+      {
+        "name": "split",
+        "value": "960px"
+      },
+      {
+        "name": "hero-2col",
+        "value": "1024px"
+      },
+      {
+        "name": "energy-line-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "full-nav",
+        "value": "1180px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (Cyan)",
+      "kind": "button",
+      "refersTo": "button-cyan",
+      "description": "«Cotizar ahora» on every page.",
+      "html": "<a class=\"ds-btn ds-btn-cyan\" href=\"#\">Cotizar ahora <svg class=\"ds-ico ds-arrow\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-btn{font-family:Manrope,'Segoe UI',system-ui,sans-serif;display:inline-flex;align-items:center;gap:10px;min-height:58px;padding:0 30px;border-radius:8px;border:1.5px solid transparent;font-weight:800;font-size:.98rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1),background-color .2s}.ds-ico{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.16,1,.3,1)}.ds-btn:hover .ds-arrow{transform:translateX(4px)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2px solid #00AEEF;outline-offset:3px}.ds-btn-cyan{background:#00AEEF;color:#031F36;box-shadow:0 12px 26px -14px rgba(0,0,0,.75)}.ds-btn-cyan:hover{background:#33c1f3;box-shadow:0 16px 32px -14px rgba(0,0,0,.85)}"
+    },
+    {
+      "name": "WhatsApp Button (Green)",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "WhatsApp hand-off, paired with Cotizar.",
+      "html": "<a class=\"ds-btn-wa\" href=\"#\">Hablar con E.F.O.</a>",
+      "css": ".ds-btn-wa{font-family:Manrope,'Segoe UI',system-ui,sans-serif;display:inline-flex;align-items:center;min-height:58px;padding:0 30px;border-radius:8px;background:#39A935;color:#031F36;font-weight:800;font-size:.98rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;box-shadow:0 12px 26px -14px rgba(0,0,0,.75);transition:background-color .2s,transform .35s cubic-bezier(.16,1,.3,1)}.ds-btn-wa:hover{background:#4cc248}.ds-btn-wa:active{transform:scale(.97)}.ds-btn-wa:focus-visible{outline:2px solid #00AEEF;outline-offset:3px}"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary action on night grounds.",
+      "html": "<div class=\"ds-night\"><a class=\"ds-btn-line\" href=\"#\">Conoce E.F.O.</a></div>",
+      "css": ".ds-night{background:#031F36;padding:24px}.ds-btn-line{font-family:Manrope,'Segoe UI',system-ui,sans-serif;display:inline-flex;align-items:center;min-height:58px;padding:0 30px;border-radius:8px;border:1.5px solid rgba(255,255,255,.4);background:rgba(3,31,54,.3);color:#fff;font-weight:800;font-size:.98rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:border-color .2s,background-color .2s}.ds-btn-line:hover{border-color:#fff;background:rgba(255,255,255,.06)}.ds-btn-line:focus-visible{outline:2px solid #00AEEF;outline-offset:3px}"
+    },
+    {
+      "name": "Canopy Header",
+      "kind": "nav",
+      "refersTo": "canopy",
+      "description": "Fixed fascia band with the flowing light line.",
+      "html": "<header class=\"ds-canopy\"><span class=\"ds-plate\">E.F.O.</span><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Inicio</a><a href=\"#\">Empresa</a><a href=\"#\">Combustibles</a><a href=\"#\">Electromovilidad</a></nav></header>",
+      "css": ".ds-canopy{font-family:Manrope,'Segoe UI',system-ui,sans-serif;position:relative;height:76px;display:flex;align-items:center;gap:22px;padding:0 24px;background:linear-gradient(180deg,#074272,#063B66);box-shadow:0 18px 40px -24px rgba(0,0,0,.8)}.ds-canopy::after{content:\"\";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#00AEEF,#6fd7ff 30%,#00AEEF 55%,#39A935 85%,#00AEEF);background-size:200% 100%;animation:ds-luz 9s linear infinite;box-shadow:0 0 18px rgba(0,174,239,.7)}@keyframes ds-luz{to{background-position:-200% 0}}.ds-plate{background:#fff;color:#063B66;font-weight:800;padding:8px 12px;border-radius:6px}.ds-nav{display:flex;gap:2px;margin-left:auto}.ds-nav a{position:relative;padding:10px 9px;font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.86);border-radius:6px;transition:color .2s,background-color .2s}.ds-nav a:hover{color:#fff;background:rgba(255,255,255,.06)}.ds-nav a:focus-visible{outline:2px solid #00AEEF;outline-offset:3px}.ds-nav a[aria-current=page]{color:#fff}.ds-nav a[aria-current=page]::after{content:\"\";position:absolute;left:9px;right:9px;bottom:2px;height:2px;background:#00AEEF}"
+    },
+    {
+      "name": "Price Pylon",
+      "kind": "custom",
+      "refersTo": "pylon",
+      "description": "Signature: the four areas as lit LED rows.",
+      "html": "<nav class=\"ds-pylon\"><div class=\"ds-cap\"><b>E.F.O.</b><span>Áreas</span></div><a class=\"ds-prow ds-lit\" href=\"#\"><span class=\"ds-pi\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3.5c3.2 4 5.5 7.2 5.5 10.1A5.5 5.5 0 0 1 6.5 13.6C6.5 10.7 8.8 7.5 12 3.5Z\"/></svg></span><span><b>Combustibles</b><small>Importación y comercialización</small></span></a><a class=\"ds-prow\" href=\"#\"><span class=\"ds-pi\"><svg viewBox=\"0 0 24 24\"><path d=\"M13.2 2.8 5.6 13.4h5.6l-1 7.8 7.6-10.6h-5.6l1-7.8Z\"/></svg></span><span><b>Energía</b><small>Infraestructura y suministro</small></span></a><a class=\"ds-prow ds-ev\" href=\"#\"><span class=\"ds-pi\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"3\" width=\"10\" height=\"18\" rx=\"2\"/><path d=\"m9.6 13.6-1.2 2h2l-1.2 2\"/></svg></span><span><b>Electromovilidad</b><small>Carga y conversión eléctrica</small></span></a></nav>",
+      "css": ".ds-pylon{font-family:Manrope,'Segoe UI',system-ui,sans-serif;width:340px;display:grid;gap:8px;padding:14px;border-radius:12px 12px 4px 4px;background:linear-gradient(180deg,#05294b,#021a2e);box-shadow:0 0 0 1px rgba(0,174,239,.3),0 40px 80px -30px rgba(0,0,0,.9);color:#fff}.ds-cap{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 14px;border-bottom:1px solid rgba(0,174,239,.25);margin-bottom:2px}.ds-cap b{font-weight:800;letter-spacing:.12em;font-size:.86rem}.ds-cap span{font-size:.7rem;letter-spacing:.16em;color:#7F9DB5;text-transform:uppercase}.ds-prow{display:grid;grid-template-columns:46px 1fr;gap:12px;align-items:center;min-height:66px;padding:0 14px 0 8px;border-radius:6px;background:rgba(0,0,0,.32);box-shadow:inset 0 0 0 1px rgba(169,194,214,.12);color:#fff;text-decoration:none;transition:box-shadow .4s cubic-bezier(.16,1,.3,1),background-color .4s cubic-bezier(.16,1,.3,1)}.ds-pi{width:46px;height:46px;display:grid;place-items:center;border-radius:6px;background:rgba(0,174,239,.08);color:#00AEEF}.ds-pi svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}.ds-prow b{display:block;font-weight:800;font-size:.98rem;letter-spacing:.08em;text-transform:uppercase}.ds-prow small{display:block;font-size:.78rem;color:#7F9DB5;font-weight:500}.ds-prow.ds-lit,.ds-prow:hover,.ds-prow:focus-visible{outline:none;background:rgba(0,174,239,.1);box-shadow:0 0 0 1px rgba(0,174,239,.55),0 0 24px -4px rgba(0,174,239,.55)}.ds-prow.ds-lit b,.ds-prow:hover b{text-shadow:0 0 14px rgba(0,174,239,.65)}.ds-ev .ds-pi{color:#39A935;background:rgba(57,169,53,.1)}.ds-prow.ds-ev:hover,.ds-prow.ds-ev:focus-visible{background:rgba(57,169,53,.1);box-shadow:0 0 0 1px rgba(57,169,53,.6),0 0 24px -4px rgba(57,169,53,.55)}"
+    },
+    {
+      "name": "Status Stamps",
+      "kind": "chip",
+      "refersTo": "stamp-concept",
+      "description": "Concept (dashed cyan) vs executed (solid green).",
+      "html": "<div class=\"ds-night\"><span class=\"ds-stamp\">Proyecto conceptual</span><span class=\"ds-stamp ds-real\">Proyecto ejecutado</span></div>",
+      "css": ".ds-night{background:#031F36;padding:24px;display:flex;gap:10px}.ds-stamp{font-family:Manrope,'Segoe UI',system-ui,sans-serif;display:inline-flex;align-items:center;gap:8px;padding:5px 10px;border:1.5px dashed #00AEEF;border-radius:4px;color:#7fd6f7;font-weight:800;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,174,239,.08)}.ds-stamp::before{content:\"\";width:7px;height:7px;border-radius:50%;background:currentColor}.ds-stamp.ds-real{border-style:solid;border-color:#39A935;color:#39A935;background:rgba(57,169,53,.1)}"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "Photo with pinned stamp, uppercase title, ruled facts.",
+      "html": "<article class=\"ds-proj\"><div class=\"ds-ph\"><span class=\"ds-stamp\">Proyecto conceptual</span></div><div class=\"ds-in\"><b>Electrolinera para carga rápida</b><p>Diseño e implementación de un punto de carga para vehículos eléctricos.</p><dl><dt>Sector</dt><dd>Electromovilidad</dd><dt>Ubicación</dt><dd>Bolivia</dd></dl></div></article>",
+      "css": ".ds-proj{font-family:Manrope,'Segoe UI',system-ui,sans-serif;width:300px;border-radius:10px;overflow:hidden;background:#04284A;color:#fff;box-shadow:0 0 0 1px rgba(169,194,214,.16)}.ds-ph{position:relative;aspect-ratio:4/3;background:linear-gradient(0deg,#031F36,#0A3459 60%,#063B66)}.ds-stamp{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:8px;padding:5px 10px;border:1.5px dashed #00AEEF;border-radius:4px;color:#7fd6f7;font-weight:800;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(3,31,54,.85)}.ds-stamp::before{content:\"\";width:7px;height:7px;border-radius:50%;background:currentColor}.ds-in{padding:20px 20px 22px;display:grid;gap:10px}.ds-in b{font-weight:800;font-size:1.08rem;text-transform:uppercase;letter-spacing:.03em;line-height:1.2}.ds-in p{margin:0;color:#A9C2D6;font-size:.93rem;line-height:1.55}.ds-in dl{margin:6px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.84rem;border-top:1px solid rgba(169,194,214,.16);padding-top:12px}.ds-in dt{color:#7F9DB5}.ds-in dd{margin:0;font-weight:600}"
+    },
+    {
+      "name": "Ruled Fixed-Cell Rows (day)",
+      "kind": "custom",
+      "refersTo": "ops",
+      "description": "Fixed-cell rows for lists of areas on day bands.",
+      "html": "<ul class=\"ds-ops\"><li><span class=\"ds-oi\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 20.5h18M4.5 20.5V11l5 3V11l5 3V7.5l5 2.6v10.4\"/></svg></span><span><b>Industrias</b><span class=\"ds-d\">Suministro e infraestructura para la operación.</span></span></li><li><span class=\"ds-oi\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"3.5\" width=\"16\" height=\"14\" rx=\"2.5\"/><path d=\"M4 11h16\"/></svg></span><span><b>Transporte</b><span class=\"ds-d\">Flotas, buses y vehículos comerciales.</span></span></li></ul>",
+      "css": ".ds-ops{font-family:Manrope,'Segoe UI',system-ui,sans-serif;list-style:none;margin:0;padding:16px 24px;background:#F1F5F9;color:#031F36;width:420px}.ds-ops li{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid rgba(3,31,54,.12)}.ds-ops li:first-child{border-top:2px solid #031F36}.ds-oi{width:52px;height:52px;border-radius:8px;display:grid;place-items:center;background:#fff;color:#063B66;box-shadow:inset 0 0 0 1px rgba(3,31,54,.12)}.ds-oi svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}.ds-ops b{display:block;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.95rem}.ds-d{color:#33536E;font-size:.92rem}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Contact form field on the white form panel.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-n\">Nombre</label><input id=\"ds-n\" placeholder=\"Tu nombre\"></div>",
+      "css": ".ds-field{font-family:Manrope,'Segoe UI',system-ui,sans-serif;display:grid;gap:7px;width:320px;padding:24px;background:#fff;color:#031F36;border-radius:10px}.ds-field label{font-weight:700;font-size:.86rem}.ds-field input{font-family:Manrope,'Segoe UI',system-ui,sans-serif;min-height:52px;padding:12px 14px;border-radius:8px;border:1.5px solid #c5d3df;background:#fbfdfe;color:#031F36;font-size:1rem;transition:border-color .2s,box-shadow .2s}.ds-field input::placeholder{color:#6a8299}.ds-field input:focus{outline:none;border-color:#00AEEF;box-shadow:0 0 0 3px rgba(0,174,239,.22)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Forecourt",
+    "overview": "The site is a service station at night. A blue canopy band runs across the top with a cyan light line along its lower edge; under it, photographs are graded like lit forecourt scenes; at the side stands the price pylon, a dark panel whose rows light up one after another. Fuel and electricity share the same forecourt: cyan is the station's light and fuel, green marks anything electric, and gold appears only where Bolivia and Santa Cruz are pinned on a map. Signage is white Manrope at heavy weight in capitals, and the jump from display to label size is large on purpose.\n\nNight is the dominant ground. Light #F1F5F9 bands are the lit shop and office interior, used only where reading is dense (about-us, conversion specs, operations, legal) and for the contact form. A single energy line runs down the page from section to section, with a ring node at each major heading. Every list of areas becomes a row of fixed cells (icon cell, label, detail), the same grammar as the pylon. Concept work is stamped so it can't be mistaken for executed work.\n\nThe build rejects the category default of a sunset hero over four floating icon cards. Areas are never shown as a card grid; they are pylon rows, ruled spec rows or signage plates.",
+    "keyCharacteristics": [
+      "Deep-blue night ground with a canopy fascia and a cyan light line.",
+      "Pylon rows: fixed icon cell, uppercase label, small detail line, arrow; they light with a cyan (or green for electric) glow.",
+      "One continuous energy line with ring nodes at section headings.",
+      "Status stamps: dashed cyan for concept, solid green for executed.",
+      "One icon stroke weight (1.75) across every drawn icon.",
+      "Manrope only; 800-weight uppercase display against small tracked labels."
+    ],
+    "rules": [
+      {
+        "name": "The Gold Marker Rule",
+        "body": "Gold marks Bolivia and Santa Cruz on maps and nothing else. It is never a button, a highlight word or a decorative fill.",
+        "section": "colors"
+      },
+      {
+        "name": "The Green Means Electric Rule",
+        "body": "Green belongs to electromobility, to executed work and to WhatsApp. Fuel, energy and industry rows stay cyan or blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Interior Light Rule",
+        "body": "Day bands (#F1F5F9) are the shop interior: only for dense reading and the form. Night stays the dominant ground on every page. On day bands, accents shift from cyan text to Canopy Blue text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signage Contrast Rule",
+        "body": "Display runs up to 5.6rem; labels run down to 0.7rem. Keep that extreme jump: the sentence-case Answer statement is the only text that sits between them, and it appears once per page at most.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Lit Phrase Rule",
+        "body": "A display or headline lights at most one phrase in an accent color. The rest stays white (night) or ink (day).",
+        "section": "typography"
+      },
+      {
+        "name": "The Light Not Lift Rule",
+        "body": "State is shown by lighting a cell (glow and text-shadow), not by raising it. Only the WhatsApp float and image zooms move.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do list areas, services and specs as fixed-cell rows (icon cell + uppercase label + detail) separated by hairlines, starting with a 2px top rule.",
+      "Do stamp every project with its status. Concept stays dashed cyan until the user confirms the project was executed.",
+      "Do draw every icon as a 24px line icon with a 1.75 stroke and round caps; WhatsApp is the only filled mark.",
+      "Do put every photograph under a night gradient and label generated images «Imagen ilustrativa».",
+      "Do switch accent text to Canopy Blue on day bands. Cyan on white is for fills and rings only.",
+      "Do give each new major section heading an energy-line node, green in electromobility contexts.",
+      "Do keep «Cotizar ahora» (cyan) and WhatsApp (green) reachable from every page."
+    ],
+    "donts": [
+      "Don't use a sunset hero with four floating icon cards; areas are pylon rows.",
+      "Don't use gold for anything except Bolivia and Santa Cruz on maps.",
+      "Don't introduce a second typeface or a new mid-size uppercase heading tier between Title and Label.",
+      "Don't use day bands as the default ground; they are for dense reading and the form.",
+      "Don't raise cards on hover; light them.",
+      "Don't add small uppercase eyebrow labels above headings; headings carry a node, not a kicker."
+    ]
+  }
+}
