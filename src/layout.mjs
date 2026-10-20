@@ -1,4 +1,4 @@
-// Plantilla común del sitio E.F.O.: <head>, techo (encabezado), pie, íconos y componentes compartidos.
+// Plantilla común del sitio E.F.O.: <head>, encabezado, telón de transición, pie, íconos y componentes compartidos.
 export const SITE = {
   url: "https://efo.com.bo",
   name: "E.F.O. Ltda.",
@@ -45,17 +45,14 @@ const P = {
   ruta: '<path d="M5 20.5c0-4 4-4 4-8s-4-4-4-8"/><path d="M19 3.5c0 4-4 4-4 8s4 4 4 8"/><path d="M12 5v2M12 11v2M12 17v2"/>',
   bateria: '<rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10.5v3"/><path d="m11.5 9-2.3 3h3.6l-2.3 3"/>',
   ajustes: '<path d="M4 6.5h9M17 6.5h3M4 12h3M11 12h9M4 17.5h11M19 17.5h1"/><circle cx="15" cy="6.5" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17.5" r="2"/>',
-  ojo: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>',
   idea: '<path d="M9 18.5h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.4 1.1 2.2V16h5v-.1c0-.8.4-1.6 1.1-2.2A6 6 0 0 0 12 3Z"/>',
   bandera: '<path d="M5 21V4M5 4.5h11l-2 3.7 2 3.8H5"/>',
   maletin: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/>',
-  tel: '<path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/>',
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
   pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/>',
   flecha: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  menu: '<path d="M4 8h16M4 16h16"/>',
   cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
-  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
 };
 const WA_PATH = '<path class="ico-fill" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/>';
 
@@ -64,26 +61,20 @@ export const icon = (name, cls = "") =>
     ? `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${WA_PATH}</svg>`
     : `<svg class="ico ${name === "flecha" ? "ico-arrow" : ""} ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[name]}</svg>`;
 
-/* ---------- Componentes ---------- */
-export const PYLON_ROWS = [
-  ["Combustibles", "Importación y comercialización", "gota", "/combustibles/", ""],
-  ["Energía", "Infraestructura y suministro", "rayo", "/soluciones-energeticas/", ""],
-  ["Industria", "Soluciones para operaciones", "fabrica", "/soluciones-energeticas/#industria", ""],
-  ["Electromovilidad", "Carga y conversión eléctrica", "cargador", "/electromovilidad/", "ev"],
-];
-export const pylon = (rows = PYLON_ROWS, title = "E.F.O.", sub = "Áreas") => `
-<nav class="pylon" aria-label="Áreas de E.F.O.">
-  <div class="pylon-cap"><b>${title}</b><span>${sub}</span></div>
-  <ul class="pylon-rows">
-    ${rows.map(([t, s, ic, href, cls], i) => `<li><a class="prow ${cls}" style="--i:${i}" href="${href}"><span class="pi">${icon(ic)}</span><span><b>${t}</b><small>${s}</small></span>${icon("flecha")}</a></li>`).join("\n    ")}
-  </ul>
-</nav>
-<div class="pylon-foot" aria-hidden="true"><i></i><i></i></div>`;
+/* ---------- Fotos ---------- */
+const DIM = { camion: [2200, 3919], "carga-blanco": [2200, 1650], carga: [2200, 2933], carretera: [2200, 1650], electrolinera: [2200, 1650], "estacion-noche": [2200, 1238], flota: [2200, 1181], "refineria-noche": [2200, 1478], "refineria-tarde": [2200, 2324], silos: [2200, 1466], subestacion: [2200, 1650], torres: [2200, 1468], "tranvia-scz": [2200, 1467] };
+export const pic = (name, alt, { sizes = "100vw", lazy = true, attrs = "" } = {}) => {
+  const [w, h] = DIM[name];
+  return `<img src="/assets/foto/${name}-xl.webp" srcset="/assets/foto/${name}-md.webp 1100w, /assets/foto/${name}-xl.webp 2200w" sizes="${sizes}" alt="${alt}" width="${w}" height="${h}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}${attrs ? " " + attrs : ""}>`;
+};
+export const lines = (...ls) => ls.map((l) => `<span class="ln"><span>${l}</span></span>`).join("");
+export const words = (html) => html.replace(/(<[^>]+>)|([^\s<]+)/g, (m, tag, w) => (tag ? tag : `<span class="w">${w}</span>`));
 
+/* ---------- Componentes ---------- */
 export const TIPOS = ["Combustibles", "Importación", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Cargadores", "Conversión de vehículos", "Proyectos", "Otro"];
 
 export const contactForm = (id = "f") => `
-<form class="form rv" data-contact novalidate aria-label="Formulario de consulta">
+<form class="form" data-reveal data-contact novalidate aria-label="Formulario de consulta">
   <div class="hp" aria-hidden="true"><label>No completar <input name="web_empresa" tabindex="-1" autocomplete="off"></label></div>
   <div class="field"><label for="${id}-nombre">Nombre</label><input id="${id}-nombre" name="nombre" autocomplete="name" required><span class="err">Escribe tu nombre.</span></div>
   <div class="field"><label for="${id}-empresa">Empresa <span class="opt">(opcional)</span></label><input id="${id}-empresa" name="empresa" autocomplete="organization"></div>
@@ -102,31 +93,31 @@ export const contactForm = (id = "f") => `
 </form>`;
 
 export const contactData = () => `
-<div class="card-data">
+<div class="card-data" data-reveal>
   <a href="${WA_URL}" target="_blank" rel="noopener"><span class="ci">${icon("whatsapp")}</span><span><small>WhatsApp</small><strong>${SITE.waDisplay}</strong></span></a>
   <a href="mailto:${SITE.mail}"><span class="ci">${icon("mail")}</span><span><small>Correo</small><strong>${SITE.mail}</strong></span></a>
   <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.addr1 + ", " + SITE.addr2)}" target="_blank" rel="noopener"><span class="ci">${icon("pin")}</span><span><small>Dirección</small><strong>${SITE.addr1}<br>${SITE.addr2}</strong></span></a>
 </div>`;
 
-export const cta = (title = "¿Necesitas una solución <span class=\"c\">energética</span>?", text = "Cuéntanos tu operación y te respondemos con una propuesta: combustibles, infraestructura energética o electromovilidad.") => `
+export const cta = (title = "¿Necesitas una solución <span class=\"c\">energética</span>?", text = "Cuéntanos tu operación y te respondemos con una propuesta: combustibles, infraestructura energética o electromovilidad.", foto = "estacion-noche") => `
 <section class="cta" aria-labelledby="cta-t">
-  <img src="/assets/img/proyecto-combustible.webp" alt="" loading="lazy" width="900" height="232">
-  <div class="wrap cta-in rv">
-    <h2 id="cta-t" class="d2 node">${title}</h2>
-    <p class="lead">${text}</p>
-    <div class="btns">
+  <div class="cta-media" data-speed="0.25">${pic(foto, "")}</div>
+  <div class="wrap">
+    <h2 id="cta-t" class="d2" data-reveal>${title}</h2>
+    <p class="lead" data-reveal>${text}</p>
+    <div class="btns" data-reveal>
       <a class="btn btn-cyan btn-lg" href="/contacto/#cotizar">Cotizar ahora ${icon("flecha")}</a>
       <a class="btn btn-wa btn-lg" href="${WA_URL}" target="_blank" rel="noopener">${icon("whatsapp")} Hablar con E.F.O.</a>
     </div>
   </div>
 </section>`;
 
-export const pageHero = ({ title, lead, img, alt = "", crumb }) => `
-<section class="pagehero">
-  <img src="/assets/img/${img}.webp" alt="${alt}" width="1320" height="605" fetchpriority="high">
+export const pageHero = ({ title, lead, foto, crumb }) => `
+<section class="phero">
+  <div class="phero-media">${pic(foto, "", { lazy: false })}</div>
   <div class="wrap">
     <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">${crumb}</span></nav>
-    <h1 class="d1">${title}</h1>
+    <h1 class="d1" data-lines>${title}</h1>
     <p class="lead">${lead}</p>
     <div class="btns">
       <a class="btn btn-cyan btn-lg" href="/contacto/#cotizar">Cotizar ahora ${icon("flecha")}</a>
@@ -136,7 +127,7 @@ export const pageHero = ({ title, lead, img, alt = "", crumb }) => `
 </section>`;
 
 /* ---------- Documento ---------- */
-export function layout({ path, title, desc, body, ld = [], noindex = false, ogImg = "/assets/img/compartir.jpg" }) {
+export function layout({ path, title, desc, body, ld = [], noindex = false, light = false, ogImg = "/assets/img/compartir.jpg" }) {
   const canonical = SITE.url + path;
   const nav = NAV.map(([t, h]) => `<a href="${h}"${h === path ? ' aria-current="page"' : ""}>${t}</a>`).join("");
   const drawer = NAV.map(([t, h]) => `<a class="row" href="${h}"${h === path ? ' aria-current="page"' : ""}>${t}${icon("flecha")}</a>`).join("");
@@ -148,7 +139,7 @@ export function layout({ path, title, desc, body, ld = [], noindex = false, ogIm
 <title>${title}</title>
 <meta name="description" content="${desc}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#063B66">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_BO">
 <meta property="og:site_name" content="${SITE.name}">
@@ -166,15 +157,17 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=2">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/assets/css/efo.css?v=3">
+<script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
+<style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
 </head>
-<body>
+<body${light ? ' class="page-light"' : ""}>
 <a class="skip" href="#contenido">Saltar al contenido</a>
-<header class="canopy">
-  <div class="wrap canopy-in">
-    <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo.webp" alt="E.F.O. Ltda. Energía y Fuerza del Oriente" width="720" height="169"></a>
+<div class="curtain" aria-hidden="true"><img src="/assets/img/logo-efo-claro.webp" alt="" width="720" height="169"></div>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img class="b-light" src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda. Energía y Fuerza del Oriente" width="720" height="169"><img class="b-dark" src="/assets/img/logo-efo.webp" alt="" width="720" height="169"></a>
     <nav class="nav" aria-label="Principal">${nav}</nav>
     <a class="btn btn-cyan" href="/contacto/#cotizar">Cotizar ahora</a>
     <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">${icon("menu", "m")}${icon("cerrar", "x")}</button>
@@ -188,36 +181,40 @@ ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script
   </div>
 </nav>
 <main id="contenido">
-<div class="energy" aria-hidden="true"></div>
 ${body}
 </main>
 <footer class="foot">
-  <div class="wrap foot-grid">
-    <div>
-      <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda." width="720" height="169" loading="lazy"></a>
-      <p class="foot-tag">${SITE.slogan}</p>
-      <p class="foot-legal">${SITE.legal}</p>
-    </div>
-    <div>
-      <h2>Sitio</h2>
-      <nav aria-label="Pie de página">${NAV.map(([t, h]) => `<a href="${h}">${t}</a>`).join("")}</nav>
-    </div>
-    <div>
-      <h2>Contacto</h2>
-      <address>
-        <a href="${WA_URL}" target="_blank" rel="noopener">${icon("whatsapp")}${SITE.waDisplay}</a>
-        <a href="mailto:${SITE.mail}">${icon("mail")}${SITE.mail}</a>
-        <span>${icon("pin")}${SITE.addr1}, ${SITE.addr2}</span>
-      </address>
+  <div class="wrap">
+    <p class="foot-big" aria-hidden="true">Energía que mueve <span class="c">Bolivia</span></p>
+    <div class="foot-grid">
+      <div>
+        <a class="brand-f" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda." width="720" height="169" loading="lazy"></a>
+        <p class="foot-legal">${SITE.legal}</p>
+      </div>
+      <div>
+        <h2>Sitio</h2>
+        <nav aria-label="Pie de página">${NAV.map(([t, h]) => `<a href="${h}">${t}</a>`).join("")}</nav>
+      </div>
+      <div>
+        <h2>Contacto</h2>
+        <address>
+          <a href="${WA_URL}" target="_blank" rel="noopener">${icon("whatsapp")}${SITE.waDisplay}</a>
+          <a href="mailto:${SITE.mail}">${icon("mail")}${SITE.mail}</a>
+          <span>${icon("pin")}${SITE.addr1}, ${SITE.addr2}</span>
+        </address>
+      </div>
     </div>
   </div>
   <div class="wrap foot-bottom">
     <span>© <span data-year>2026</span> E.F.O. Ltda. Todos los derechos reservados.</span>
-    <span><a href="/privacidad/">Política de privacidad</a></span>
+    <span>Fotografías y videos: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> · <a href="/privacidad/">Política de privacidad</a></span>
   </div>
 </footer>
 <a class="wa" href="${WA_URL}" target="_blank" rel="noopener" aria-label="Escribir a E.F.O. por WhatsApp">${icon("whatsapp")}</a>
-<script src="/assets/js/efo.js?v=1" defer></script>
+<script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/assets/vendor/lenis.min.js" defer></script>
+<script src="/assets/js/efo.js?v=3" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>
