@@ -148,7 +148,7 @@ export function layout({ path, title, desc, body, ld = [], noindex = false, ogIm
 <title>${title}</title>
 <meta name="description" content="${desc}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
-<meta name="theme-color" content="#063B66">
+<meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_BO">
 <meta property="og:site_name" content="${SITE.name}">
@@ -166,7 +166,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=1">
+<link rel="stylesheet" href="/assets/css/efo.css?v=2">
 <script>document.documentElement.classList.add("js")</script>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
 </head>
@@ -174,7 +174,7 @@ ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script
 <a class="skip" href="#contenido">Saltar al contenido</a>
 <header class="canopy">
   <div class="wrap canopy-in">
-    <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo.webp" alt="E.F.O. Ltda. Energía y Fuerza del Oriente" width="640" height="163"></a>
+    <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo.webp" alt="E.F.O. Ltda. Energía y Fuerza del Oriente" width="720" height="169"></a>
     <nav class="nav" aria-label="Principal">${nav}</nav>
     <a class="btn btn-cyan" href="/contacto/#cotizar">Cotizar ahora</a>
     <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">${icon("menu", "m")}${icon("cerrar", "x")}</button>
@@ -194,7 +194,7 @@ ${body}
 <footer class="foot">
   <div class="wrap foot-grid">
     <div>
-      <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo.webp" alt="E.F.O. Ltda." width="640" height="163" loading="lazy"></a>
+      <a class="brand" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda." width="720" height="169" loading="lazy"></a>
       <p class="foot-tag">${SITE.slogan}</p>
       <p class="foot-legal">${SITE.legal}</p>
     </div>

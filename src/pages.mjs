@@ -38,7 +38,7 @@ const ejes = () => `
     </div>
   </a>
   <a class="axis ev rv" href="/electromovilidad/">
-    ${img("electromovilidad", `${ILUS}: vehículo eléctrico conectado a un cargador`, 380, 700)}
+    ${img("hero-movil", `${ILUS}: vehículo eléctrico cargando en un cargador`, 1400, 1210)}
     <div class="axis-in">
       <h3 class="d3">Energía y electromovilidad</h3>
       <p>Infraestructura de carga eléctrica y soluciones de movilidad eléctrica para hogares, empresas, industrias y flotas.</p>
@@ -84,7 +84,7 @@ const cargadores = () => `
 </ul>`;
 
 const conversion = (day = true) => `
-<section class="sec ${day ? "day" : ""}" aria-labelledby="conv-t">
+<section class="sec ${day ? "" : "day"}" aria-labelledby="conv-t">
   <div class="wrap convert">
     <div style="display:grid;gap:22px;justify-items:start">
       <h2 id="conv-t" class="d2 node n-g">Transformamos vehículos de combustión en <span class="g">eléctricos</span></h2>
@@ -110,7 +110,7 @@ const conversion = (day = true) => `
 </section>`;
 
 const oriente = () => `
-<section class="sec" aria-labelledby="ori-t">
+<section class="sec deep" aria-labelledby="ori-t">
   <div class="wrap">
     <div class="oriente">
       <figure class="bomap rv" style="margin:0">${BOLIVIA}</figure>
@@ -241,14 +241,14 @@ export const PAGES = [
   </div>
 </section>
 
-<section class="sec deep" aria-labelledby="ejes-t">
+<section class="sec" aria-labelledby="ejes-t">
   <div class="wrap">
     <div class="head"><h2 id="ejes-t" class="d2 node">Dos ejes, <span class="c">una sola energía</span></h2></div>
     ${ejes()}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="comb-t">
+<section class="sec day" aria-labelledby="comb-t">
   <div class="wrap">
     <div class="fuel">
       <figure class="photo rv" style="margin:0;aspect-ratio:880/380">${img("combustibles", `${ILUS}: buque tanquero en un puerto`, 880, 380)}<figcaption>${ILUS}</figcaption></figure>
@@ -281,7 +281,7 @@ ${oriente()}
 
 ${operaciones()}
 
-<section class="sec deep" aria-labelledby="pr-t">
+<section class="sec day" aria-labelledby="pr-t">
   <div class="wrap">
     <div class="head-split">
       <h2 id="pr-t" class="d2 node">Proyectos que transforman energía en <span class="c">soluciones</span></h2>
@@ -414,7 +414,7 @@ ${cta()}`,
     desc: "Electrolineras, cargadores AC y DC, carga doméstica, empresarial y para flotas, y conversión de vehículos de combustión a eléctricos en Bolivia.",
     ld: [ORG, crumbsLd("Electromovilidad", "/electromovilidad/")],
     body: `
-${pageHero({ title: "La energía del futuro ya está en <span class=\"c\">movimiento</span>", lead: "Soluciones de electromovilidad para hogares, empresas, industrias y flotas: carga, infraestructura y conversión de vehículos.", img: "electromovilidad", alt: "", crumb: "Electromovilidad" })}
+${pageHero({ title: "La energía del futuro ya está en <span class=\"c\">movimiento</span>", lead: "Soluciones de electromovilidad para hogares, empresas, industrias y flotas: carga, infraestructura y conversión de vehículos.", img: "hero-movil", alt: "", crumb: "Electromovilidad" })}
 
 <section class="sec" aria-labelledby="cg-t">
   <div class="wrap">
