@@ -236,7 +236,7 @@ export const PAGES = [
     body: `
 <section class="hero" aria-labelledby="hero-t">
   <div class="hero-media">
-    <video data-src="/assets/video/santacruz-1080.mp4" data-src-sm="/assets/video/santacruz-720.mp4" poster="/assets/video/santacruz-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
+    <video data-src="/assets/video/plaza-720.mp4" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
   </div>
   <div class="wrap hero-in">
     <h1 id="hero-t" class="d1" data-lines>${lines("Energía", "que mueve", "<span style=\"color:var(--cyan-soft)\">Bolivia</span>")}</h1>
@@ -248,7 +248,7 @@ export const PAGES = [
           <a class="btn btn-line btn-lg" href="/empresa/">Conoce E.F.O.</a>
         </div>
       </div>
-      <span class="cue"><i></i>Desliza · Santa Cruz de la Sierra</span>
+      <span class="cue"><i></i>Desliza · Plaza 24 de Septiembre, Santa Cruz</span>
     </div>
   </div>
 </section>
@@ -501,7 +501,7 @@ ${contacto("ct")}
     <ul><li>Responder tu consulta.</li><li>Preparar una propuesta o cotización si la pides.</li><li>Dar seguimiento a esa conversación.</li></ul>
     <p>No vendemos ni compartimos tus datos con terceros para publicidad.</p>
     <h2>Servicios de terceros</h2>
-    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
+    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y, si activas la música, se carga un reproductor de YouTube. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
     <h2>Tus derechos</h2>
     <p>Puedes pedirnos saber qué datos tenemos, corregirlos o eliminarlos, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>.</p>
     <h2>Cambios</h2>

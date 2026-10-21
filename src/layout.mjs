@@ -52,6 +52,7 @@ const P = {
   pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/>',
   flecha: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   menu: '<path d="M4 8h16M4 16h16"/>',
+  musica: '<path d="M9 18V5.5l11-2.5v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/>',
   cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
 };
 const WA_PATH = '<path class="ico-fill" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/>';
@@ -157,7 +158,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=3">
+<link rel="stylesheet" href="/assets/css/efo.css?v=4">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -208,13 +209,20 @@ ${body}
   <div class="wrap foot-bottom">
     <span>© <span data-year>2026</span> E.F.O. Ltda. Todos los derechos reservados.</span>
     <span>Fotografías y videos: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> · <a href="/privacidad/">Política de privacidad</a></span>
+    <span class="made">Sitio web creado por <a href="https://sibnova.com.bo" target="_blank" rel="noopener">SIBNOVA LTDA.</a> · <a href="https://sibnova.com.bo" target="_blank" rel="noopener">sibnova.com.bo</a></span>
   </div>
 </footer>
+<button class="music" type="button" aria-label="Música: Patria Inmortal" aria-expanded="false" aria-controls="player">${icon("musica")}</button>
+<div class="player" id="player" role="dialog" aria-label="Música de fondo" hidden>
+  <div class="player-head"><span><b>Patria Inmortal</b><small>Salomé Rock Band · 1 minuto</small></span><button class="player-x" type="button" aria-label="Cerrar música">${icon("cerrar")}</button></div>
+  <div class="player-frame" data-yt="hbCTWzxubbU"></div>
+  <a class="player-link" href="https://youtu.be/hbCTWzxubbU?si=-p4NW8wQTXVIAHj-" target="_blank" rel="noopener">Abrir en YouTube ${icon("flecha")}</a>
+</div>
 <a class="wa" href="${WA_URL}" target="_blank" rel="noopener" aria-label="Escribir a E.F.O. por WhatsApp">${icon("whatsapp")}</a>
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=3" defer></script>
+<script src="/assets/js/efo.js?v=4" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>

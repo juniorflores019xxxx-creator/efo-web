@@ -27,6 +27,21 @@
     } else v.play();
   });
 
+  /* ---------- Música: reproductor de YouTube, 1 minuto, solo al tocar ---------- */
+  var mBtn = $(".music"), mBox = $("#player");
+  if (mBtn && mBox) {
+    var frame = $(".player-frame", mBox), timer = null;
+    var stop = function () { frame.innerHTML = ""; mBox.hidden = true; mBtn.classList.remove("playing"); mBtn.setAttribute("aria-expanded", "false"); clearTimeout(timer); };
+    mBtn.addEventListener("click", function () {
+      if (!mBox.hidden) { stop(); return; }
+      var id = frame.dataset.yt;
+      frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&start=0&end=60&rel=0&playsinline=1" title="Patria Inmortal, Salomé Rock Band" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+      mBox.hidden = false; mBtn.classList.add("playing"); mBtn.setAttribute("aria-expanded", "true");
+      clearTimeout(timer); timer = setTimeout(stop, 62000);
+    });
+    $(".player-x", mBox).addEventListener("click", stop);
+  }
+
   /* ---------- Menú ---------- */
   var burger = $(".burger"), drawer = $("#menu");
   var lenis = null;
