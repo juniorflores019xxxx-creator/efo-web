@@ -24,7 +24,7 @@ const areas = () => `
   </div>
   <div class="areas-track">
     ${AREAS.map((a) => `<a class="panel${a.ev ? " ev" : ""}" href="${a.href}">
-      <div class="panel-media">${pic(a.f, "", { sizes: "(min-width: 1024px) 62vw, 100vw" })}</div>
+      <div class="panel-media">${pic(a.f, "", { sizes: "(min-width: 1024px) 75vw, 100vw" })}</div>
       <div class="panel-in">
         ${icon(a.ic, "ico-area")}
         <h3>${a.t}</h3>
@@ -46,7 +46,7 @@ const cadena = () => `
 const buque = (title = lines("Del mundo", "a <span class=\"c\" style=\"color:var(--cyan-soft)\">Bolivia</span>"), text = "Importación y comercialización de combustibles, conectando mercados, logística e infraestructura para atender las necesidades energéticas del país.") => `
 <section class="reveal-media" aria-labelledby="bq-t">
   <div class="rm-frame">
-    <video data-src="/assets/video/buque-720.mp4" poster="/assets/video/buque-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video>
+    <video data-src="/assets/video/buque-720.mp4" data-webm="/assets/video/buque-720.webm" poster="/assets/video/buque-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video>
   </div>
   <div class="wrap">
     <h2 id="bq-t" class="d1" data-lines>${title}</h2>
@@ -221,7 +221,7 @@ const contacto = (id) => `
 /* ---------- Datos estructurados ---------- */
 const ORG = {
   "@context": "https://schema.org", "@type": "Organization", name: SITE.legal, alternateName: SITE.name, url: SITE.url,
-  logo: `${SITE.url}/assets/img/logo-efo.webp`, slogan: "Energía que mueve Bolivia", email: SITE.mail, telephone: "+59169540072",
+  logo: `${SITE.url}/assets/img/logo-efo.webp`, slogan: "Energía que mueve Bolivia", email: SITE.mail, telephone: "+59169540072", taxID: SITE.nit,
   address: { "@type": "PostalAddress", streetAddress: SITE.addr1, addressLocality: "Santa Cruz de la Sierra", addressCountry: "BO" },
   areaServed: { "@type": "Country", name: "Bolivia" },
   knowsAbout: ["Combustibles", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Conversión de vehículos eléctricos"],
@@ -233,13 +233,13 @@ const crumbsLd = (name, path) => ({ "@context": "https://schema.org", "@type": "
 export const PAGES = [
   {
     path: "/", file: "index.html",
-    title: "E.F.O. Ltda. | Energía, Combustibles y Electromovilidad en Bolivia",
+    title: "E.F.O. Ltda. · Energía y combustibles en Bolivia",
     desc: "E.F.O. Ltda. desarrolla soluciones energéticas, comercialización de combustibles, infraestructura eléctrica y proyectos de electromovilidad en Bolivia.",
     ld: [ORG],
     body: `
 <section class="hero" aria-labelledby="hero-t">
   <div class="hero-media">
-    <video data-src="/assets/video/plaza-720.mp4" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
+    <video data-src="/assets/video/plaza-720.mp4" data-webm="/assets/video/plaza-720.webm" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
   </div>
   <div class="wrap hero-in">
     <h1 id="hero-t" class="d1" data-lines>${lines("Energía", "que mueve", "<span style=\"color:var(--cyan-soft)\">Bolivia</span>")}</h1>
@@ -343,7 +343,7 @@ ${cta()}`,
 
   {
     path: "/combustibles/", file: "combustibles/index.html",
-    title: "Combustibles | Importación y comercialización en Bolivia | E.F.O.",
+    title: "Importación de combustibles en Bolivia | E.F.O.",
     desc: "Importación, comercialización y logística de combustibles para empresas, industrias, transporte y sectores productivos de Bolivia.",
     ld: [ORG, crumbsLd("Combustibles", "/combustibles/")],
     body: `
@@ -416,7 +416,7 @@ ${cta(undefined, undefined, "refineria-noche")}`,
 
   {
     path: "/electromovilidad/", file: "electromovilidad/index.html",
-    title: "Electromovilidad en Bolivia: electrolineras, cargadores y conversión | E.F.O.",
+    title: "Electrolineras y cargadores en Bolivia | E.F.O.",
     desc: "Electrolineras, cargadores AC y DC, carga doméstica, empresarial y para flotas, y conversión de vehículos de combustión a eléctricos en Bolivia.",
     ld: [ORG, crumbsLd("Electromovilidad", "/electromovilidad/")],
     body: `
@@ -496,7 +496,7 @@ ${cta("¿Tienes un proyecto <span class=\"c\">energético</span>?", "Hablemos de
   {
     path: "/contacto/", file: "contacto/index.html",
     title: "Contacto y cotizaciones | E.F.O. Ltda.",
-    desc: "Cotiza combustibles, soluciones energéticas o electromovilidad con E.F.O. Ltda. WhatsApp +591 69540072 · gerencia@efo.com.bo · Av. Montecristo No. 205, Santa Cruz de la Sierra.",
+    desc: "Cotiza combustibles, energía o electromovilidad con E.F.O. WhatsApp +591 69540072 · Av. Montecristo 205, Santa Cruz de la Sierra.",
     ld: [LOCAL, crumbsLd("Contacto", "/contacto/")],
     body: `
 ${pageHero({ title: lines("Hablemos", "con <span class=\"c\">E.F.O.</span>"), lead: "Solicita información o una cotización. Te respondemos personalmente.", foto: "tranvia-scz", crumb: "Contacto" })}
@@ -521,7 +521,7 @@ ${contacto("ct")}
     <h1 class="d2">Política de privacidad</h1>
     <p>Vigente desde octubre de 2026.</p>
     <h2>Responsable</h2>
-    <p>${SITE.legal} (E.F.O.), ${SITE.addr1}, ${SITE.addr2}. Contacto: <a href="mailto:${SITE.mail}">${SITE.mail}</a> o WhatsApp ${SITE.waDisplay}.</p>
+    <p>${SITE.legal} (E.F.O.), NIT ${SITE.nit}, ${SITE.addr1}, ${SITE.addr2}. Contacto: <a href="mailto:${SITE.mail}">${SITE.mail}</a> o WhatsApp ${SITE.waDisplay}.</p>
     <h2>Qué datos recibimos</h2>
     <p>Los que nos envías: nombre, empresa, teléfono, correo, tipo de consulta y mensaje. El sitio no guarda estos datos: al enviar el formulario se abre WhatsApp o tu correo con la consulta escrita, y nos llega solo si tú la envías.</p>
     <h2>Para qué los usamos</h2>
@@ -530,7 +530,7 @@ ${contacto("ct")}
     <h2>Servicios de terceros</h2>
     <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y en todas las páginas se carga un reproductor de YouTube (modo de privacidad mejorada) para la música de fondo. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
     <h2>Tus derechos</h2>
-    <p>Puedes pedirnos saber qué datos tenemos, corregirlos o eliminarlos, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>.</p>
+    <p>Puedes pedirnos saber qué datos tenemos, corregirlos o eliminarlos, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>. Respondemos en un plazo máximo de 10 días hábiles.</p>
     <h2>Cambios</h2>
     <p>Si cambiamos esta política, publicaremos la nueva versión en esta página con su fecha.</p>
   </div>

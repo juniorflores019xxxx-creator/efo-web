@@ -17,7 +17,9 @@
   var small = window.matchMedia("(max-width: 900px)").matches;
   $$("video[data-src]").forEach(function (v) {
     var src = small && v.dataset.srcSm ? v.dataset.srcSm : v.dataset.src;
-    if (reduce) return; // con movimiento reducido se queda la imagen fija
+    if (v.dataset.webm && v.canPlayType('video/webm; codecs="vp9"') === "probably") src = v.dataset.webm;
+    var cx = navigator.connection;
+    if (reduce || (cx && (cx.saveData || /(^|-)2g$/.test(cx.effectiveType || "")))) return; // se queda la imagen fija
     v.src = src;
     v.muted = true;
     if ("IntersectionObserver" in window) {

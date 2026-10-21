@@ -493,3 +493,4 @@ main { position: relative; overflow-x: clip; }
 .photo.tall:has(.coaster) .float-card { position: relative; left: auto; right: auto; bottom: auto; max-width: none; box-shadow: 0 0 0 1px var(--line); }
 .bio .d2 { font-size: clamp(2rem, 3.6vw, 3.4rem); }
 .player-link { flex-wrap: wrap; }
+.mute { box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75), 0 16px 32px -12px rgba(3, 31, 54, 0.6); }

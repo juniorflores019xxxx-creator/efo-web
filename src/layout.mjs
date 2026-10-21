@@ -9,6 +9,7 @@ export const SITE = {
   mail: "gerencia@efo.com.bo",
   addr1: "Av. Montecristo No. 205",
   addr2: "Santa Cruz de la Sierra, Bolivia",
+  nit: "710528026",
   waText: "Hola E.F.O., estoy interesado en conocer sus soluciones energéticas y quisiera solicitar información/cotización.",
 };
 export const WA_URL = `https://wa.me/${SITE.wa}?text=${encodeURIComponent(SITE.waText)}`;
@@ -160,7 +161,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=5">
+<link rel="stylesheet" href="/assets/css/efo.css?v=6">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -192,7 +193,7 @@ ${body}
     <div class="foot-grid">
       <div>
         <a class="brand-f" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda." width="720" height="169" loading="lazy"></a>
-        <p class="foot-legal">${SITE.legal}</p>
+        <p class="foot-legal">${SITE.legal}<br>NIT ${SITE.nit}</p>
       </div>
       <div>
         <h2>Sitio</h2>
@@ -209,8 +210,8 @@ ${body}
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <span>© <span data-year>2026</span> E.F.O. Ltda. Todos los derechos reservados.</span>
-    <span>Fotografías y videos: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> · <a href="/privacidad/">Política de privacidad</a></span>
+    <span>© <span data-year>2026</span> E.F.O. Ltda. · NIT ${SITE.nit} · Todos los derechos reservados.</span>
+    <span>Imágenes referenciales: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> y Wikimedia Commons, salvo el proyecto BIOTIL · <a href="/privacidad/">Política de privacidad</a></span>
     <span class="made">Sitio web creado por <a href="https://sibnova.com.bo" target="_blank" rel="noopener">SIBNOVA LTDA.</a> · <a href="https://sibnova.com.bo" target="_blank" rel="noopener">sibnova.com.bo</a></span>
   </div>
 </footer>
@@ -224,7 +225,7 @@ ${body}
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=5" defer></script>
+<script src="/assets/js/efo.js?v=6" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>
