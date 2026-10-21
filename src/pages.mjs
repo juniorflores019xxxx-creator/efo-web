@@ -106,10 +106,11 @@ const conversion = () => `
 <section class="sec mist" aria-labelledby="conv-t">
   <div class="wrap feature">
     <figure class="photo tall" data-reveal>
-      <div class="par" data-speed="0.18">${pic("camion", "Vehículo comercial de carga en carretera", { sizes: "(min-width: 980px) 55vw, 100vw" })}</div>
+      <div class="par coaster" data-speed="0.18">${pic("coaster", "Bus Toyota Coaster de tercera generación, como el modelo 2005", { sizes: "(min-width: 980px) 55vw, 100vw" })}</div>
+      <figcaption class="credit">Foto: Dinkun Chen · <a href="https://commons.wikimedia.org/wiki/File:TOYOTA_COASTER_(B40_B50)_China_(7).jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a></figcaption>
       <div class="float-card">
         <span class="stamp">Proyecto conceptual</span>
-        <b>Ejemplo: bus Toyota Coaster 2005</b>
+        <b>Toyota Coaster 2005</b>
         <dl><dt>Capacidad</dt><dd>30 pasajeros</dd><dt>Solución</dt><dd>Conversión a propulsión eléctrica</dd></dl>
       </div>
     </figure>
@@ -173,19 +174,21 @@ const operaciones = (cls = "") => `
 </section>`;
 
 const PROYECTOS = [
+  { n: "Surtidor BIOTIL Srl", s: "Combustibles", t: "Punto de venta de combustibles líquidos", d: "Municipio de San Julián, departamento de Santa Cruz. Capacidad de 100.000 litros al mes.", f: "biotil-render", ub: "San Julián, Santa Cruz", st: "Proyecto en desarrollo", href: "/proyectos/#biotil" },
   { n: "Electrolinera para carga rápida", s: "Electromovilidad", t: "Electrolinera con cargadores AC y DC", d: "Diseño e implementación de un punto de carga para vehículos eléctricos de clientes, empresas y flotas.", f: "electrolinera" },
-  { n: "Conversión de un Toyota Coaster 2005", s: "Transporte de pasajeros", t: "Conversión de combustión a eléctrico", d: "Bus de 30 pasajeros: evaluación del vehículo, su uso diario, la autonomía necesaria y la operación para pasarlo a propulsión eléctrica.", f: "carga-blanco" },
+  { n: "Conversión de un Toyota Coaster 2005", s: "Transporte de pasajeros", t: "Conversión de combustión a eléctrico", d: "Bus de 30 pasajeros: evaluación del vehículo, su uso diario, la autonomía necesaria y la operación para pasarlo a propulsión eléctrica.", f: "coaster" },
   { n: "Infraestructura energética para industria", s: "Industria", t: "Infraestructura y suministro eléctrico", d: "Soluciones de infraestructura y suministro energético adaptadas a la operación de empresas e industrias.", f: "subestacion" },
   { n: "Carga centralizada para flotas", s: "Flotas empresariales", t: "Sistema de carga y gestión", d: "Sistema de carga y gestión para empresas que operan múltiples vehículos eléctricos.", f: "flota" },
 ];
 const proyectos = () => `
 <div class="projects">
-  ${PROYECTOS.map((p) => `<article class="proj" data-reveal>
-    <div class="ph">${pic(p.f, "", { sizes: "(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw" })}<span class="stamp">Proyecto conceptual</span></div>
+  ${PROYECTOS.map((p) => `<article class="proj${p.st ? " proj-dev" : ""}" data-reveal>
+    <div class="ph">${pic(p.f, "", { sizes: "(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw" })}<span class="stamp${p.st ? " dev" : ""}">${p.st || "Proyecto conceptual"}</span></div>
     <div class="proj-in">
       <b>${p.n}</b>
       <p>${p.d}</p>
-      <dl><dt>Sector</dt><dd>${p.s}</dd><dt>Ubicación</dt><dd>Bolivia</dd><dt>Solución</dt><dd>${p.t}</dd><dt>Estado</dt><dd>Proyecto conceptual</dd></dl>
+      <dl><dt>Sector</dt><dd>${p.s}</dd><dt>Ubicación</dt><dd>${p.ub || "Bolivia"}</dd><dt>Solución</dt><dd>${p.t}</dd><dt>Estado</dt><dd>${p.st || "Proyecto conceptual"}</dd></dl>
+      ${p.href ? `<a class="proj-more" href="${p.href}">Ver proyecto ${icon("flecha")}</a>` : ""}
     </div>
   </article>`).join("\n  ")}
 </div>`;
@@ -449,6 +452,30 @@ ${cta("¿Listo para la <span class=\"c\">carga eléctrica</span>?", "Cuéntanos 
     body: `
 ${pageHero({ title: lines("Proyectos que", "transforman <span class=\"c\">energía</span>"), lead: "Electrolineras, conversión eléctrica, infraestructura energética y flotas. Cada proyecto indica su estado.", foto: "refineria-noche", crumb: "Proyectos" })}
 
+<section class="sec mist" id="biotil" aria-labelledby="bio-t">
+  <div class="wrap">
+    <div class="bio">
+      <div class="copy">
+        <img class="bio-logo" src="/assets/img/biotil-logo.webp" alt="Logo de Surtidor BIOTIL Srl: Energía que impulsa tu camino" width="900" height="600" loading="lazy">
+        <span class="stamp dev">Proyecto en desarrollo</span>
+        <h2 id="bio-t" class="d2" data-lines>${lines("Punto de venta de", "combustibles <span class=\"c\">líquidos</span>")}</h2>
+        <p class="lead" data-reveal>Estación de venta de combustibles líquidos para el Surtidor BIOTIL Srl, con tanques de almacenamiento, dispensador bajo cubierta metálica y áreas de ingreso, salida y estacionamiento temporal.</p>
+        <dl class="bio-data" data-reveal>
+          <dt>Proyecto</dt><dd>Punto de venta de combustibles líquidos para el Surtidor BIOTIL Srl</dd>
+          <dt>Ubicación</dt><dd>Municipio de San Julián, departamento de Santa Cruz</dd>
+          <dt>Capacidad</dt><dd>100.000 litros/mensual</dd>
+          <dt>Propietario</dt><dd>Surtidor Biotil Srl</dd>
+        </dl>
+      </div>
+      <div class="bio-gal">
+        <figure class="bio-main" data-reveal>${pic("biotil-render", "Render del surtidor: cubierta metálica con dispensador, camión y maquinaria", { sizes: "(min-width: 980px) 55vw, 100vw" })}<figcaption>Render del proyecto</figcaption></figure>
+        <a class="bio-thumb" href="/assets/foto/biotil-aerea-xl.webp" target="_blank" rel="noopener" data-reveal>${pic("biotil-aerea", "Vista aérea 3D del terreno con dispensador, tanques y vegetación", { sizes: "(min-width: 980px) 27vw, 50vw" })}<span>Vista aérea</span></a>
+        <a class="bio-thumb plano" href="/assets/foto/biotil-plano-xl.webp" target="_blank" rel="noopener" data-reveal>${pic("biotil-plano", "Plano de planta baja del surtidor", { sizes: "(min-width: 980px) 27vw, 50vw" })}<span>Plano de planta (ampliar)</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" aria-labelledby="pj-t">
   <div class="wrap">
     <div class="head head-split">
@@ -459,7 +486,7 @@ ${pageHero({ title: lines("Proyectos que", "transforman <span class=\"c\">energ�
       </div>
     </div>
     ${proyectos()}
-    <p class="note">Las fotografías son referenciales y no corresponden a instalaciones de E.F.O.</p>
+    <p class="note">Salvo el proyecto BIOTIL (render y plano del proyecto), las fotografías son referenciales y no corresponden a instalaciones de E.F.O.</p>
   </div>
 </section>
 
@@ -501,7 +528,7 @@ ${contacto("ct")}
     <ul><li>Responder tu consulta.</li><li>Preparar una propuesta o cotización si la pides.</li><li>Dar seguimiento a esa conversación.</li></ul>
     <p>No vendemos ni compartimos tus datos con terceros para publicidad.</p>
     <h2>Servicios de terceros</h2>
-    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y, si activas la música, se carga un reproductor de YouTube. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
+    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y en todas las páginas se carga un reproductor de YouTube (modo de privacidad mejorada) para la música de fondo. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
     <h2>Tus derechos</h2>
     <p>Puedes pedirnos saber qué datos tenemos, corregirlos o eliminarlos, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>.</p>
     <h2>Cambios</h2>

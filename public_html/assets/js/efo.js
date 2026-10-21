@@ -27,20 +27,53 @@
     } else v.play();
   });
 
-  /* ---------- Música: reproductor de YouTube, 1 minuto, solo al tocar ---------- */
-  var mBtn = $(".music"), mBox = $("#player");
-  if (mBtn && mBox) {
-    var frame = $(".player-frame", mBox), timer = null;
-    var stop = function () { frame.innerHTML = ""; mBox.hidden = true; mBtn.classList.remove("playing"); mBtn.setAttribute("aria-expanded", "false"); clearTimeout(timer); };
+  /* ---------- Música de fondo: «Patria Inmortal» desde el segundo 35, en todas las páginas ----------
+     Los navegadores no permiten sonido sin un toque previo: arranca en silencio y se activa con el
+     primer toque/clic/tecla. El minuto se conserva al cambiar de página. */
+  (function () {
+    var box = $("#player"), mBtn = $(".music"), xBtn = $(".mute");
+    if (!box || !mBtn || !xBtn) return;
+    var START = 35, KT = "efo-musica-t", KM = "efo-musica-mute", KP = "efo-musica-pausa";
+    var ss = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+    var userMute = ss.get(KM) === "1", paused = ss.get(KP) === "1", player = null, ready = false;
+    function ui() {
+      var on = ready && !paused;
+      mBtn.classList.toggle("playing", on && !userMute);
+      mBtn.setAttribute("aria-pressed", String(on));
+      xBtn.setAttribute("aria-pressed", String(userMute));
+      xBtn.setAttribute("aria-label", userMute ? "Activar el sonido de la música" : "Silenciar la música");
+      box.classList.toggle("off", paused);
+    }
+    function sound() { if (!player || userMute) return; try { player.unMute(); player.setVolume(55); } catch (e) {} }
+    function gesture() { sound(); ["pointerdown", "keydown", "touchstart"].forEach(function (ev) { document.removeEventListener(ev, gesture, true); }); }
+    ["pointerdown", "keydown", "touchstart"].forEach(function (ev) { document.addEventListener(ev, gesture, true); });
     mBtn.addEventListener("click", function () {
-      if (!mBox.hidden) { stop(); return; }
-      var id = frame.dataset.yt;
-      frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&start=0&end=60&rel=0&playsinline=1" title="Patria Inmortal, Salomé Rock Band" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
-      mBox.hidden = false; mBtn.classList.add("playing"); mBtn.setAttribute("aria-expanded", "true");
-      clearTimeout(timer); timer = setTimeout(stop, 62000);
+      if (!player) return;
+      paused = !paused; ss.set(KP, paused ? "1" : "0");
+      if (paused) player.pauseVideo(); else { player.playVideo(); sound(); }
+      ui();
     });
-    $(".player-x", mBox).addEventListener("click", stop);
-  }
+    xBtn.addEventListener("click", function () {
+      userMute = !userMute; ss.set(KM, userMute ? "1" : "0");
+      if (player) { if (userMute) player.mute(); else sound(); }
+      ui();
+    });
+    window.onYouTubeIframeAPIReady = function () {
+      var t = parseFloat(ss.get(KT)); if (!(t >= START)) t = START;
+      player = new YT.Player("yt", {
+        host: "https://www.youtube-nocookie.com", videoId: "hbCTWzxubbU",
+        playerVars: { start: Math.floor(t), autoplay: 1, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, disablekb: 1 },
+        events: {
+          onReady: function () { ready = true; player.mute(); if (!paused) player.playVideo(); else player.pauseVideo(); if (navigator.userActivation && navigator.userActivation.hasBeenActive) sound(); ui(); },
+          onStateChange: function (e) { if (e.data === 0) { player.seekTo(START, true); player.playVideo(); } },
+        },
+      });
+      setInterval(function () { try { var c = player.getCurrentTime(); if (c) ss.set(KT, String(c)); } catch (e) {} }, 1500);
+    };
+    window.addEventListener("pagehide", function () { try { ss.set(KT, String(player.getCurrentTime())); } catch (e) {} });
+    var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true; document.head.appendChild(s);
+    ui();
+  })();
 
   /* ---------- Menú ---------- */
   var burger = $(".burger"), drawer = $("#menu");

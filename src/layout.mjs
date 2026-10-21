@@ -52,6 +52,8 @@ const P = {
   pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/>',
   flecha: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   menu: '<path d="M4 8h16M4 16h16"/>',
+  sonido: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+  silencio: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>',
   musica: '<path d="M9 18V5.5l11-2.5v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/>',
   cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
 };
@@ -63,7 +65,7 @@ export const icon = (name, cls = "") =>
     : `<svg class="ico ${name === "flecha" ? "ico-arrow" : ""} ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[name]}</svg>`;
 
 /* ---------- Fotos ---------- */
-const DIM = { camion: [2200, 3919], "carga-blanco": [2200, 1650], carga: [2200, 2933], carretera: [2200, 1650], electrolinera: [2200, 1650], "estacion-noche": [2200, 1238], flota: [2200, 1181], "refineria-noche": [2200, 1478], "refineria-tarde": [2200, 2324], silos: [2200, 1466], subestacion: [2200, 1650], torres: [2200, 1468], "tranvia-scz": [2200, 1467] };
+const DIM = { coaster: [2200, 1325], "biotil-render": [1792, 1027], "biotil-aerea": [2200, 1292], "biotil-plano": [2200, 2213], camion: [2200, 3919], "carga-blanco": [2200, 1650], carga: [2200, 2933], carretera: [2200, 1650], electrolinera: [2200, 1650], "estacion-noche": [2200, 1238], flota: [2200, 1181], "refineria-noche": [2200, 1478], "refineria-tarde": [2200, 2324], silos: [2200, 1466], subestacion: [2200, 1650], torres: [2200, 1468], "tranvia-scz": [2200, 1467] };
 export const pic = (name, alt, { sizes = "100vw", lazy = true, attrs = "" } = {}) => {
   const [w, h] = DIM[name];
   return `<img src="/assets/foto/${name}-xl.webp" srcset="/assets/foto/${name}-md.webp 1100w, /assets/foto/${name}-xl.webp 2200w" sizes="${sizes}" alt="${alt}" width="${w}" height="${h}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}${attrs ? " " + attrs : ""}>`;
@@ -158,7 +160,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=4">
+<link rel="stylesheet" href="/assets/css/efo.css?v=5">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -212,17 +214,17 @@ ${body}
     <span class="made">Sitio web creado por <a href="https://sibnova.com.bo" target="_blank" rel="noopener">SIBNOVA LTDA.</a> · <a href="https://sibnova.com.bo" target="_blank" rel="noopener">sibnova.com.bo</a></span>
   </div>
 </footer>
-<button class="music" type="button" aria-label="Música: Patria Inmortal" aria-expanded="false" aria-controls="player">${icon("musica")}</button>
-<div class="player" id="player" role="dialog" aria-label="Música de fondo" hidden>
-  <div class="player-head"><span><b>Patria Inmortal</b><small>Salomé Rock Band · 1 minuto</small></span><button class="player-x" type="button" aria-label="Cerrar música">${icon("cerrar")}</button></div>
-  <div class="player-frame" data-yt="hbCTWzxubbU"></div>
-  <a class="player-link" href="https://youtu.be/hbCTWzxubbU?si=-p4NW8wQTXVIAHj-" target="_blank" rel="noopener">Abrir en YouTube ${icon("flecha")}</a>
+<div class="player" id="player" aria-label="Música de fondo">
+  <div class="player-frame"><div id="yt"></div></div>
+  <a class="player-link" href="https://youtu.be/hbCTWzxubbU?si=-p4NW8wQTXVIAHj-" target="_blank" rel="noopener"><b>Patria Inmortal</b> · Salomé Rock Band ${icon("flecha")}</a>
 </div>
+<button class="mute" type="button" aria-pressed="false" aria-label="Silenciar la música">${icon("sonido", "s-on")}${icon("silencio", "s-off")}</button>
+<button class="music" type="button" aria-pressed="false" aria-label="Pausar o reproducir la música">${icon("musica")}</button>
 <a class="wa" href="${WA_URL}" target="_blank" rel="noopener" aria-label="Escribir a E.F.O. por WhatsApp">${icon("whatsapp")}</a>
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=4" defer></script>
+<script src="/assets/js/efo.js?v=5" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>
