@@ -24,6 +24,12 @@ export const NAV = [
   ["Contacto", "/contacto/"],
 ];
 
+const SOCIALS = [
+  ["Facebook", "https://www.facebook.com/share/18zpmEWnNK/"],
+  ["TikTok", "https://www.tiktok.com/@efoenergia?_r=1&_t=ZS-9B8NApyhLym"],
+  ["Instagram", "https://www.instagram.com/energiafuerzadeloriente?mdxt=ZGt4dGtkdDZueGt0"],
+];
+
 /* Íconos propios, un solo grosor de trazo (1.75) */
 const P = {
   gota: '<path d="M12 3.5c3.2 4 5.5 7.2 5.5 10.1A5.5 5.5 0 0 1 6.5 13.6C6.5 10.7 8.8 7.5 12 3.5Z"/><path d="M9.6 14.4a2.6 2.6 0 0 0 2.4 2.4"/>',
@@ -206,6 +212,8 @@ ${body}
           <a href="mailto:${SITE.mail}">${icon("mail")}${SITE.mail}</a>
           <span>${icon("pin")}${SITE.addr1}, ${SITE.addr2}</span>
         </address>
+        <h2 class="social-title">Redes sociales</h2>
+        <nav class="social-links" aria-label="Redes sociales">${SOCIALS.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`).join("")}</nav>
       </div>
     </div>
   </div>

@@ -413,6 +413,8 @@ main { position: relative; overflow-x: clip; }
 .foot address a, .foot address span { display: flex; gap: 12px; align-items: flex-start; text-decoration: none; overflow-wrap: anywhere; }
 .foot address .ico { color: var(--cyan-soft); margin-top: 3px; }
 .foot address a:hover { color: var(--cyan-soft); }
+.foot .social-title { margin-top: 28px; }
+.foot .social-links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
 .foot-bottom { margin-top: clamp(48px, 7vw, 80px); border-top: 1px solid var(--line-w); padding-block: 24px 30px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font-size: 0.84rem; color: rgba(255, 255, 255, 0.6); }
 .foot-bottom a { color: rgba(255, 255, 255, 0.82); }
 

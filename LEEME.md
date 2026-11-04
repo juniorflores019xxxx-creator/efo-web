@@ -31,7 +31,7 @@ En `src/pages.mjs`, lista `PROYECTOS`: cambia el sello `Proyecto conceptual` por
 
 - Saber qué proyectos están ejecutados, para cambiar su sello, y conseguir fotos reales.
 - Las imágenes son ilustraciones generadas con IA y se recortaron para quitar texto y logos deformados. Conviene reemplazarlas por fotos reales.
-- Habilitar las redes sociales cuando existan.
+- Los enlaces de Facebook, TikTok e Instagram están en el pie de página de todas las secciones.
 
 ## Vista previa para el cliente
 
