@@ -53,6 +53,8 @@ const P = {
   bateria: '<rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10.5v3"/><path d="m11.5 9-2.3 3h3.6l-2.3 3"/>',
   ajustes: '<path d="M4 6.5h9M17 6.5h3M4 12h3M11 12h9M4 17.5h11M19 17.5h1"/><circle cx="15" cy="6.5" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17.5" r="2"/>',
   idea: '<path d="M9 18.5h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.4 1.1 2.2V16h5v-.1c0-.8.4-1.6 1.1-2.2A6 6 0 0 0 12 3Z"/>',
+  sol: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>',
+  panel: '<path d="M4.5 4h15l1.5 11H3Z"/><path d="M3.8 9.5h16.4M9.5 4l-.6 11M14.5 4l.6 11M12 15v5M8 20h8"/>',
   bandera: '<path d="M5 21V4M5 4.5h11l-2 3.7 2 3.8H5"/>',
   maletin: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/>',
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
@@ -72,7 +74,7 @@ export const icon = (name, cls = "") =>
     : `<svg class="ico ${name === "flecha" ? "ico-arrow" : ""} ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[name]}</svg>`;
 
 /* ---------- Fotos ---------- */
-const DIM = { coaster: [2200, 1325], "biotil-render": [1792, 1027], "biotil-aerea": [2200, 1292], "biotil-plano": [2200, 2213], camion: [2200, 3919], "carga-blanco": [2200, 1650], carga: [2200, 2933], carretera: [2200, 1650], electrolinera: [2200, 1650], "estacion-noche": [2200, 1238], flota: [2200, 1181], "refineria-noche": [2200, 1478], "refineria-tarde": [2200, 2324], silos: [2200, 1466], subestacion: [2200, 1650], torres: [2200, 1468], "tranvia-scz": [2200, 1467] };
+const DIM = { coaster: [2200, 1325], "biotil-render": [1792, 1027], "biotil-aerea": [2200, 1292], "biotil-plano": [2200, 2213], camion: [2200, 3919], "carga-blanco": [2200, 1650], carga: [2200, 2933], carretera: [2200, 1650], electrolinera: [2200, 1650], "estacion-noche": [2200, 1238], flota: [2200, 1181], "refineria-noche": [2200, 1478], "refineria-tarde": [2200, 2324], silos: [2200, 1466], subestacion: [2200, 1650], torres: [2200, 1468], "tranvia-scz": [2200, 1467], "diesel-cisterna": [2200, 1466], "diesel-tanques": [2200, 1560], "diesel-surtidor": [2200, 2248], "solar-campo": [2200, 2368], "solar-aereo": [2200, 1466], "solar-evaluacion": [2200, 1466], "solar-diseno": [2200, 1466], "solar-equipos": [2200, 2934], "solar-montaje": [2200, 1470], "solar-conexion": [2200, 1370], "solar-puesta": [2200, 1467], "solar-mantenimiento": [2200, 1466] };
 export const pic = (name, alt, { sizes = "100vw", lazy = true, attrs = "" } = {}) => {
   const [w, h] = DIM[name];
   return `<img src="/assets/foto/${name}-xl.webp" srcset="/assets/foto/${name}-md.webp 1100w, /assets/foto/${name}-xl.webp 2200w" sizes="${sizes}" alt="${alt}" width="${w}" height="${h}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}${attrs ? " " + attrs : ""}>`;
@@ -81,7 +83,7 @@ export const lines = (...ls) => ls.map((l) => `<span class="ln"><span>${l}</span
 export const words = (html) => html.replace(/(<[^>]+>)|([^\s<]+)/g, (m, tag, w) => (tag ? tag : `<span class="w">${w}</span>`));
 
 /* ---------- Componentes ---------- */
-export const TIPOS = ["Combustibles", "Importación", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Cargadores", "Conversión de vehículos", "Proyectos", "Otro"];
+export const TIPOS = ["Combustibles", "Diésel ULSD", "Importación", "Energía solar", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Cargadores", "Conversión de vehículos", "Proyectos", "Otro"];
 
 export const contactForm = (id = "f") => `
 <form class="form" data-reveal data-contact novalidate aria-label="Formulario de consulta">
@@ -167,7 +169,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=19">
+<link rel="stylesheet" href="/assets/css/efo.css?v=20">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -233,7 +235,7 @@ ${body}
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=19" defer></script>
+<script src="/assets/js/efo.js?v=20" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>

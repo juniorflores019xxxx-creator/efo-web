@@ -237,7 +237,7 @@
 
   /* Imágenes y tarjetas: se inclinan en 3D siguiendo el mouse o el toque */
   var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  $$(".photo, .proj, .depth figure, .bio-main").forEach(function (el) {
+  $$(".photo, .proj, .depth figure, .bio-main, .gal figure, .step").forEach(function (el) {
     var glare = document.createElement("span");
     glare.className = "tilt-glare"; glare.setAttribute("aria-hidden", "true");
     el.appendChild(glare);

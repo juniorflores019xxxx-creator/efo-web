@@ -102,6 +102,16 @@ const escena = () => `
   </div>
 </section>`;
 
+const SOLAR_PASOS = [
+  ["solar-evaluacion", "Técnico revisando una instalación solar en una cubierta", "Visita y evaluación", "Revisamos el lugar, la orientación, la sombra, el techo o terreno y tu consumo de energía en las facturas."],
+  ["solar-diseno", "Ingeniero con planos junto a paneles solares", "Diseño del sistema", "Calculamos la potencia, la cantidad de paneles, el inversor y las baterías, y te entregamos una propuesta clara."],
+  ["solar-equipos", "Técnico sosteniendo un panel solar", "Suministro de equipos", "Llevamos los paneles, el inversor, las baterías, la estructura y las protecciones al lugar de la obra."],
+  ["solar-montaje", "Técnicos con equipo de seguridad montando paneles solares", "Montaje de estructura y paneles", "Fijamos la estructura y montamos los paneles con equipo de seguridad y la inclinación correcta."],
+  ["solar-conexion", "Tablero eléctrico con protecciones y cableado ordenado", "Conexión eléctrica", "Instalamos el inversor, el tablero, las protecciones y el cableado, y conectamos todo a tu red."],
+  ["solar-puesta", "Ingeniero con casco y chaleco entre paneles solares", "Pruebas y puesta en marcha", "Medimos, probamos y encendemos el sistema. Te enseñamos a usarlo y a ver la producción desde el celular."],
+  ["solar-mantenimiento", "Equipo técnico revisando paneles solares en un techo", "Mantenimiento y soporte", "Limpieza, revisión periódica y soporte técnico para que el sistema rinda durante muchos años."],
+];
+
 const conversion = () => `
 <section class="sec mist" aria-labelledby="conv-t">
   <div class="wrap feature">
@@ -348,18 +358,18 @@ ${cta()}`,
 
   {
     path: "/combustibles/", file: "combustibles/index.html",
-    title: "Importación de combustibles en Bolivia | E.F.O.",
-    desc: "Importación, comercialización y logística de combustibles para empresas, industrias, transporte y sectores productivos de Bolivia.",
+    title: "Importación y venta de diésel ULSD en Bolivia | E.F.O.",
+    desc: "E.F.O. importa y comercializa diésel ULSD (ultra bajo azufre) para empresas, industrias, transporte y sectores productivos de Bolivia, con logística de almacenamiento y distribución.",
     ld: [ORG, crumbsLd("Combustibles", "/combustibles/")],
     body: `
-${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la economía</span>"), lead: "Importación y comercialización de combustibles, conectando mercados, logística e infraestructura para atender las necesidades energéticas de Bolivia.", foto: "refineria-tarde", crumb: "Combustibles" })}
+${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la economía</span>"), lead: "Importamos y comercializamos diésel ULSD (ultra bajo azufre), conectando mercados internacionales, logística e infraestructura para atender las necesidades energéticas de Bolivia.", foto: "refineria-tarde", crumb: "Combustibles" })}
 
 <section class="sec" aria-labelledby="cb-t">
   <div class="wrap">
     <div class="head"><h2 id="cb-t" class="d2" data-lines>${lines("Lo que hacemos", "en combustibles")}</h2></div>
     <ul class="rows">
-      <li data-reveal><span class="ri">${icon("barco")}</span><h3>Importación de combustibles</h3><p>Abastecimiento desde mercados internacionales para atender la demanda energética del país.</p></li>
-      <li data-reveal><span class="ri">${icon("maletin")}</span><h3>Comercialización</h3><p>Atención a empresas y consumidores que necesitan un suministro confiable.</p></li>
+      <li data-reveal><span class="ri">${icon("barco")}</span><h3>Importación de diésel ULSD</h3><p>Importamos diésel de ultra bajo azufre desde mercados internacionales para atender la demanda energética del país.</p></li>
+      <li data-reveal><span class="ri">${icon("maletin")}</span><h3>Venta de diésel ULSD</h3><p>Comercializamos diésel ULSD a empresas, industrias y consumidores que necesitan un suministro confiable.</p></li>
       <li data-reveal><span class="ri">${icon("camion")}</span><h3>Logística</h3><p>Transporte y distribución para que el combustible llegue a donde se necesita.</p></li>
       <li data-reveal><span class="ri">${icon("edificio")}</span><h3>Atención empresarial</h3><p>Propuestas a la medida de cada empresa, según su consumo y su operación.</p></li>
       <li data-reveal><span class="ri">${icon("fabrica")}</span><h3>Soluciones para sectores productivos</h3><p>Industria, agroindustria, construcción y transporte: el combustible como elemento fundamental para producir y mover el país.</p></li>
@@ -367,7 +377,39 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
   </div>
 </section>
 
-${buque(undefined, "Un buque tanquero en la terminal: el inicio de la cadena que lleva la energía hasta la industria y el transporte.")}
+<section class="sec mist" aria-labelledby="ulsd-t" id="diesel-ulsd">
+  <div class="wrap feature">
+    <figure class="photo tall" data-reveal><div class="par" data-speed="0.18">${pic("diesel-surtidor", "Picos de surtidor de combustible en una estación de servicio", { sizes: "(min-width: 980px) 55vw, 100vw" })}</div></figure>
+    <div class="copy">
+      <span class="kicker">Nuestro producto</span>
+      <h2 id="ulsd-t" class="d2" data-lines>${lines("Diésel ULSD", "de <span class=\"c\">ultra bajo azufre</span>")}</h2>
+      <p class="lead" data-reveal>El diésel ULSD (<i lang="en">Ultra Low Sulfur Diesel</i>) tiene un contenido de azufre ultra bajo, de hasta 15 ppm. Es el combustible que piden los motores diésel modernos: rinde mejor, protege el sistema de inyección y reduce las emisiones.</p>
+      <ul class="spec" data-reveal>
+        <li>${icon("gota")}<span><b>Azufre ultra bajo</b><span>Hasta 15 partes por millón: un combustible más limpio.</span></span></li>
+        <li>${icon("engranaje")}<span><b>Cuida los motores</b><span>Compatible con inyección <i lang="en">common rail</i>, filtros de partículas y motores de última generación.</span></span></li>
+        <li>${icon("globo")}<span><b>Menos emisiones</b><span>Reduce el humo, el hollín y los gases contaminantes.</span></span></li>
+        <li>${icon("camion")}<span><b>Para operaciones exigentes</b><span>Transporte pesado, maquinaria, generadores y equipos industriales.</span></span></li>
+      </ul>
+      <div class="chips" data-reveal><span>Transporte</span><span>Agroindustria</span><span>Construcción</span><span>Minería</span><span>Industria</span><span>Generación eléctrica</span></div>
+      <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Di%C3%A9sel%20ULSD#cotizar" data-reveal>Cotizar diésel ULSD ${icon("flecha")}</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="ruta-t">
+  <div class="wrap">
+    <div class="head head-split">
+      <h2 id="ruta-t" class="d2" data-lines>${lines("Del tanque", "a tu <span class=\"c\">operación</span>")}</h2>
+      <p class="lead" data-reveal>Almacenamos y transportamos el diésel ULSD con logística propia para que llegue a tiempo y en las condiciones correctas.</p>
+    </div>
+    <div class="gal">
+      <figure data-reveal>${pic("diesel-tanques", "Tanques de almacenamiento de combustible en una planta", { sizes: "(min-width: 760px) 50vw, 100vw" })}<figcaption><b>Almacenamiento</b><span>Tanques para resguardar el combustible importado.</span></figcaption></figure>
+      <figure data-reveal>${pic("diesel-cisterna", "Camión cisterna de combustible", { sizes: "(min-width: 760px) 50vw, 100vw" })}<figcaption><b>Transporte en cisterna</b><span>Distribución hasta tu planta, obra o flota.</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+${buque(undefined, "Un buque tanquero en la terminal: el inicio de la cadena que lleva el diésel ULSD hasta la industria y el transporte.")}
 
 <section class="sec" aria-label="Cadena del combustible">
   <div class="wrap">${cadena()}</div>
@@ -375,16 +417,16 @@ ${buque(undefined, "Un buque tanquero en la terminal: el inicio de la cadena que
 
 ${mapa()}
 
-${cta("¿Tu operación necesita <span class=\"c\">combustible</span>?", "Cuéntanos tu consumo, ubicación y frecuencia, y te enviamos una propuesta.", "refineria-noche")}`,
+${cta("¿Tu operación necesita <span class=\"c\">diésel ULSD</span>?", "Cuéntanos tu consumo, ubicación y frecuencia, y te enviamos una propuesta.", "refineria-noche")}`,
   },
 
   {
     path: "/soluciones-energeticas/", file: "soluciones-energeticas/index.html",
     title: "Soluciones energéticas para empresas e industrias | E.F.O.",
-    desc: "Infraestructura energética, soluciones eléctricas, integración de sistemas y proyectos especiales para empresas, industrias e instituciones en Bolivia.",
+    desc: "Energía solar fotovoltaica, paneles solares, infraestructura energética y soluciones eléctricas para hogares, empresas, industrias e instituciones en Bolivia.",
     ld: [ORG, crumbsLd("Soluciones energéticas", "/soluciones-energeticas/")],
     body: `
-${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>"), lead: "E.F.O. no se limita a combustibles ni a electromovilidad: desarrolla infraestructura y soluciones energéticas para empresas, industrias e instituciones.", foto: "subestacion", crumb: "Soluciones energéticas" })}
+${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>"), lead: "E.F.O. no se limita a combustibles ni a electromovilidad: instala sistemas de energía solar fotovoltaica y desarrolla infraestructura y soluciones eléctricas para empresas, industrias e instituciones.", foto: "subestacion", crumb: "Soluciones energéticas" })}
 
 <section class="sec" aria-labelledby="se-t">
   <div class="wrap">
@@ -394,6 +436,7 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
     </div>
     <ul class="rows">
       <li data-reveal><span class="ri">${icon("torre")}</span><h3>Infraestructura energética</h3><p>Soluciones de infraestructura y suministro energético para empresas e industrias.</p></li>
+      <li data-reveal><span class="ri">${icon("sol")}</span><h3>Energía solar fotovoltaica</h3><p>Paneles solares, inversores y baterías para generar tu propia energía. <a href="#solar">Ver equipos e instalación</a></p></li>
       <li data-reveal><span class="ri">${icon("rayo")}</span><h3>Soluciones eléctricas</h3><p>Instalaciones y soluciones eléctricas adaptadas a cada operación.</p></li>
       <li data-reveal><span class="ri">${icon("maletin")}</span><h3>Proyectos empresariales</h3><p>Proyectos energéticos pensados para el crecimiento de empresas y organizaciones.</p></li>
       <li data-reveal id="industria"><span class="ri">${icon("fabrica")}</span><h3>Infraestructura para industrias</h3><p>Energía para plantas, agroindustria y operaciones productivas.</p></li>
@@ -414,9 +457,48 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
   </div>
 </section>
 
+<section class="sec" aria-labelledby="solar-t" id="solar">
+  <div class="wrap feature rev">
+    <figure class="photo tall" data-reveal><div class="par" data-speed="0.18">${pic("solar-campo", "Planta de paneles solares al atardecer", { sizes: "(min-width: 980px) 55vw, 100vw" })}</div></figure>
+    <div class="copy">
+      <span class="kicker">Energía solar</span>
+      <h2 id="solar-t" class="d2" data-lines>${lines("Equipos", "<span class=\"c\">fotovoltaicos</span>")}</h2>
+      <p class="lead" data-reveal>Diseñamos, suministramos e instalamos sistemas de paneles solares para hogares, empresas, industrias y zonas sin red eléctrica. Menos gasto en energía y un suministro propio, limpio y estable.</p>
+      <ul class="spec" data-reveal>
+        <li>${icon("panel")}<span><b>Paneles solares</b><span>Módulos monocristalinos de alta eficiencia.</span></span></li>
+        <li>${icon("rayo")}<span><b>Inversores</b><span>Conectados a la red, aislados o híbridos, según tu necesidad.</span></span></li>
+        <li>${icon("bateria")}<span><b>Baterías</b><span>Almacenamiento de litio para tener energía de noche o durante cortes.</span></span></li>
+        <li>${icon("torre")}<span><b>Estructuras de montaje</b><span>Para techo, suelo o cubiertas industriales.</span></span></li>
+        <li>${icon("ajustes")}<span><b>Protecciones y tableros</b><span>Seguridad eléctrica en cada punto del sistema.</span></span></li>
+        <li>${icon("idea")}<span><b>Monitoreo</b><span>Seguimiento de la producción de energía desde el celular.</span></span></li>
+      </ul>
+      <div class="chips" data-reveal><span>Conectado a la red</span><span>Aislado</span><span>Híbrido con baterías</span><span>Bombeo solar</span></div>
+      <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar" data-reveal>Cotizar sistema solar ${icon("flecha")}</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec mist" aria-labelledby="inst-t">
+  <div class="wrap">
+    <div class="head head-split">
+      <h2 id="inst-t" class="d2" data-lines>${lines("Cómo instalamos", "tu <span class=\"c\">sistema solar</span>")}</h2>
+      <p class="lead" data-reveal>Un proceso claro, de la primera visita a la puesta en marcha, con personal técnico y equipos de seguridad en cada etapa.</p>
+    </div>
+    <ol class="steps">
+      ${SOLAR_PASOS.map(([f, alt, t, d], i) => `<li class="step" data-reveal>
+        <figure>${pic(f, alt, { sizes: "(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw" })}<span class="n">${String(i + 1).padStart(2, "0")}</span></figure>
+        <div class="step-in"><h3>${t}</h3><p>${d}</p></div>
+      </li>`).join("\n      ")}
+      <li class="step step-cta" data-reveal>
+        <div class="step-in">${icon("sol")}<h3>¿Listo para generar tu propia energía?</h3><p>Agenda una visita técnica y recibe tu propuesta.</p><a class="btn btn-cyan" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar">Cotizar ahora ${icon("flecha")}</a></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
 ${operaciones()}
 
-${cta(undefined, undefined, "refineria-noche")}`,
+${cta("¿Quieres generar tu propia <span class=\"c\">energía</span>?", "Cuéntanos tu consumo mensual y dónde está tu instalación, y te enviamos una propuesta.", "solar-aereo")}`,
   },
 
   {

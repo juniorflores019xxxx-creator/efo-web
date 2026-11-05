@@ -521,3 +521,30 @@ main { position: relative; overflow-x: clip; }
 .tilt-glare { position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 55%); opacity: 0; transition: opacity 0.4s var(--ease); }
 .tilt.tilting .tilt-glare { opacity: 1; }
 .tilt.tilting { box-shadow: 0 30px 60px -30px rgba(3, 31, 54, 0.55); }
+
+/* ---------- Diésel ULSD y energía solar ---------- */
+.kicker { display: inline-block; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan-ink, var(--blue)); }
+.copy .kicker { margin-bottom: -6px; }
+.gal { display: grid; gap: 20px; }
+@media (min-width: 760px) { .gal { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.gal figure { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 3; background: var(--mist-2); }
+.gal img { width: 100%; height: 100%; object-fit: cover; }
+.gal figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(3, 31, 54, 0.78), rgba(3, 31, 54, 0) 50%); pointer-events: none; }
+.gal figcaption { position: absolute; left: 22px; right: 22px; bottom: 20px; z-index: 1; display: grid; gap: 4px; color: var(--paper); }
+.gal figcaption b { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.01em; }
+.gal figcaption span { font-size: 0.92rem; color: rgba(255, 255, 255, 0.86); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.step { position: relative; display: grid; grid-template-rows: auto 1fr; border-radius: var(--r); overflow: hidden; background: var(--paper); box-shadow: 0 0 0 1px var(--line), 0 24px 48px -36px rgba(3, 31, 54, 0.5); }
+.step figure { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--mist-2); }
+.step img { width: 100%; height: 100%; object-fit: cover; }
+.step .n { position: absolute; left: 14px; top: 14px; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--cyan); color: var(--ink); font-weight: 800; font-size: 0.95rem; box-shadow: 0 8px 18px -8px rgba(3, 31, 54, 0.6); }
+.step-in { display: grid; gap: 8px; align-content: start; padding: 22px 24px 26px; }
+.step h3 { margin: 0; font-weight: 800; font-size: 1.18rem; letter-spacing: -0.015em; line-height: 1.25; }
+.step p { color: var(--ink-2); font-size: 0.96rem; }
+.rows p a { color: var(--blue); font-weight: 700; }
+.step-cta { grid-template-rows: 1fr; background: var(--blue); color: var(--paper); }
+.step-cta .step-in { align-content: center; gap: 14px; padding: 32px 28px; }
+.step-cta .ico { width: 40px; height: 40px; color: var(--cyan-soft, #7fd8f7); }
+.step-cta h3 { font-size: 1.4rem; }
+.step-cta p { color: rgba(255, 255, 255, 0.82); }
+.step-cta .btn { justify-self: start; margin-top: 6px; }
