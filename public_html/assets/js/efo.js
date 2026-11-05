@@ -52,69 +52,64 @@
     v.addEventListener("canplay", tryPlay);
   });
 
-  /* ---------- Música de fondo ---------- */
+  /* ---------- Música de fondo: «Patria Inmortal» desde el segundo 35, en todas las páginas ----------
+     Los navegadores no permiten sonido sin un toque previo: arranca en silencio y suena con el
+     primer toque/clic/tecla. La nota musical corta o activa el sonido (tachada = en silencio).
+     El minuto y la preferencia de silencio se conservan al cambiar de página. */
   (function () {
     var box = $("#player"), mBtn = $(".music"), errorBox = $(".player-error", box);
     if (!box || !mBtn) return;
-    var START = 35, KT = "efo-musica-t", player = null, ready = false, playing = false;
+    var START = 35, KT = "efo-musica-t", KM = "efo-musica-mute";
     var ss = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+    var userMute = ss.get(KM) === "1", player = null, ready = false, playing = false, audible = false;
+    function showError(msg) { if (errorBox) { errorBox.textContent = msg; errorBox.hidden = false; } }
     function ui() {
-      mBtn.disabled = !ready;
-      mBtn.setAttribute("aria-pressed", String(playing));
-      mBtn.setAttribute("aria-label", ready ? (playing ? "Pausar el video" : "Reproducir el video") : "Cargando el reproductor");
+      var on = audible && playing;
+      mBtn.classList.toggle("playing", on);
+      mBtn.setAttribute("aria-pressed", String(!on));
+      mBtn.setAttribute("aria-label", on ? "Silenciar la música" : "Activar el sonido de la música");
     }
-    function play() {
-      if (!player || !ready) return;
-      try {
-        player.unMute();
-        player.setVolume(55);
-        player.playVideo();
-      } catch (e) {
-        playing = false;
-        if (errorBox) { errorBox.textContent = "No se pudo iniciar el video. Intenta tocar la nota musical nuevamente."; errorBox.hidden = false; }
-        console.error("No se pudo iniciar el video de música.", e);
-      }
+    function sound() {
+      if (!player || !ready || userMute) return;
+      try { player.unMute(); player.setVolume(55); if (!playing) player.playVideo(); audible = true; } catch (e) { console.error("No se pudo activar el sonido.", e); }
       ui();
     }
+    function silence() { if (player && ready) { try { player.mute(); } catch (e) {} } audible = false; ui(); }
+    var EV = ["pointerdown", "keydown", "touchstart"];
+    function gesture(e) {
+      if (e && e.target && e.target.closest && e.target.closest(".music")) return; // el botón decide por sí mismo
+      EV.forEach(function (ev) { document.removeEventListener(ev, gesture, true); });
+      sound();
+    }
+    EV.forEach(function (ev) { document.addEventListener(ev, gesture, true); });
     mBtn.addEventListener("click", function () {
-      if (!player) {
-        return;
-      }
-      if (playing) {
-        player.pauseVideo();
-      } else {
-        play();
-      }
-      ui();
+      if (audible && playing) { userMute = true; ss.set(KM, "1"); silence(); }
+      else { userMute = false; ss.set(KM, "0"); sound(); }
     });
     function playbackError(e) {
       var code = e && e.data;
-      var message = code === 101 || code === 150
-        ? "Este video no permite reproducirse dentro de la página."
-        : code === 153
-          ? "YouTube no recibió la dirección de esta página. Revisa la conexión segura del sitio."
-          : "No se pudo cargar el video. Intenta nuevamente más tarde.";
-      playing = false;
-      if (errorBox) { errorBox.textContent = message; errorBox.hidden = false; }
+      showError(code === 101 || code === 150 ? "Este video no permite reproducirse dentro de la página."
+        : code === 153 ? "YouTube no recibió la dirección de esta página. Revisa la conexión segura del sitio."
+        : "No se pudo cargar la música. Intenta nuevamente más tarde.");
+      playing = false; ui();
       console.error("Error del reproductor de música de YouTube:", code);
     }
     window.onYouTubeIframeAPIReady = function () {
       var t = parseFloat(ss.get(KT)); if (!(t >= START)) t = START;
       player = new YT.Player("yt", {
         host: "https://www.youtube-nocookie.com", videoId: "hbCTWzxubbU",
-        playerVars: { start: Math.floor(t), autoplay: 0, controls: 1, rel: 0, playsinline: 1, modestbranding: 1 },
+        playerVars: { start: Math.floor(t), autoplay: 1, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, disablekb: 1 },
         events: {
           onReady: function () {
             ready = true;
+            player.mute(); player.playVideo();
+            if (navigator.userActivation && navigator.userActivation.hasBeenActive) sound();
             ui();
           },
           onStateChange: function (e) {
-            if (e.data === YT.PlayerState.PLAYING) {
-              playing = true;
-              if (errorBox) errorBox.hidden = true;
-            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-              playing = false;
-            }
+            if (e.data === YT.PlayerState.PLAYING) { playing = true; if (errorBox) errorBox.hidden = true; }
+            else if (e.data === YT.PlayerState.ENDED) { player.seekTo(START, true); player.playVideo(); }
+            else if (e.data === YT.PlayerState.PAUSED) playing = false;
             ui();
           },
           onError: playbackError,
@@ -124,9 +119,7 @@
     };
     window.addEventListener("pagehide", function () { try { ss.set(KT, String(player.getCurrentTime())); } catch (e) {} });
     var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true;
-    s.onerror = function () {
-      if (errorBox) { errorBox.textContent = "No se pudo cargar el reproductor. Revisa tu conexión e inténtalo nuevamente."; errorBox.hidden = false; }
-    };
+    s.onerror = function () { showError("No se pudo cargar la música. Revisa tu conexión e inténtalo nuevamente."); };
     document.head.appendChild(s);
     ui();
   })();

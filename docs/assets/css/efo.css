@@ -452,13 +452,26 @@ main { position: relative; overflow-x: clip; }
 .music:hover:not(:disabled) { transform: translateY(-3px) scale(1.06); }
 .music .ico { width: 24px; height: 24px; }
 .music:disabled { cursor: wait; opacity: 0.75; }
+.music .s-off { display: none; }
+.music[aria-pressed="true"] .s-on { display: none; }
+.music[aria-pressed="true"] .s-off { display: block; }
+.music[aria-pressed="true"] { background: #b42318; }
+.music .tacha { stroke-width: 2.4; }
+.music.playing { animation: parpadeo 1.1s ease-in-out infinite; }
+.music.playing::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--cyan); animation: onda 1.6s var(--ease) infinite; }
+@keyframes parpadeo { 0%, 100% { background: var(--blue); box-shadow: 0 0 0 0 rgba(0, 174, 239, 0.6), 0 16px 32px -12px rgba(3, 31, 54, 0.6); } 50% { background: var(--cyan); color: var(--ink); box-shadow: 0 0 0 8px rgba(0, 174, 239, 0), 0 16px 32px -12px rgba(3, 31, 54, 0.6); } }
+@keyframes onda { 0% { transform: scale(0.9); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
+.reduce .music.playing, .reduce .music.playing::after { animation: none; }
 .music:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
 .player { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: calc(max(18px, env(safe-area-inset-bottom)) + 188px); z-index: 150; width: 200px; padding: 6px; border-radius: 14px; background: var(--paper); box-shadow: 0 0 0 1px var(--line), 0 24px 50px -24px rgba(3, 31, 54, 0.6); display: grid; gap: 4px; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
 .player-frame { border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--mist-2); }
 .player-frame iframe, .player-frame #yt { width: 100%; height: 100%; border: 0; display: block; }
 .player-error { margin: 2px 4px 4px; color: #b42318; font-size: 0.68rem; line-height: 1.35; }
 .player-error[hidden] { display: none; }
-@media (max-width: 560px) { .player { width: 132px; padding: 4px; } }
+.player-link { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--ink-2); text-decoration: none; padding: 4px 4px 2px; line-height: 1.3; }
+.player-link b { color: var(--ink); }
+.player-link .ico { width: 14px; height: 14px; margin-left: auto; }
+@media (max-width: 560px) { .player { width: 132px; padding: 4px; } .player-link { font-size: 0.64rem; } .player-link .ico { display: none; } }
 
 /* ---------- Coaster y proyecto BIOTIL ---------- */
 .coaster img { object-position: 30% 50%; }
