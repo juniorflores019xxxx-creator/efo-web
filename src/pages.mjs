@@ -236,7 +236,8 @@ const ORG = {
   areaServed: { "@type": "Country", name: "Bolivia" },
   knowsAbout: ["Combustibles", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Conversión de vehículos eléctricos"],
 };
-const LOCAL = { ...ORG, "@type": "LocalBusiness", image: `${SITE.url}/assets/img/compartir.jpg` };
+const LOCAL = { ...ORG, "@type": "LocalBusiness", image: `${SITE.url}/assets/img/compartir.jpg`,
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "16:30" }] };
 const crumbsLd = (name, path) => ({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url + "/" }, { "@type": "ListItem", position: 2, name, item: SITE.url + path }] });
 
 /* ---------- Páginas ---------- */
@@ -383,9 +384,9 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
     <div class="copy">
       <span class="kicker">Nuestro producto</span>
       <h2 id="ulsd-t" class="d2" data-lines>${lines("Diésel ULSD", "de <span class=\"c\">ultra bajo azufre</span>")}</h2>
-      <p class="lead" data-reveal>El diésel ULSD (<i lang="en">Ultra Low Sulfur Diesel</i>) tiene un contenido de azufre ultra bajo, de hasta 15 ppm. Es el combustible que piden los motores diésel modernos: rinde mejor, protege el sistema de inyección y reduce las emisiones.</p>
+      <p class="lead" data-reveal>El diésel ULSD (<i lang="en">Ultra Low Sulfur Diesel</i>) tiene un contenido de azufre ultra bajo: el que importa E.F.O. tiene un máximo de 10 ppm. Es el combustible que piden los motores diésel modernos: rinde mejor, protege el sistema de inyección y reduce las emisiones.</p>
       <ul class="spec" data-reveal>
-        <li>${icon("gota")}<span><b>Azufre ultra bajo</b><span>Hasta 15 partes por millón: un combustible más limpio.</span></span></li>
+        <li>${icon("gota")}<span><b>Azufre ultra bajo</b><span>Máximo 10 partes por millón: un combustible más limpio.</span></span></li>
         <li>${icon("engranaje")}<span><b>Cuida los motores</b><span>Compatible con inyección <i lang="en">common rail</i>, filtros de partículas y motores de última generación.</span></span></li>
         <li>${icon("globo")}<span><b>Menos emisiones</b><span>Reduce el humo, el hollín y los gases contaminantes.</span></span></li>
         <li>${icon("camion")}<span><b>Para operaciones exigentes</b><span>Transporte pesado, maquinaria, generadores y equipos industriales.</span></span></li>
@@ -393,6 +394,21 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
       <div class="chips" data-reveal><span>Transporte</span><span>Agroindustria</span><span>Construcción</span><span>Minería</span><span>Industria</span><span>Generación eléctrica</span></div>
       <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Di%C3%A9sel%20ULSD#cotizar" data-reveal>Cotizar diésel ULSD ${icon("flecha")}</a>
     </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="cond-t" id="condiciones">
+  <div class="wrap">
+    <div class="head head-split">
+      <h2 id="cond-t" class="d2" data-lines>${lines("Condiciones", "de <span class=\"c\">venta</span>")}</h2>
+      <p class="lead" data-reveal>Importamos y vendemos diésel ULSD con registro de la Agencia Nacional de Hidrocarburos y entrega en todo el país.</p>
+    </div>
+    <ul class="rows">
+      <li data-reveal><span class="ri">${icon("escudo")}</span><h3>Registro ANH</h3><p>Código único de registro ${SITE.anh} ante la Agencia Nacional de Hidrocarburos.</p></li>
+      <li data-reveal><span class="ri">${icon("gota")}</span><h3>Pedido mínimo</h3><p>10.000 litros (10 m³) por pedido.</p></li>
+      <li data-reveal><span class="ri">${icon("camion")}</span><h3>Entrega en toda Bolivia</h3><p>Llevamos el diésel a los nueve departamentos del país.</p></li>
+      <li data-reveal><span class="ri">${icon("pago")}</span><h3>Formas de pago</h3><p>Transferencia bancaria, contado, pago con QR y crédito a empresas.</p></li>
+    </ul>
   </div>
 </section>
 
@@ -463,16 +479,17 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
     <div class="copy">
       <span class="kicker">Energía solar</span>
       <h2 id="solar-t" class="d2" data-lines>${lines("Equipos", "<span class=\"c\">fotovoltaicos</span>")}</h2>
-      <p class="lead" data-reveal>Diseñamos, suministramos e instalamos sistemas de paneles solares para hogares, empresas, industrias y zonas sin red eléctrica. Menos gasto en energía y un suministro propio, limpio y estable.</p>
+      <p class="lead" data-reveal>Diseñamos, suministramos e instalamos sistemas de paneles solares para hogares, empresas e industrias, con personal técnico propio. Menos gasto en energía y un suministro propio, limpio y estable.</p>
       <ul class="spec" data-reveal>
         <li>${icon("panel")}<span><b>Paneles solares</b><span>Módulos monocristalinos de alta eficiencia.</span></span></li>
-        <li>${icon("rayo")}<span><b>Inversores</b><span>Conectados a la red, aislados o híbridos, según tu necesidad.</span></span></li>
+        <li>${icon("rayo")}<span><b>Inversores</b><span>Conectados a la red o híbridos con baterías, según tu necesidad.</span></span></li>
         <li>${icon("bateria")}<span><b>Baterías</b><span>Almacenamiento de litio para tener energía de noche o durante cortes.</span></span></li>
         <li>${icon("torre")}<span><b>Estructuras de montaje</b><span>Para techo, suelo o cubiertas industriales.</span></span></li>
         <li>${icon("ajustes")}<span><b>Protecciones y tableros</b><span>Seguridad eléctrica en cada punto del sistema.</span></span></li>
         <li>${icon("idea")}<span><b>Monitoreo</b><span>Seguimiento de la producción de energía desde el celular.</span></span></li>
+        <li>${icon("escudo")}<span><b>Marcas y garantía</b><span>Equipos Lumos Energy y Huawei, con 2 años de garantía.</span></span></li>
       </ul>
-      <div class="chips" data-reveal><span>Conectado a la red</span><span>Aislado</span><span>Híbrido con baterías</span><span>Bombeo solar</span></div>
+      <div class="chips" data-reveal><span>Conectado a la red</span><span>Híbrido con baterías</span><span>Lumos Energy</span><span>Huawei</span></div>
       <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar" data-reveal>Cotizar sistema solar ${icon("flecha")}</a>
     </div>
   </div>
@@ -482,7 +499,7 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
   <div class="wrap">
     <div class="head head-split">
       <h2 id="inst-t" class="d2" data-lines>${lines("Cómo instalamos", "tu <span class=\"c\">sistema solar</span>")}</h2>
-      <p class="lead" data-reveal>Un proceso claro, de la primera visita a la puesta en marcha, con personal técnico y equipos de seguridad en cada etapa.</p>
+      <p class="lead" data-reveal>Un proceso claro, de la primera visita a la puesta en marcha, a cargo del personal técnico de E.F.O. y con equipos de seguridad en cada etapa.</p>
     </div>
     <ol class="steps">
       ${SOLAR_PASOS.map(([f, alt, t, d], i) => `<li class="step" data-reveal>
@@ -490,7 +507,7 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
         <div class="step-in"><h3>${t}</h3><p>${d}</p></div>
       </li>`).join("\n      ")}
       <li class="step step-cta" data-reveal>
-        <div class="step-in">${icon("sol")}<h3>¿Listo para generar tu propia energía?</h3><p>Agenda una visita técnica y recibe tu propuesta.</p><a class="btn btn-cyan" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar">Cotizar ahora ${icon("flecha")}</a></div>
+        <div class="step-in">${icon("sol")}<h3>¿Listo para generar tu propia energía?</h3><p>Agenda una visita técnica y recibe tu propuesta. Te explicamos las condiciones de la visita al coordinarla.</p><a class="btn btn-cyan" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar">Cotizar ahora ${icon("flecha")}</a></div>
       </li>
     </ol>
   </div>

@@ -10,6 +10,8 @@ export const SITE = {
   addr1: "Av. Montecristo No. 205",
   addr2: "Santa Cruz de la Sierra, Bolivia",
   nit: "710528026",
+  anh: "ANH15196",
+  horario: "Lunes a viernes, de 8:30 a 16:30",
   waText: "Hola E.F.O., estoy interesado en conocer sus soluciones energéticas y quisiera solicitar información/cotización.",
 };
 export const WA_URL = `https://wa.me/${SITE.wa}?text=${encodeURIComponent(SITE.waText)}`;
@@ -64,6 +66,9 @@ const P = {
   cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
   sonido: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
   silencio: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>',
+  reloj: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  escudo: '<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6Z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/>',
+  pago: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14.5h4"/>',
   musica: '<path d="M9 18V5.5l11-2.5v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/>',
 };
 const WA_PATH = '<path class="ico-fill" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/>';
@@ -109,6 +114,7 @@ export const contactData = () => `
   <a href="${WA_URL}" target="_blank" rel="noopener"><span class="ci">${icon("whatsapp")}</span><span><small>WhatsApp</small><strong>${SITE.waDisplay}</strong></span></a>
   <a href="mailto:${SITE.mail}"><span class="ci">${icon("mail")}</span><span><small>Correo</small><strong>${SITE.mail}</strong></span></a>
   <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.addr1 + ", " + SITE.addr2)}" target="_blank" rel="noopener"><span class="ci">${icon("pin")}</span><span><small>Dirección</small><strong>${SITE.addr1}<br>${SITE.addr2}</strong></span></a>
+  <div><span class="ci">${icon("reloj")}</span><span><small>Horario de atención</small><strong>${SITE.horario}</strong></span></div>
 </div>`;
 
 export const cta = (title = "¿Necesitas una solución <span class=\"c\">energética</span>?", text = "Cuéntanos tu operación y te respondemos con una propuesta: combustibles, infraestructura energética o electromovilidad.", foto = "estacion-noche") => `
@@ -201,7 +207,7 @@ ${body}
     <div class="foot-grid">
       <div>
         <a class="brand-f" href="/" aria-label="E.F.O. Ltda., ir al inicio"><img src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda." width="720" height="169" loading="lazy"></a>
-        <p class="foot-legal">${SITE.legal}<br>NIT ${SITE.nit}</p>
+        <p class="foot-legal">${SITE.legal}<br>NIT ${SITE.nit}<br>Registro ANH ${SITE.anh}</p>
       </div>
       <div>
         <h2>Sitio</h2>
@@ -213,6 +219,7 @@ ${body}
           <a href="${WA_URL}" target="_blank" rel="noopener">${icon("whatsapp")}${SITE.waDisplay}</a>
           <a href="mailto:${SITE.mail}">${icon("mail")}${SITE.mail}</a>
           <span>${icon("pin")}${SITE.addr1}, ${SITE.addr2}</span>
+          <span>${icon("reloj")}${SITE.horario}</span>
         </address>
         <h2 class="social-title">Redes sociales</h2>
         <nav class="social-links" aria-label="Redes sociales">${SOCIALS.map(([name, url, path]) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">${path}</svg><span>${name}</span></a>`).join("")}</nav>
