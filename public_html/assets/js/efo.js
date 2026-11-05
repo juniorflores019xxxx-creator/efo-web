@@ -20,13 +20,36 @@
     if (v.dataset.webm && v.canPlayType('video/webm; codecs="vp9"') === "probably") src = v.dataset.webm;
     var cx = navigator.connection;
     if (reduce || (cx && (cx.saveData || /(^|-)2g$/.test(cx.effectiveType || "")))) return; // se queda la imagen fija
-    v.src = src;
+    // En celulares (sobre todo iPhone) el video debe estar silenciado e "inline" ANTES de asignar la fuente
     v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+    if (v.hasAttribute("autoplay")) v.preload = "auto"; // solo el de portada se precarga
+    v.src = src;
+    v.load();
+    var visible = false;
+    var tryPlay = function () {
+      if (!visible) return;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {
+        // Autoplay bloqueado (p. ej. modo de ahorro de batería): se reintenta con el primer toque o scroll
+        var retry = function () {
+          ["touchstart", "click", "scroll", "keydown"].forEach(function (t) { window.removeEventListener(t, retry, true); });
+          if (visible) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
+        };
+        ["touchstart", "click", "scroll", "keydown"].forEach(function (t) { window.addEventListener(t, retry, { capture: true, passive: true }); });
+      });
+    };
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); });
+        es.forEach(function (e) { visible = e.isIntersecting; if (visible) tryPlay(); else v.pause(); });
       }, { threshold: 0.05 }).observe(v);
-    } else v.play();
+    } else { visible = true; tryPlay(); }
+    // Si el navegador tarda en tener datos, se vuelve a intentar cuando ya puede reproducir
+    v.addEventListener("canplay", tryPlay);
   });
 
   /* ---------- Música de fondo ---------- */

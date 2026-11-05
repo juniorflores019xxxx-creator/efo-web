@@ -40,7 +40,7 @@ A Bolivian energy company, born in Santa Cruz (the Oriente) with a national scop
 - Never publish unconfirmed facts: supplier countries, volumes, capacities, licenses, certifications, clients, contracts, executed projects, number of stations, installed power, regulatory claims.
 - Projects: the user says some projects are real but has not said which. Until confirmed, every project is labeled «Proyecto conceptual» or «Solución propuesta». The Toyota Coaster 2005 (30 passengers) conversion is a concept example.
 - Mission and vision texts are given verbatim in the brief.
-- Social networks: not enabled yet.
+- Social networks: Facebook, TikTok, and Instagram links are enabled in the site footer.
 
 ## Brand Commitments
 

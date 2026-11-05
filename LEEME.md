@@ -22,10 +22,15 @@ En `src/pages.mjs`, lista `PROYECTOS`: cambia el sello `Proyecto conceptual` por
 
 ## Publicar en Hostinger
 
-1. Sube el **contenido** de `public_html/` (no la carpeta) a `public_html/` del hosting. `index.html` debe quedar en la raíz.
-2. En Cloudflare **no** toques los registros MX, SPF, DKIM, DMARC, autodiscover ni autoconfig.
-3. Cuando el certificado SSL del hosting esté activo, configura SSL/TLS en **Full (strict)** y activa **Always Use HTTPS**. Después, quita el `#` de la línea `Strict-Transport-Security` en `.htaccess`.
-4. Registra el sitio en Google Search Console y envía `https://efo.com.bo/sitemap.xml`.
+1. En Hostinger, agrega `efo.com.bo` al sitio correcto y confirma que la raíz web sea `public_html/`.
+2. Sube el **contenido** de la carpeta local `public_html/` (no la carpeta misma) a la raíz del sitio. `index.html` debe quedar directamente en esa raíz.
+3. Comprueba primero que el servidor de origen entregue el sitio y tenga un certificado SSL válido para `efo.com.bo` y `www.efo.com.bo`.
+4. En Cloudflare, usa SSL/TLS **Full (strict)** solo cuando el certificado del origen esté activo. Luego activa **Always Use HTTPS** y redirige `www.efo.com.bo` a `https://efo.com.bo`.
+5. **No cambies** los registros de correo MX, SPF, DKIM, DMARC, `autodiscover` ni `autoconfig`.
+6. Cuando HTTPS funcione de extremo a extremo, quita el `#` de la línea `Strict-Transport-Security` en `.htaccess`.
+7. Registra el sitio en Google Search Console y envía `https://efo.com.bo/sitemap.xml`.
+
+En la última revisión, el dominio mostraba la página aparcada de Hostinger por HTTP y devolvía error 525 por HTTPS. Antes de anunciar la web, confirma en Hostinger el dominio asignado, la raíz del sitio y el certificado del servidor de origen; conserva intactos los registros de correo.
 
 ## Pendiente con el cliente
 
