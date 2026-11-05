@@ -26,7 +26,7 @@ export const NAV = [
   ["Contacto", "/contacto/"],
 ];
 
-const SOCIALS = [
+export const SOCIALS = [
   ["Facebook", "https://www.facebook.com/share/18zpmEWnNK/", '<path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.6-1.6h1.7V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/>'],
   ["TikTok", "https://www.tiktok.com/@efoenergia?_r=1&_t=ZS-9B8NApyhLym", '<path d="M19.6 8.2a6.1 6.1 0 0 1-3.7-1.3v7.4a5.4 5.4 0 1 1-4.7-5.3v3a2.4 2.4 0 1 0 1.7 2.3V3.2h3a6.1 6.1 0 0 0 3.7 3.7v1.3Z"/>'],
   ["Instagram", "https://www.instagram.com/energiafuerzadeloriente?mdxt=ZGt4dGtkdDZueGt0", '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="social-icon-dot" cx="17.6" cy="6.8" r="1"/>'],
@@ -175,7 +175,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=23">
+<link rel="stylesheet" href="/assets/css/efo.css?v=24">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -242,7 +242,7 @@ ${body}
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=20" defer></script>
+<script src="/assets/js/efo.js?v=21" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>

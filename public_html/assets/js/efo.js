@@ -27,7 +27,7 @@
     v.setAttribute("muted", "");
     v.setAttribute("playsinline", "");
     v.setAttribute("webkit-playsinline", "");
-    if (v.hasAttribute("autoplay")) v.preload = "auto"; // solo el de portada se precarga
+    if (v.hasAttribute("autoplay")) v.preload = small ? "metadata" : "auto"; // en celular no se precarga completo
     v.src = src;
     v.load();
     var visible = false;
@@ -267,11 +267,13 @@
   });
 
   /* Aparición de bloques */
-  gsap.set("[data-reveal]", { opacity: 0, y: 44 });
-  ST.batch("[data-reveal]", {
-    start: "top 88%",
-    onEnter: function (b) { gsap.to(b, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", stagger: 0.09, overwrite: true }); },
-  });
+  if ($$("[data-reveal]").length) {
+    gsap.set("[data-reveal]", { opacity: 0, y: 44 });
+    ST.batch("[data-reveal]", {
+      start: "top 88%",
+      onEnter: function (b) { gsap.to(b, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", stagger: 0.09, overwrite: true }); },
+    });
+  }
 
   /* Portada: el video se acerca y el texto se aleja al bajar */
   $$(".hero, .phero").forEach(function (h) {

@@ -1,7 +1,7 @@
 // Contenido de cada página del sitio E.F.O. Textos del documento maestro; sin cifras, clientes ni países no confirmados.
 // Fotografías y videos: Pexels (licencia libre). Mapas generados con geografía real (Natural Earth).
 import { readFileSync } from "node:fs";
-import { SITE, WA_URL, icon, pic, lines, words, contactForm, contactData, cta, pageHero } from "./layout.mjs";
+import { SITE, WA_URL, SOCIALS, icon, pic, lines, words, contactForm, contactData, cta, pageHero } from "./layout.mjs";
 
 const svg = (f) => readFileSync(new URL(`../public_html/assets/img/${f}`, import.meta.url), "utf8").replace(/<\?xml[^>]*>/, "");
 const MUNDO = svg("mundo-bolivia.svg");
@@ -9,8 +9,8 @@ const BOLIVIA = svg("bolivia-red.svg");
 
 /* ---------- Bloques compartidos ---------- */
 const AREAS = [
-  { t: "Combustibles", d: "Importación y comercialización de combustibles para empresas, industria y transporte.", ic: "gota", f: "refineria-tarde", href: "/combustibles/" },
-  { t: "Energía", d: "Infraestructura y suministro energético para operaciones que no pueden detenerse.", ic: "rayo", f: "torres", href: "/soluciones-energeticas/" },
+  { t: "Combustibles", d: "Importación y venta de diésel ULSD para empresas, industria y transporte.", ic: "gota", f: "refineria-tarde", href: "/combustibles/" },
+  { t: "Energía", d: "Energía solar fotovoltaica e infraestructura eléctrica para operaciones que no pueden detenerse.", ic: "rayo", f: "torres", href: "/soluciones-energeticas/" },
   { t: "Industria", d: "Soluciones energéticas para plantas, agroindustria y sectores productivos.", ic: "fabrica", f: "silos", href: "/soluciones-energeticas/#industria" },
   { t: "Electromovilidad", d: "Electrolineras, cargadores AC y DC, carga para flotas y conversión de vehículos.", ic: "cargador", f: "carga", href: "/electromovilidad/", ev: true },
 ];
@@ -234,7 +234,8 @@ const ORG = {
   logo: `${SITE.url}/assets/img/logo-efo.webp`, slogan: "Energía que mueve Bolivia", email: SITE.mail, telephone: "+59169540072", taxID: SITE.nit,
   address: { "@type": "PostalAddress", streetAddress: SITE.addr1, addressLocality: "Santa Cruz de la Sierra", addressCountry: "BO" },
   areaServed: { "@type": "Country", name: "Bolivia" },
-  knowsAbout: ["Combustibles", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Conversión de vehículos eléctricos"],
+  knowsAbout: ["Diésel ULSD", "Combustibles", "Energía solar fotovoltaica", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Cargadores para vehículos eléctricos", "Conversión de vehículos eléctricos"],
+  sameAs: SOCIALS.map(([, url]) => url.split("?")[0]),
 };
 const LOCAL = { ...ORG, "@type": "LocalBusiness", image: `${SITE.url}/assets/img/compartir.jpg`,
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "16:30" }] };
@@ -245,18 +246,18 @@ export const PAGES = [
   {
     path: "/", file: "index.html",
     title: "E.F.O. Ltda. · Energía y combustibles en Bolivia",
-    desc: "E.F.O. Ltda. desarrolla soluciones energéticas, comercialización de combustibles, infraestructura eléctrica y proyectos de electromovilidad en Bolivia.",
+    desc: "E.F.O. Ltda. importa y vende diésel ULSD, instala sistemas de energía solar y desarrolla proyectos de electromovilidad para empresas e industrias de Bolivia.",
     ld: [ORG],
     body: `
 <section class="hero" aria-labelledby="hero-t">
   <div class="hero-media">
-    <video data-src="/assets/video/plaza-720.mp4" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
+    <video data-src="/assets/video/plaza-720.mp4" data-src-sm="/assets/video/plaza-540.mp4" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
   </div>
   <div class="wrap hero-in">
     <h1 id="hero-t" class="d1" data-lines>${lines("Energía", "que mueve", "<span style=\"color:var(--cyan-soft)\">Bolivia</span>")}</h1>
     <div class="hero-foot">
       <div style="display:grid;gap:24px">
-        <p class="lead">E.F.O. desarrolla soluciones energéticas, comercialización de combustibles y proyectos de electromovilidad para empresas, industrias y organizaciones en Bolivia.</p>
+        <p class="lead">E.F.O. importa y vende diésel ULSD, instala sistemas de energía solar y desarrolla proyectos de electromovilidad para empresas, industrias y organizaciones en Bolivia.</p>
         <div class="btns on-photo">
           <a class="btn btn-cyan btn-lg" href="/contacto/#cotizar">Cotizar ahora ${icon("flecha")}</a>
           <a class="btn btn-line btn-lg" href="/empresa/">Conoce E.F.O.</a>
@@ -270,10 +271,10 @@ export const PAGES = [
 <section class="statement" aria-labelledby="st-t">
   <div class="wrap">
     <h2 id="st-t" class="sr-only">Quiénes somos</h2>
-    <p class="big" data-words>${words("E.F.O. es una <em class=\"hl\">empresa energética boliviana</em> que desarrolla soluciones de combustibles, energía, infraestructura y electromovilidad para empresas, industrias y organizaciones.")}</p>
+    <p class="big" data-words>${words("E.F.O. es una <em class=\"hl\">empresa energética boliviana</em> que importa diésel ULSD, instala energía solar y desarrolla infraestructura y electromovilidad para empresas, industrias y organizaciones.")}</p>
     <ul class="pillars">
-      <li data-reveal>${icon("gota")}<b>Combustibles</b><span>Importación y comercialización.</span></li>
-      <li data-reveal>${icon("rayo")}<b>Energía</b><span>Infraestructura y suministro.</span></li>
+      <li data-reveal>${icon("gota")}<b>Combustibles</b><span>Importación y venta de diésel ULSD.</span></li>
+      <li data-reveal>${icon("rayo")}<b>Energía</b><span>Energía solar e infraestructura eléctrica.</span></li>
       <li data-reveal>${icon("fabrica")}<b>Industria</b><span>Soluciones para operaciones productivas.</span></li>
       <li data-reveal>${icon("cargador")}<b>Electromovilidad</b><span>Carga y conversión eléctrica.</span></li>
     </ul>
@@ -293,7 +294,7 @@ ${buque()}
   <div class="wrap">
     <div class="head head-split">
       <h2 class="d2" data-lines>${lines("Combustibles para", "mover <span class=\"c\">la economía</span>")}</h2>
-      <p class="lead" data-reveal>E.F.O. desarrolla actividades relacionadas con la importación y comercialización de combustibles, conectando mercados, logística e infraestructura.</p>
+      <p class="lead" data-reveal>E.F.O. importa y comercializa diésel ULSD, conectando mercados, logística e infraestructura hasta tu operación.</p>
     </div>
     ${cadena()}
   </div>
@@ -329,10 +330,10 @@ ${contacto("home")}`,
   {
     path: "/empresa/", file: "empresa/index.html",
     title: "Empresa | E.F.O. – Energía y Fuerza del Oriente",
-    desc: "E.F.O. Ltda. es una empresa energética boliviana de Santa Cruz de la Sierra: combustibles, soluciones energéticas, infraestructura y electromovilidad.",
+    desc: "E.F.O. Ltda. es una empresa energética de Santa Cruz de la Sierra: importación y venta de diésel ULSD, energía solar, infraestructura y electromovilidad.",
     ld: [ORG, crumbsLd("Empresa", "/empresa/")],
     body: `
-${pageHero({ title: lines("Energía y Fuerza", "del <span class=\"c\">Oriente</span>"), lead: "Somos una empresa boliviana orientada al desarrollo de soluciones energéticas, combustibles, infraestructura y electromovilidad.", foto: "tranvia-scz", crumb: "Empresa" })}
+${pageHero({ title: lines("Energía y Fuerza", "del <span class=\"c\">Oriente</span>"), lead: "Somos una empresa boliviana que importa y vende diésel ULSD, instala sistemas de energía solar y desarrolla infraestructura y electromovilidad.", foto: "tranvia-scz", crumb: "Empresa" })}
 
 <section class="statement" aria-label="Nuestra propuesta">
   <div class="wrap">
@@ -348,6 +349,21 @@ ${pageHero({ title: lines("Energía y Fuerza", "del <span class=\"c\">Oriente</s
   </div>
 </section>
 
+<section class="sec" aria-labelledby="hab-t">
+  <div class="wrap">
+    <div class="head head-split">
+      <h2 id="hab-t" class="d2" data-lines>${lines("Una empresa", "<span class=\"c\">habilitada</span>")}</h2>
+      <p class="lead" data-reveal>Operamos con los registros que exige la ley y con equipo técnico propio.</p>
+    </div>
+    <ul class="rows">
+      <li data-reveal><span class="ri">${icon("escudo")}</span><h3>Registro ANH</h3><p>Código único de registro ${SITE.anh} ante la Agencia Nacional de Hidrocarburos para la comercialización de diésel.</p></li>
+      <li data-reveal><span class="ri">${icon("maletin")}</span><h3>Empresa legalmente constituida</h3><p>${SITE.legal}, NIT ${SITE.nit}, con oficinas en ${SITE.addr1}, Santa Cruz de la Sierra.</p></li>
+      <li data-reveal><span class="ri">${icon("engranaje")}</span><h3>Personal técnico propio</h3><p>Las instalaciones solares y de carga eléctrica las hace nuestro propio equipo técnico, con mantenimiento posterior.</p></li>
+      <li data-reveal><span class="ri">${icon("rayo")}</span><h3>Equipos de marcas reconocidas</h3><p>Cargadores y baterías Lumosenergy e inversores Huawei, con garantía.</p></li>
+    </ul>
+  </div>
+</section>
+
 ${areas()}
 
 ${porque()}
@@ -360,7 +376,7 @@ ${cta()}`,
   {
     path: "/combustibles/", file: "combustibles/index.html",
     title: "Importación y venta de diésel ULSD en Bolivia | E.F.O.",
-    desc: "E.F.O. importa y comercializa diésel ULSD (ultra bajo azufre) para empresas, industrias, transporte y sectores productivos de Bolivia, con logística de almacenamiento y distribución.",
+    desc: "E.F.O. importa y vende diésel ULSD (ultra bajo azufre) para empresas, industrias y transporte en Bolivia, con almacenamiento y distribución propios.",
     ld: [ORG, crumbsLd("Combustibles", "/combustibles/")],
     body: `
 ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la economía</span>"), lead: "Importamos y comercializamos diésel ULSD (ultra bajo azufre), conectando mercados internacionales, logística e infraestructura para atender las necesidades energéticas de Bolivia.", foto: "refineria-tarde", crumb: "Combustibles" })}
@@ -393,6 +409,7 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
       </ul>
       <div class="chips" data-reveal><span>Transporte</span><span>Agroindustria</span><span>Construcción</span><span>Minería</span><span>Industria</span><span>Generación eléctrica</span></div>
       <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Di%C3%A9sel%20ULSD#cotizar" data-reveal>Cotizar diésel ULSD ${icon("flecha")}</a>
+      <p class="note">Fotografías referenciales.</p>
     </div>
   </div>
 </section>
@@ -416,7 +433,7 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
   <div class="wrap">
     <div class="head head-split">
       <h2 id="ficha-t" class="d2" data-lines>${lines("Ficha", "<span class=\"c\">técnica</span>")}</h2>
-      <p class="lead" data-reveal>Resultados del certificado de análisis de un lote de diésel ULSD importado por E.F.O., emitido por el laboratorio independiente AmSpec en junio de 2026.</p>
+      <p class="lead" data-reveal>Resultados de laboratorio del diésel ULSD que importa E.F.O., según análisis de un lote de junio de 2026.</p>
     </div>
     <div class="ficha" data-reveal>
       <table>
@@ -439,6 +456,7 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
       </table>
     </div>
     <p class="ficha-nota" data-reveal>Los valores corresponden a un lote analizado y pueden variar ligeramente entre importaciones. Solicita el certificado del lote al cotizar.</p>
+    <div class="btns" style="margin-top:24px" data-reveal><a class="btn btn-line btn-lg" href="/assets/docs/ficha-tecnica-diesel-ulsd-efo.pdf" download="Ficha-tecnica-diesel-ULSD-EFO.pdf">Descargar ficha técnica en PDF</a><a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Di%C3%A9sel%20ULSD#cotizar">Cotizar diésel ULSD ${icon("flecha")}</a></div>
   </div>
 </section>
 
@@ -452,6 +470,7 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
       <figure data-reveal>${pic("diesel-tanques", "Tanques de almacenamiento de combustible en una planta", { sizes: "(min-width: 760px) 50vw, 100vw" })}<figcaption><b>Almacenamiento</b><span>Tanques para resguardar el combustible importado.</span></figcaption></figure>
       <figure data-reveal>${pic("diesel-cisterna", "Camión cisterna de combustible", { sizes: "(min-width: 760px) 50vw, 100vw" })}<figcaption><b>Transporte en cisterna</b><span>Distribución hasta tu planta, obra o flota.</span></figcaption></figure>
     </div>
+    <p class="note">Fotografías referenciales.</p>
   </div>
 </section>
 
@@ -521,6 +540,7 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
       </ul>
       <div class="chips" data-reveal><span>Conectado a la red</span><span>Híbrido con baterías</span><span>Huawei</span><span>Lumosenergy</span></div>
       <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar" data-reveal>Cotizar sistema solar ${icon("flecha")}</a>
+      <p class="note">Fotografías referenciales.</p>
     </div>
   </div>
 </section>
@@ -540,6 +560,7 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
         <div class="step-in">${icon("sol")}<h3>¿Listo para generar tu propia energía?</h3><p>Agenda una visita técnica y recibe tu propuesta. Te explicamos las condiciones de la visita al coordinarla.</p><a class="btn btn-cyan" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar">Cotizar ahora ${icon("flecha")}</a></div>
       </li>
     </ol>
+    <p class="note">Fotografías referenciales.</p>
   </div>
 </section>
 
@@ -710,7 +731,7 @@ ${contacto("ct")}
     <ul><li>Responder tu consulta.</li><li>Preparar una propuesta o cotización si la pides.</li><li>Dar seguimiento a esa conversación.</li></ul>
     <p>No vendemos ni compartimos tus datos con terceros para publicidad.</p>
     <h2>Servicios de terceros</h2>
-    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y en todas las páginas se carga un reproductor de YouTube (modo de privacidad mejorada) para la música de fondo. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
+    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y en todas las páginas se carga un reproductor de YouTube (modo de privacidad mejorada) para la música de fondo. Las tipografías se cargan desde Google Fonts, por lo que Google recibe la dirección IP del visitante. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
     <h2>Tus derechos</h2>
     <p>Puedes pedirnos saber qué datos tenemos, corregirlos o eliminarlos, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>. Respondemos en un plazo máximo de 10 días hábiles.</p>
     <h2>Cambios</h2>

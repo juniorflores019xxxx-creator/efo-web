@@ -576,3 +576,9 @@ main { position: relative; overflow-x: clip; }
 @media (max-width: 600px) { .ficha table { min-width: 0; } .ficha th:nth-child(3), .ficha td:nth-child(3) { display: none; } .ficha th, .ficha td { padding: 12px 14px; } .ficha tbody td:nth-child(2) { white-space: normal; } }
 .eq-a { margin-top: 10px; font-size: 0.9rem; font-weight: 800; color: var(--cyan-ink); text-decoration: underline; text-underline-offset: 3px; }
 #cargadores .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Auditoría: enlaces de texto más fáciles de tocar */
+.note a, .credit a { display: inline-block; padding-block: 6px; }
+.note + .btns { margin-top: 20px; }
+/* Auditoría: en celular el recuadro del video de música no tapa el contenido (sigue sonando) */
+@media (max-width: 760px) { .player { opacity: 0 !important; pointer-events: none !important; transform: translateX(16px) !important; } }
