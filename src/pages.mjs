@@ -386,7 +386,7 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
       <h2 id="ulsd-t" class="d2" data-lines>${lines("Diésel ULSD", "de <span class=\"c\">ultra bajo azufre</span>")}</h2>
       <p class="lead" data-reveal>El diésel ULSD (<i lang="en">Ultra Low Sulfur Diesel</i>) tiene un contenido de azufre ultra bajo: el que importa E.F.O. tiene un máximo de 10 ppm. Es el combustible que piden los motores diésel modernos: rinde mejor, protege el sistema de inyección y reduce las emisiones.</p>
       <ul class="spec" data-reveal>
-        <li>${icon("gota")}<span><b>Azufre ultra bajo</b><span>Máximo 10 partes por millón: un combustible más limpio.</span></span></li>
+        <li>${icon("gota")}<span><b>Azufre ultra bajo</b><span>Máximo 10 partes por millón; el último lote analizado dio 9,5 ppm.</span></span></li>
         <li>${icon("engranaje")}<span><b>Cuida los motores</b><span>Compatible con inyección <i lang="en">common rail</i>, filtros de partículas y motores de última generación.</span></span></li>
         <li>${icon("globo")}<span><b>Menos emisiones</b><span>Reduce el humo, el hollín y los gases contaminantes.</span></span></li>
         <li>${icon("camion")}<span><b>Para operaciones exigentes</b><span>Transporte pesado, maquinaria, generadores y equipos industriales.</span></span></li>
@@ -409,6 +409,36 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
       <li data-reveal><span class="ri">${icon("camion")}</span><h3>Entrega en toda Bolivia</h3><p>Llevamos el diésel a los nueve departamentos del país.</p></li>
       <li data-reveal><span class="ri">${icon("pago")}</span><h3>Formas de pago</h3><p>Transferencia bancaria, contado, pago con QR y crédito a empresas.</p></li>
     </ul>
+  </div>
+</section>
+
+<section class="sec mist" aria-labelledby="ficha-t" id="ficha-tecnica">
+  <div class="wrap">
+    <div class="head head-split">
+      <h2 id="ficha-t" class="d2" data-lines>${lines("Ficha", "<span class=\"c\">técnica</span>")}</h2>
+      <p class="lead" data-reveal>Resultados del certificado de análisis de un lote de diésel ULSD importado por E.F.O., emitido por el laboratorio independiente AmSpec en junio de 2026.</p>
+    </div>
+    <div class="ficha" data-reveal>
+      <table>
+        <thead><tr><th scope="col">Ensayo</th><th scope="col">Resultado</th><th scope="col">Método</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Azufre total</th><td>9,5 mg/kg (ppm)</td><td>ASTM D5453</td></tr>
+          <tr><th scope="row">Densidad a 15 °C</th><td>0,838 kg/l</td><td>ASTM D4052</td></tr>
+          <tr><th scope="row">Índice de cetano calculado</th><td>50,3</td><td>ASTM D976</td></tr>
+          <tr><th scope="row">Punto de inflamación</th><td>58 °C</td><td>ASTM D93</td></tr>
+          <tr><th scope="row">Viscosidad a 40 °C</th><td>2,433 cSt</td><td>ASTM D445</td></tr>
+          <tr><th scope="row">Punto de fluidez</th><td>Menor a −21 °C</td><td>ASTM D97</td></tr>
+          <tr><th scope="row">Destilación, 90 % recuperado</th><td>331,9 °C</td><td>ASTM D86</td></tr>
+          <tr><th scope="row">Agua y sedimentos</th><td>Menor a 0,05 % vol</td><td>ASTM D2709</td></tr>
+          <tr><th scope="row">Corrosión a la lámina de cobre</th><td>1A</td><td>ASTM D130</td></tr>
+          <tr><th scope="row">Cenizas</th><td>Menor a 0,010 % m/m</td><td>ASTM D482</td></tr>
+          <tr><th scope="row">Residuo de carbón</th><td>0,02 % peso</td><td>ASTM D189</td></tr>
+          <tr><th scope="row">Biodiésel (FAME)</th><td>No detectado</td><td>EN 14078</td></tr>
+          <tr><th scope="row">Aspecto</th><td>Cristalino</td><td>Visual</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ficha-nota" data-reveal>Los valores corresponden a un lote analizado y pueden variar ligeramente entre importaciones. Solicita el certificado del lote al cotizar.</p>
   </div>
 </section>
 
@@ -487,9 +517,9 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
         <li>${icon("torre")}<span><b>Estructuras de montaje</b><span>Para techo, suelo o cubiertas industriales.</span></span></li>
         <li>${icon("ajustes")}<span><b>Protecciones y tableros</b><span>Seguridad eléctrica en cada punto del sistema.</span></span></li>
         <li>${icon("idea")}<span><b>Monitoreo</b><span>Seguimiento de la producción de energía desde el celular.</span></span></li>
-        <li>${icon("escudo")}<span><b>Marcas y garantía</b><span>Equipos Lumos Energy y Huawei, con 2 años de garantía.</span></span></li>
+        <li>${icon("escudo")}<span><b>Marcas y garantía</b><span>Equipos Huawei y Lumosenergy, con 2 años de garantía.</span></span></li>
       </ul>
-      <div class="chips" data-reveal><span>Conectado a la red</span><span>Híbrido con baterías</span><span>Lumos Energy</span><span>Huawei</span></div>
+      <div class="chips" data-reveal><span>Conectado a la red</span><span>Híbrido con baterías</span><span>Huawei</span><span>Lumosenergy</span></div>
       <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar" data-reveal>Cotizar sistema solar ${icon("flecha")}</a>
     </div>
   </div>
@@ -540,6 +570,51 @@ ${escena()}
       <li data-reveal><span class="ri">${icon("torre")}</span><h3>Infraestructura eléctrica</h3><p>La infraestructura que la carga necesita para funcionar de forma segura.</p></li>
       <li data-reveal><span class="ri">${icon("red")}</span><h3>Proyectos de movilidad eléctrica</h3><p>Proyectos integrales para empresas, instituciones y transporte.</p></li>
     </ul>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="lumos-t" id="cargadores">
+  <div class="wrap">
+    <div class="head head-split">
+      <h2 id="lumos-t" class="d2" data-lines>${lines("Cargadores", "<span class=\"c\">Lumosenergy</span>")}</h2>
+      <p class="lead" data-reveal>Trabajamos con equipos Lumosenergy, uno de los tres mayores fabricantes de cargadores de China, con más de 200.000 puntos de carga instalados en más de 40 países.</p>
+    </div>
+    <ul class="eqs">
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/ac22.webp" alt="AC22 Turbo, equipo Lumosenergy" width="104" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Cargador AC</span><h3>AC22 Turbo</h3><p class="eq-p">7, 11 o 22 kW</p><p>Conector Tipo 2, de pared o pedestal.</p><small>Hogares, oficinas y hoteles</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/da30.webp" alt="DA30 Compact, equipo Lumosenergy" width="365" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Cargador DC compacto</span><h3>DA30 Compact</h3><p class="eq-p">30 kW</p><p>Conector CCS2 y pantalla táctil.</p><small>Comercios y estacionamientos</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/da60.webp" alt="DA60 Fast, equipo Lumosenergy" width="450" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA60 Fast</h3><p class="eq-p">60 kW</p><p>Dos conectores CCS2.</p><small>Electrolineras y flotas</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/da180.webp" alt="DA180 Fast, equipo Lumosenergy" width="440" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA180 Fast</h3><p class="eq-p">120 o 180 kW</p><p>Dos conectores CCS2; versión CHAdeMO disponible.</p><small>Carga pública y vehículos pesados</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/da240.webp" alt="DA240 Fast, equipo Lumosenergy" width="465" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA240 Fast</h3><p class="eq-p">240 kW</p><p>Dos conectores CCS2, hasta 400 A.</p><small>Sitios de alta demanda</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/da480.webp" alt="DA480 Ultra-fast, equipo Lumosenergy" width="538" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Cargador DC ultrarrápido</span><h3>DA480 Ultra-fast</h3><p class="eq-p">480 kW</p><p>Carga hasta 4 vehículos a la vez.</p><small>Electrolineras de alto tráfico</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/dd300.webp" alt="DC480 Cabinet + DD300, equipo Lumosenergy" width="362" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Carga distribuida</span><h3>DC480 Cabinet + DD300</h3><p class="eq-p">480 a 1440 kW</p><p>Gabinete de potencia con dispensadores de hasta 300 kW por conector.</p><small>Terminales de buses y grandes flotas</small></div>
+      </li>
+      <li class="eq" data-reveal>
+        <figure><img src="/assets/foto/cargadores/ess.webp" alt="Almacenamiento de energía, equipo Lumosenergy" width="383" height="640" loading="lazy" decoding="async"></figure>
+        <div class="eq-in"><span class="eq-k">Sistema de baterías</span><h3>Almacenamiento de energía</h3><p class="eq-p">125 kW · 261 kWh</p><p>Baterías LFP con refrigeración líquida.</p><small>Respaldo, picos de demanda y energía solar</small></div>
+      </li>
+    </ul>
+    <div class="chips" data-reveal><span>Protocolo OCPP 1.6J y 2.0.1</span><span>Certificación CE</span><span>Monitoreo remoto</span><span>Gestión dinámica de carga</span><span>Pago con app, tarjeta RFID o QR</span></div>
+    <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Cargadores#cotizar" data-reveal>Cotizar cargadores ${icon("flecha")}</a>
   </div>
 </section>
 

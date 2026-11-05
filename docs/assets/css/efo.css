@@ -548,3 +548,29 @@ main { position: relative; overflow-x: clip; }
 .step-cta h3 { font-size: 1.4rem; }
 .step-cta p { color: rgba(255, 255, 255, 0.82); }
 .step-cta .btn { justify-self: start; margin-top: 6px; }
+
+/* Ficha técnica del diésel */
+.ficha { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); }
+.ficha table { width: 100%; border-collapse: collapse; font-size: 0.98rem; min-width: 520px; }
+.ficha th, .ficha td { text-align: left; padding: 14px 20px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ficha thead th { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); background: var(--mist); }
+.ficha tbody th { font-weight: 700; color: var(--ink); }
+.ficha tbody td:nth-child(2) { font-weight: 800; color: var(--blue); white-space: nowrap; }
+.ficha tbody td:nth-child(3) { color: var(--ink-3); white-space: nowrap; }
+.ficha tbody tr:last-child th, .ficha tbody tr:last-child td { border-bottom: 0; }
+.ficha-nota { margin: 16px 0 0; font-size: 0.9rem; color: var(--ink-3); }
+/* Cargadores Lumosenergy */
+.eqs { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .eqs { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .eqs { grid-template-columns: repeat(4, 1fr); } }
+.eq { display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); overflow: hidden; }
+.eq figure { margin: 0; height: 240px; display: grid; place-items: center; padding: 20px; background: linear-gradient(180deg, var(--mist), var(--paper)); }
+.eq figure { overflow: hidden; }
+.eq img { height: 200px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 14px 18px rgba(3, 31, 54, 0.14)); }
+.eq-in { padding: 18px 20px 22px; display: grid; gap: 6px; align-content: start; }
+.eq-k { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan-ink); }
+.eq h3 { margin: 0; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; line-height: 1.2; }
+.eq p { margin: 0; color: var(--ink-2); font-size: 0.96rem; }
+.eq .eq-p { font-weight: 800; color: var(--blue); font-size: 1.05rem; }
+.eq small { margin-top: 6px; font-size: 0.85rem; color: var(--ink-3); }
+@media (max-width: 600px) { .ficha table { min-width: 0; } .ficha th:nth-child(3), .ficha td:nth-child(3) { display: none; } .ficha th, .ficha td { padding: 12px 14px; } .ficha tbody td:nth-child(2) { white-space: normal; } }
