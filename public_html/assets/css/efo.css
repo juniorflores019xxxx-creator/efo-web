@@ -574,3 +574,5 @@ main { position: relative; overflow-x: clip; }
 .eq .eq-p { font-weight: 800; color: var(--blue); font-size: 1.05rem; }
 .eq small { margin-top: 6px; font-size: 0.85rem; color: var(--ink-3); }
 @media (max-width: 600px) { .ficha table { min-width: 0; } .ficha th:nth-child(3), .ficha td:nth-child(3) { display: none; } .ficha th, .ficha td { padding: 12px 14px; } .ficha tbody td:nth-child(2) { white-space: normal; } }
+.eq-a { margin-top: 10px; font-size: 0.9rem; font-weight: 800; color: var(--cyan-ink); text-decoration: underline; text-underline-offset: 3px; }
+#cargadores .btns { display: flex; flex-wrap: wrap; gap: 12px; }

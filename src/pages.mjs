@@ -582,39 +582,42 @@ ${escena()}
     <ul class="eqs">
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/ac22.webp" alt="AC22 Turbo, equipo Lumosenergy" width="104" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Cargador AC</span><h3>AC22 Turbo</h3><p class="eq-p">7, 11 o 22 kW</p><p>Conector Tipo 2, de pared o pedestal.</p><small>Hogares, oficinas y hoteles</small></div>
+        <div class="eq-in"><span class="eq-k">Cargador AC</span><h3>AC22 Turbo</h3><p class="eq-p">7, 11 o 22 kW</p><p>Conector Tipo 2, de pared o pedestal.</p><small>Hogares, oficinas y hoteles</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=2" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/da30.webp" alt="DA30 Compact, equipo Lumosenergy" width="365" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Cargador DC compacto</span><h3>DA30 Compact</h3><p class="eq-p">30 kW</p><p>Conector CCS2 y pantalla táctil.</p><small>Comercios y estacionamientos</small></div>
+        <div class="eq-in"><span class="eq-k">Cargador DC compacto</span><h3>DA30 Compact</h3><p class="eq-p">30 kW</p><p>Salida DC de 150 a 1000 V y pantalla táctil.</p><small>Comercios y estacionamientos</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=3" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/da60.webp" alt="DA60 Fast, equipo Lumosenergy" width="450" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA60 Fast</h3><p class="eq-p">60 kW</p><p>Dos conectores CCS2.</p><small>Electrolineras y flotas</small></div>
+        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA60 Fast</h3><p class="eq-p">60 kW</p><p>Dos conectores CCS2.</p><small>Electrolineras y flotas</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=4" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/da180.webp" alt="DA180 Fast, equipo Lumosenergy" width="440" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA180 Fast</h3><p class="eq-p">120 o 180 kW</p><p>Dos conectores CCS2; versión CHAdeMO disponible.</p><small>Carga pública y vehículos pesados</small></div>
+        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA180 Fast</h3><p class="eq-p">120 o 180 kW</p><p>Dos conectores CCS2; versión CHAdeMO disponible.</p><small>Carga pública y vehículos pesados</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=5" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/da240.webp" alt="DA240 Fast, equipo Lumosenergy" width="465" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA240 Fast</h3><p class="eq-p">240 kW</p><p>Dos conectores CCS2, hasta 400 A.</p><small>Sitios de alta demanda</small></div>
+        <div class="eq-in"><span class="eq-k">Cargador DC rápido</span><h3>DA240 Fast</h3><p class="eq-p">240 kW</p><p>Dos conectores CCS2, hasta 400 A.</p><small>Sitios de alta demanda</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=6" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/da480.webp" alt="DA480 Ultra-fast, equipo Lumosenergy" width="538" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Cargador DC ultrarrápido</span><h3>DA480 Ultra-fast</h3><p class="eq-p">480 kW</p><p>Carga hasta 4 vehículos a la vez.</p><small>Electrolineras de alto tráfico</small></div>
+        <div class="eq-in"><span class="eq-k">Cargador DC ultrarrápido</span><h3>DA480 Ultra-fast</h3><p class="eq-p">480 kW</p><p>Carga hasta 4 vehículos a la vez.</p><small>Electrolineras de alto tráfico</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=7" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/dd300.webp" alt="DC480 Cabinet + DD300, equipo Lumosenergy" width="362" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Carga distribuida</span><h3>DC480 Cabinet + DD300</h3><p class="eq-p">480 a 1440 kW</p><p>Gabinete de potencia con dispensadores de hasta 300 kW por conector.</p><small>Terminales de buses y grandes flotas</small></div>
+        <div class="eq-in"><span class="eq-k">Carga distribuida</span><h3>DC480 Cabinet + DD300</h3><p class="eq-p">480 a 1440 kW</p><p>Gabinete de potencia con dispensadores de hasta 300 kW por conector.</p><small>Terminales de buses y grandes flotas</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=8" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
       <li class="eq" data-reveal>
         <figure><img src="/assets/foto/cargadores/ess.webp" alt="Almacenamiento de energía, equipo Lumosenergy" width="383" height="640" loading="lazy" decoding="async"></figure>
-        <div class="eq-in"><span class="eq-k">Sistema de baterías</span><h3>Almacenamiento de energía</h3><p class="eq-p">125 kW · 261 kWh</p><p>Baterías LFP con refrigeración líquida.</p><small>Respaldo, picos de demanda y energía solar</small></div>
+        <div class="eq-in"><span class="eq-k">Sistema de baterías</span><h3>Almacenamiento de energía</h3><p class="eq-p">125 kW · 261 kWh</p><p>Baterías LFP con refrigeración líquida.</p><small>Respaldo, picos de demanda y energía solar</small><a class="eq-a" href="/assets/docs/catalogo-cargadores-efo.pdf#page=9" target="_blank" rel="noopener">Ver ficha técnica (PDF)</a></div>
       </li>
     </ul>
     <div class="chips" data-reveal><span>Protocolo OCPP 1.6J y 2.0.1</span><span>Certificación CE</span><span>Monitoreo remoto</span><span>Gestión dinámica de carga</span><span>Pago con app, tarjeta RFID o QR</span></div>
-    <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Cargadores#cotizar" data-reveal>Cotizar cargadores ${icon("flecha")}</a>
+    <div class="btns" data-reveal>
+      <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Cargadores#cotizar">Cotizar cargadores ${icon("flecha")}</a>
+      <a class="btn btn-line btn-lg" href="/assets/docs/catalogo-cargadores-efo.pdf" download="Catalogo-cargadores-EFO.pdf">Descargar catálogo en PDF</a>
+    </div>
   </div>
 </section>
 
