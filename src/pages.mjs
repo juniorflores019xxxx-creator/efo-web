@@ -239,7 +239,7 @@ export const PAGES = [
     body: `
 <section class="hero" aria-labelledby="hero-t">
   <div class="hero-media">
-    <video data-src="/assets/video/plaza-720.mp4" data-webm="/assets/video/plaza-720.webm" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
+    <video data-src="/assets/video/plaza-720.mp4" poster="/assets/video/plaza-poster.webp" muted loop playsinline autoplay preload="none" aria-hidden="true"></video>
   </div>
   <div class="wrap hero-in">
     <h1 id="hero-t" class="d1" data-lines>${lines("Energía", "que mueve", "<span style=\"color:var(--cyan-soft)\">Bolivia</span>")}</h1>
