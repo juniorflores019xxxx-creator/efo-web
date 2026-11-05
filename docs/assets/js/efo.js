@@ -53,38 +53,42 @@
   });
 
   /* ---------- Música de fondo: «Patria Inmortal» desde el segundo 35, en todas las páginas ----------
-     Los navegadores no permiten sonido sin un toque previo: arranca en silencio y suena con el
-     primer toque/clic/tecla. La nota musical corta o activa el sonido (tachada = en silencio).
-     El minuto y la preferencia de silencio se conservan al cambiar de página. */
+     Se intenta sonar al entrar. Si el navegador lo bloquea (exigen un toque previo), arranca en
+     silencio y suena con el primer toque/clic/tecla en cualquier parte. La nota musical, con su X roja,
+     corta la música; tocándola de nuevo vuelve. El minuto y el silencio se conservan entre páginas. */
   (function () {
-    var box = $("#player"), mBtn = $(".music"), errorBox = $(".player-error", box);
+    var box = $("#player"), mBtn = $(".music"), errorBox = $(".player-error", box), tip = $(".music-tip", mBtn);
     if (!box || !mBtn) return;
     var START = 35, KT = "efo-musica-t", KM = "efo-musica-mute";
     var ss = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
-    var userMute = ss.get(KM) === "1", player = null, ready = false, playing = false, audible = false;
+    var userMute = ss.get(KM) === "1", player = null, ready = false, playing = false;
     function showError(msg) { if (errorBox) { errorBox.textContent = msg; errorBox.hidden = false; } }
+    function audible() { try { return ready && playing && !player.isMuted(); } catch (e) { return false; } }
     function ui() {
-      var on = audible && playing;
-      mBtn.classList.toggle("playing", on);
-      mBtn.setAttribute("aria-pressed", String(!on));
-      mBtn.setAttribute("aria-label", on ? "Silenciar la música" : "Activar el sonido de la música");
+      mBtn.classList.toggle("muted", userMute);
+      mBtn.classList.toggle("playing", audible());
+      var t = userMute ? "Activar música" : "Silenciar música";
+      mBtn.setAttribute("aria-label", t); mBtn.title = t; if (tip) tip.textContent = t;
     }
+    function hint() { mBtn.classList.add("hint"); clearTimeout(hint.t); hint.t = setTimeout(function () { mBtn.classList.remove("hint"); }, 5000); }
     function sound() {
       if (!player || !ready || userMute) return;
-      try { player.unMute(); player.setVolume(55); if (!playing) player.playVideo(); audible = true; } catch (e) { console.error("No se pudo activar el sonido.", e); }
-      ui();
+      try { player.unMute(); player.setVolume(55); player.playVideo(); } catch (e) { console.error("No se pudo activar el sonido.", e); }
+      setTimeout(ui, 300);
     }
-    function silence() { if (player && ready) { try { player.mute(); } catch (e) {} } audible = false; ui(); }
-    var EV = ["pointerdown", "keydown", "touchstart"];
+    // Eventos que los navegadores aceptan como "interacción" para permitir sonido (en celular cuenta al soltar el dedo)
+    var EV = ["pointerdown", "pointerup", "mousedown", "touchend", "click", "keydown"];
     function gesture(e) {
-      if (e && e.target && e.target.closest && e.target.closest(".music")) return; // el botón decide por sí mismo
+      if (e && e.target && e.target.closest && e.target.closest(".music")) return; // la nota decide por sí misma
+      if (!ready) return; // aún cargando: se espera el siguiente toque
       EV.forEach(function (ev) { document.removeEventListener(ev, gesture, true); });
       sound();
     }
     EV.forEach(function (ev) { document.addEventListener(ev, gesture, true); });
     mBtn.addEventListener("click", function () {
-      if (audible && playing) { userMute = true; ss.set(KM, "1"); silence(); }
-      else { userMute = false; ss.set(KM, "0"); sound(); }
+      userMute = !userMute; ss.set(KM, userMute ? "1" : "0");
+      if (userMute) { try { player.mute(); } catch (e) {} } else sound();
+      ui(); hint();
     });
     function playbackError(e) {
       var code = e && e.data;
@@ -102,9 +106,11 @@
         events: {
           onReady: function () {
             ready = true;
-            player.mute(); player.playVideo();
-            if (navigator.userActivation && navigator.userActivation.hasBeenActive) sound();
-            ui();
+            player.playVideo();
+            // Intento con sonido desde el inicio; si el navegador lo impide, sigue en silencio hasta el primer toque
+            if (!userMute) sound();
+            setTimeout(function () { if (!playing) { player.mute(); player.playVideo(); } ui(); }, 1500);
+            ui(); hint();
           },
           onStateChange: function (e) {
             if (e.data === YT.PlayerState.PLAYING) { playing = true; if (errorBox) errorBox.hidden = true; }
@@ -115,7 +121,7 @@
           onError: playbackError,
         },
       });
-      setInterval(function () { try { var c = player.getCurrentTime(); if (c) ss.set(KT, String(c)); } catch (e) {} }, 1500);
+      setInterval(function () { try { var c = player.getCurrentTime(); if (c) ss.set(KT, String(c)); } catch (e) {} ui(); }, 1500);
     };
     window.addEventListener("pagehide", function () { try { ss.set(KT, String(player.getCurrentTime())); } catch (e) {} });
     var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true;
