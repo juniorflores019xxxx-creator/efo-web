@@ -503,3 +503,16 @@ main { position: relative; overflow-x: clip; }
 .photo.tall:has(.coaster) .par img { object-position: 50% 60%; }
 .photo.tall:has(.coaster) .float-card { position: relative; left: auto; right: auto; bottom: auto; max-width: none; box-shadow: 0 0 0 1px var(--line); }
 .bio .d2 { font-size: clamp(2rem, 3.6vw, 3.4rem); }
+
+/* ---------- Efectos de desplazamiento ---------- */
+.scroll-progress { position: fixed; inset: 0 0 auto; height: 3px; z-index: 260; pointer-events: none; }
+.scroll-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--green, #3BB54A)); transform: scaleX(0); transform-origin: 0 50%; }
+.marquee { overflow: hidden; padding-block: clamp(32px, 6vw, 72px); background: var(--paper); display: grid; gap: clamp(4px, 1vw, 12px); }
+.mq-row { display: flex; width: max-content; white-space: nowrap; font-weight: 800; text-transform: uppercase; letter-spacing: -0.04em; line-height: 1; font-size: clamp(2.6rem, 8.5vw, 7.5rem); color: var(--ink); will-change: transform; }
+.mq-row span { display: inline-flex; align-items: center; gap: 0.35em; padding-right: 0.35em; }
+.mq-row i { display: inline-block; width: 0.32em; height: 0.32em; border-radius: 50%; background: var(--cyan); flex: none; }
+.mq-line { color: transparent; -webkit-text-stroke: 1.5px var(--blue); }
+.mq-line i { background: var(--green, #3BB54A); }
+.reduce .scroll-progress, .nogsap .scroll-progress { display: none; }
+@media (prefers-reduced-motion: reduce) { .mq-row { transform: none !important; } }
+.statement + .marquee { padding-top: 0; margin-top: calc(-1 * clamp(40px, 7vw, 120px)); }

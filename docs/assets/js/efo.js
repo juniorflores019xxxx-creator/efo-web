@@ -190,10 +190,22 @@
   var gsap = window.gsap, ST = window.ScrollTrigger;
   gsap.registerPlugin(ST);
 
+  /* Inclinación según la velocidad del desplazamiento (vuelve a 0 al frenar) */
+  var skewEls = $$(".photo, .proj, .depth figure, .mq-row");
+  var skewTo = skewEls.map(function (el) { return gsap.quickTo(el, "skewY", { duration: 0.6, ease: "power3.out" }); });
+  var skewTimer = null;
+  function skewBy(v) {
+    var k = Math.max(-5, Math.min(5, (v || 0) * -0.18));
+    skewTo.forEach(function (f) { f(k); });
+    clearTimeout(skewTimer);
+    skewTimer = setTimeout(function () { skewTo.forEach(function (f) { f(0); }); }, 120);
+  }
+
   /* Desplazamiento suave */
   if (window.Lenis) {
-    lenis = new window.Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
-    lenis.on("scroll", function (e) { ST.update(); onScroll(e.scroll); });
+    // Desplazamiento con inercia: la página se desliza y frena suave, también al arrastrar con el dedo
+    lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1, syncTouch: true, syncTouchLerp: 0.07, touchInertiaMultiplier: 28, touchMultiplier: 1.1 });
+    lenis.on("scroll", function (e) { ST.update(); onScroll(e.scroll); skewBy(e.velocity); });
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
     $$('a[href^="#"]').forEach(function (a) {
@@ -201,7 +213,23 @@
     });
   } else {
     window.addEventListener("scroll", function () { onScroll(window.scrollY); }, { passive: true });
+    ST.create({ start: 0, end: "max", onUpdate: function (st) { skewBy(st.getVelocity() / 60); } });
   }
+
+  /* Barra de progreso de lectura */
+  var bar = $(".scroll-progress i");
+  if (bar) gsap.to(bar, { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
+
+  /* Banda de palabras: cada fila avanza en sentido contrario según el scroll */
+  $$(".mq-row").forEach(function (row) {
+    var dir = parseFloat(row.dataset.mq) || 1;
+    gsap.fromTo(row, { xPercent: dir > 0 ? 0 : -33.333 }, { xPercent: dir > 0 ? -33.333 : 0, ease: "none", scrollTrigger: { trigger: row.parentNode, start: "top bottom", end: "bottom top", scrub: 0.6 } });
+  });
+
+  /* Fotos que se descubren como una ventana al entrar en pantalla */
+  $$(".photo, .depth figure").forEach(function (f) {
+    gsap.fromTo(f, { clipPath: "inset(18% 0% 0% 0% round 18px)" }, { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: { trigger: f, start: "top 95%", end: "top 55%", scrub: 0.5 } });
+  });
 
   /* Títulos por líneas: suben desde abajo */
   $$("[data-lines]").forEach(function (el) {
