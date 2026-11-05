@@ -30,7 +30,7 @@ En `src/pages.mjs`, lista `PROYECTOS`: cambia el sello `Proyecto conceptual` por
 6. Cuando HTTPS funcione de extremo a extremo, quita el `#` de la línea `Strict-Transport-Security` en `.htaccess`.
 7. Registra el sitio en Google Search Console y envía `https://efo.com.bo/sitemap.xml`.
 
-En la última revisión, el dominio mostraba la página aparcada de Hostinger por HTTP y devolvía error 525 por HTTPS. Antes de anunciar la web, confirma en Hostinger el dominio asignado, la raíz del sitio y el certificado del servidor de origen; conserva intactos los registros de correo.
+En la revisión del 5 de noviembre de 2026, el DNS estaba en Cloudflare (`cody` y `marge`), con el correo en Hostinger (MX `mx1`/`mx2.hostinger.com` y SPF). Por HTTP se veía la página aparcada de Hostinger y por HTTPS daba error 525: el dominio aún no estaba vinculado a un sitio del plan de hosting y el origen no tenía certificado. Antes de anunciar la web, confirma en Hostinger el dominio asignado, la raíz del sitio y el certificado del servidor de origen; conserva intactos los registros de correo.
 
 ## Pendiente con el cliente
 
