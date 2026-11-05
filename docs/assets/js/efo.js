@@ -212,6 +212,60 @@
     });
   });
 
+  /* Textos: las palabras aparecen suavemente al llegar a ellas */
+  $$(".lead").forEach(function (p) {
+    p.removeAttribute("data-reveal");
+    p.classList.add("split");
+    var walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (n) {
+      var frag = document.createDocumentFragment();
+      n.nodeValue.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        var w = document.createElement("span"); w.className = "wd"; w.textContent = part; frag.appendChild(w);
+      });
+      n.parentNode.replaceChild(frag, n);
+    });
+    var inHero = !!p.closest(".hero, .phero");
+    gsap.from($$(".wd", p), {
+      opacity: 0, y: 14, duration: 0.8, ease: "power2.out", stagger: 0.018,
+      delay: inHero ? 0.9 : 0,
+      scrollTrigger: inHero ? null : { trigger: p, start: "top 88%", once: true },
+    });
+  });
+
+  /* Imágenes y tarjetas: se inclinan en 3D siguiendo el mouse o el toque */
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  $$(".photo, .proj, .depth figure, .bio-main").forEach(function (el) {
+    var glare = document.createElement("span");
+    glare.className = "tilt-glare"; glare.setAttribute("aria-hidden", "true");
+    el.appendChild(glare);
+    el.classList.add("tilt");
+    gsap.set(el, { transformPerspective: 1000 });
+    var rx = gsap.quickTo(el, "rotationX", { duration: 0.7, ease: "power3.out" });
+    var ry = gsap.quickTo(el, "rotationY", { duration: 0.7, ease: "power3.out" });
+    var sc = gsap.quickTo(el, "scale", { duration: 0.7, ease: "power3.out" });
+    var timer = null;
+    function at(x, y) {
+      var r = el.getBoundingClientRect(), px = (x - r.left) / r.width, py = (y - r.top) / r.height;
+      rx((0.5 - py) * 9); ry((px - 0.5) * 11); sc(1.015);
+      el.style.setProperty("--gx", (px * 100).toFixed(1) + "%"); el.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+      el.classList.add("tilting");
+    }
+    function reset() { rx(0); ry(0); sc(1); el.classList.remove("tilting"); }
+    if (fine) {
+      el.addEventListener("pointermove", function (e) { at(e.clientX, e.clientY); });
+      el.addEventListener("pointerleave", reset);
+    } else {
+      el.addEventListener("touchstart", function (e) {
+        var t = e.touches[0]; if (!t) return;
+        at(t.clientX, t.clientY);
+        clearTimeout(timer); timer = setTimeout(reset, 650);
+      }, { passive: true });
+    }
+  });
+
   /* Aparición de bloques */
   gsap.set("[data-reveal]", { opacity: 0, y: 44 });
   ST.batch("[data-reveal]", {

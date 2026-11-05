@@ -503,3 +503,21 @@ main { position: relative; overflow-x: clip; }
 .photo.tall:has(.coaster) .par img { object-position: 50% 60%; }
 .photo.tall:has(.coaster) .float-card { position: relative; left: auto; right: auto; bottom: auto; max-width: none; box-shadow: 0 0 0 1px var(--line); }
 .bio .d2 { font-size: clamp(2rem, 3.6vw, 3.4rem); }
+
+/* ---------- Banda de palabras: avance lento y constante ---------- */
+.marquee { overflow: hidden; border-block: 1px solid var(--line); background: var(--paper); padding-block: clamp(18px, 2.6vw, 30px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.mq-track { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); width: max-content; animation: mq 70s linear infinite; }
+.mq-track span { font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 2.1rem); letter-spacing: -0.01em; color: var(--ink); white-space: nowrap; }
+.mq-track i { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); flex: none; }
+.marquee:hover .mq-track { animation-play-state: paused; }
+@keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .mq-track { animation: none; } }
+
+/* ---------- Palabras que aparecen al bajar ---------- */
+.js .split .wd { display: inline-block; }
+
+/* ---------- Imágenes con profundidad 3D al pasar el mouse o tocar ---------- */
+.tilt { transform-style: preserve-3d; will-change: transform; }
+.tilt-glare { position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 55%); opacity: 0; transition: opacity 0.4s var(--ease); }
+.tilt.tilting .tilt-glare { opacity: 1; }
+.tilt.tilting { box-shadow: 0 30px 60px -30px rgba(3, 31, 54, 0.55); }

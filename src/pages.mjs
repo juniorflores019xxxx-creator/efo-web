@@ -270,6 +270,10 @@ export const PAGES = [
   </div>
 </section>
 
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">${"<span>Combustibles</span><i></i><span>Energía</span><i></i><span>Industria</span><i></i><span>Electromovilidad</span><i></i><span>Santa Cruz · Bolivia</span><i></i>".repeat(4)}</div>
+</div>
+
 ${areas()}
 
 ${buque()}
