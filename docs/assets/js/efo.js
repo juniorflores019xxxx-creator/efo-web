@@ -29,51 +29,82 @@
     } else v.play();
   });
 
-  /* ---------- Música de fondo: «Patria Inmortal» desde el segundo 35, en todas las páginas ----------
-     Los navegadores no permiten sonido sin un toque previo: arranca en silencio y se activa con el
-     primer toque/clic/tecla. El minuto se conserva al cambiar de página. */
+  /* ---------- Música de fondo ---------- */
   (function () {
-    var box = $("#player"), mBtn = $(".music"), xBtn = $(".mute");
-    if (!box || !mBtn || !xBtn) return;
-    var START = 35, KT = "efo-musica-t", KM = "efo-musica-mute", KP = "efo-musica-pausa";
+    var box = $("#player"), mBtn = $(".music"), errorBox = $(".player-error", box);
+    if (!box || !mBtn) return;
+    var START = 35, KT = "efo-musica-t", player = null, ready = false, playing = false;
     var ss = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
-    var userMute = ss.get(KM) === "1", paused = ss.get(KP) === "1", player = null, ready = false;
     function ui() {
-      var on = ready && !paused;
-      mBtn.classList.toggle("playing", on && !userMute);
-      mBtn.setAttribute("aria-pressed", String(on));
-      xBtn.setAttribute("aria-pressed", String(userMute));
-      xBtn.setAttribute("aria-label", userMute ? "Activar el sonido de la música" : "Silenciar la música");
-      box.classList.toggle("off", paused);
+      mBtn.disabled = !ready;
+      mBtn.setAttribute("aria-pressed", String(playing));
+      mBtn.setAttribute("aria-label", ready ? (playing ? "Pausar el video" : "Reproducir el video") : "Cargando el reproductor");
     }
-    function sound() { if (!player || userMute) return; try { player.unMute(); player.setVolume(55); } catch (e) {} }
-    function gesture() { sound(); ["pointerdown", "keydown", "touchstart"].forEach(function (ev) { document.removeEventListener(ev, gesture, true); }); }
-    ["pointerdown", "keydown", "touchstart"].forEach(function (ev) { document.addEventListener(ev, gesture, true); });
+    function play() {
+      if (!player || !ready) return;
+      try {
+        player.unMute();
+        player.setVolume(55);
+        player.playVideo();
+      } catch (e) {
+        playing = false;
+        if (errorBox) { errorBox.textContent = "No se pudo iniciar el video. Intenta tocar la nota musical nuevamente."; errorBox.hidden = false; }
+        console.error("No se pudo iniciar el video de música.", e);
+      }
+      ui();
+    }
     mBtn.addEventListener("click", function () {
-      if (!player) return;
-      paused = !paused; ss.set(KP, paused ? "1" : "0");
-      if (paused) player.pauseVideo(); else { player.playVideo(); sound(); }
+      if (!player) {
+        return;
+      }
+      if (playing) {
+        player.pauseVideo();
+      } else {
+        play();
+      }
       ui();
     });
-    xBtn.addEventListener("click", function () {
-      userMute = !userMute; ss.set(KM, userMute ? "1" : "0");
-      if (player) { if (userMute) player.mute(); else sound(); }
-      ui();
-    });
+    function playbackError(e) {
+      var code = e && e.data;
+      var message = code === 101 || code === 150
+        ? "Este video no permite reproducirse dentro de la página."
+        : code === 153
+          ? "YouTube no recibió la dirección de esta página. Revisa la conexión segura del sitio."
+          : "No se pudo cargar el video. Intenta nuevamente más tarde.";
+      playing = false;
+      if (errorBox) { errorBox.textContent = message; errorBox.hidden = false; }
+      console.error("Error del reproductor de música de YouTube:", code);
+    }
     window.onYouTubeIframeAPIReady = function () {
       var t = parseFloat(ss.get(KT)); if (!(t >= START)) t = START;
       player = new YT.Player("yt", {
         host: "https://www.youtube-nocookie.com", videoId: "hbCTWzxubbU",
-        playerVars: { start: Math.floor(t), autoplay: 1, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, disablekb: 1 },
+        playerVars: { start: Math.floor(t), autoplay: 0, controls: 1, rel: 0, playsinline: 1, modestbranding: 1 },
         events: {
-          onReady: function () { ready = true; player.mute(); if (!paused) player.playVideo(); else player.pauseVideo(); if (navigator.userActivation && navigator.userActivation.hasBeenActive) sound(); ui(); },
-          onStateChange: function (e) { if (e.data === 0) { player.seekTo(START, true); player.playVideo(); } },
+          onReady: function () {
+            ready = true;
+            ui();
+          },
+          onStateChange: function (e) {
+            if (e.data === YT.PlayerState.PLAYING) {
+              playing = true;
+              if (errorBox) errorBox.hidden = true;
+            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+              playing = false;
+            }
+            ui();
+          },
+          onError: playbackError,
         },
       });
       setInterval(function () { try { var c = player.getCurrentTime(); if (c) ss.set(KT, String(c)); } catch (e) {} }, 1500);
     };
     window.addEventListener("pagehide", function () { try { ss.set(KT, String(player.getCurrentTime())); } catch (e) {} });
-    var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true; document.head.appendChild(s);
+    var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true;
+    s.onerror = function () {
+      if (errorBox) { errorBox.textContent = "No se pudo cargar el reproductor. Revisa tu conexión e inténtalo nuevamente."; errorBox.hidden = false; }
+    };
+    document.head.appendChild(s);
     ui();
   })();
 

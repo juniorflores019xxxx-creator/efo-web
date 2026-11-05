@@ -327,6 +327,7 @@ ${pageHero({ title: lines("Energía y Fuerza", "del <span class=\"c\">Oriente</s
 
 <section class="sec-tight mist" aria-label="Visión y misión">
   <div class="wrap mv">
+    <h2 class="sr-only">Nuestra visión y misión</h2>
     <div data-reveal><h3>Nuestra visión</h3><p>Ser una empresa energética boliviana reconocida por desarrollar soluciones confiables, innovadoras y orientadas al crecimiento productivo del país.</p></div>
     <div data-reveal><h3>Nuestra misión</h3><p>Proporcionar soluciones energéticas y tecnológicas que respondan a las necesidades de nuestros clientes, contribuyendo al desarrollo de Bolivia.</p></div>
   </div>
