@@ -108,7 +108,7 @@ const SOLAR_PASOS = [
   ["solar-equipos", "Técnico sosteniendo un panel solar", "Suministro de equipos", "Llevamos los paneles, el inversor, las baterías, la estructura y las protecciones al lugar de la obra."],
   ["solar-montaje", "Técnicos con equipo de seguridad montando paneles solares", "Montaje de estructura y paneles", "Fijamos la estructura y montamos los paneles con equipo de seguridad y la inclinación correcta."],
   ["solar-conexion", "Tablero eléctrico con protecciones y cableado ordenado", "Conexión eléctrica", "Instalamos el inversor, el tablero, las protecciones y el cableado, y conectamos todo a tu red."],
-  ["solar-puesta", "Ingeniero con casco y chaleco entre paneles solares", "Pruebas y puesta en marcha", "Medimos, probamos y encendemos el sistema. Te enseñamos a usarlo y a ver la producción desde el celular."],
+  ["solar-puesta", "Ingeniero con casco y chaleco entre paneles solares", "Pruebas y puesta en marcha", "Medimos, probamos y encendemos el sistema. Te enseñamos a usarlo y a revisar su producción."],
   ["solar-mantenimiento", "Equipo técnico revisando paneles solares en un techo", "Mantenimiento y soporte", "Limpieza, revisión periódica y soporte técnico para que el sistema rinda durante muchos años."],
 ];
 
@@ -237,7 +237,8 @@ const ORG = {
   knowsAbout: ["Diésel ULSD", "Combustibles", "Energía solar fotovoltaica", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Cargadores para vehículos eléctricos", "Conversión de vehículos eléctricos"],
   sameAs: SOCIALS.map(([, url]) => url.split("?")[0]),
 };
-const LOCAL = { ...ORG, "@type": "LocalBusiness", image: `${SITE.url}/assets/img/compartir.jpg`,
+const LOCAL = { ...ORG, "@type": "LocalBusiness", image: `${SITE.url}/assets/img/compartir.jpg`, hasMap: SITE.maps,
+  geo: { "@type": "GeoCoordinates", latitude: SITE.lat, longitude: SITE.lng },
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "16:30" }] };
 const crumbsLd = (name, path) => ({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url + "/" }, { "@type": "ListItem", position: 2, name, item: SITE.url + path }] });
 
@@ -358,8 +359,8 @@ ${pageHero({ title: lines("Energía y Fuerza", "del <span class=\"c\">Oriente</s
     <ul class="rows">
       <li data-reveal><span class="ri">${icon("escudo")}</span><h3>Registro ANH</h3><p>Código único de registro ${SITE.anh} ante la Agencia Nacional de Hidrocarburos para la comercialización de diésel.</p></li>
       <li data-reveal><span class="ri">${icon("maletin")}</span><h3>Empresa legalmente constituida</h3><p>${SITE.legal}, NIT ${SITE.nit}, con oficinas en ${SITE.addr1}, Santa Cruz de la Sierra.</p></li>
-      <li data-reveal><span class="ri">${icon("engranaje")}</span><h3>Personal técnico propio</h3><p>Las instalaciones solares y de carga eléctrica las hace nuestro propio equipo técnico, con mantenimiento posterior.</p></li>
-      <li data-reveal><span class="ri">${icon("rayo")}</span><h3>Equipos de marcas reconocidas</h3><p>Cargadores y baterías Lumosenergy e inversores Huawei, con garantía.</p></li>
+      <li data-reveal><span class="ri">${icon("engranaje")}</span><h3>Personal técnico propio</h3><p>Las instalaciones solares las realiza el personal técnico de E.F.O., que también ofrece mantenimiento.</p></li>
+      <li data-reveal><span class="ri">${icon("rayo")}</span><h3>Equipos de marcas reconocidas</h3><p>Equipos Lumosenergy y Huawei, con garantía.</p></li>
     </ul>
   </div>
 </section>
@@ -376,7 +377,7 @@ ${cta()}`,
   {
     path: "/combustibles/", file: "combustibles/index.html",
     title: "Importación y venta de diésel ULSD en Bolivia | E.F.O.",
-    desc: "E.F.O. importa y vende diésel ULSD (ultra bajo azufre) para empresas, industrias y transporte en Bolivia, con almacenamiento y distribución propios.",
+    desc: "E.F.O. importa y vende diésel ULSD (ultra bajo azufre) para empresas, industrias y transporte en Bolivia, con entrega en los nueve departamentos.",
     ld: [ORG, crumbsLd("Combustibles", "/combustibles/")],
     body: `
 ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la economía</span>"), lead: "Importamos y comercializamos diésel ULSD (ultra bajo azufre), conectando mercados internacionales, logística e infraestructura para atender las necesidades energéticas de Bolivia.", foto: "refineria-tarde", crumb: "Combustibles" })}
@@ -464,7 +465,7 @@ ${pageHero({ title: lines("Combustibles", "para mover", "<span class=\"c\">la ec
   <div class="wrap">
     <div class="head head-split">
       <h2 id="ruta-t" class="d2" data-lines>${lines("Del tanque", "a tu <span class=\"c\">operación</span>")}</h2>
-      <p class="lead" data-reveal>Almacenamos y transportamos el diésel ULSD con logística propia para que llegue a tiempo y en las condiciones correctas.</p>
+      <p class="lead" data-reveal>Coordinamos el almacenamiento y el transporte del diésel ULSD para que llegue a tiempo y en las condiciones correctas.</p>
     </div>
     <div class="gal">
       <figure data-reveal>${pic("diesel-tanques", "Tanques de almacenamiento de combustible en una planta", { sizes: "(min-width: 760px) 50vw, 100vw" })}<figcaption><b>Almacenamiento</b><span>Tanques para resguardar el combustible importado.</span></figcaption></figure>
@@ -530,12 +531,12 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
       <h2 id="solar-t" class="d2" data-lines>${lines("Equipos", "<span class=\"c\">fotovoltaicos</span>")}</h2>
       <p class="lead" data-reveal>Diseñamos, suministramos e instalamos sistemas de paneles solares para hogares, empresas e industrias, con personal técnico propio. Menos gasto en energía y un suministro propio, limpio y estable.</p>
       <ul class="spec" data-reveal>
-        <li>${icon("panel")}<span><b>Paneles solares</b><span>Módulos monocristalinos de alta eficiencia.</span></span></li>
+        <li>${icon("panel")}<span><b>Paneles solares</b><span>Módulos fotovoltaicos elegidos según el diseño de cada proyecto.</span></span></li>
         <li>${icon("rayo")}<span><b>Inversores</b><span>Conectados a la red o híbridos con baterías, según tu necesidad.</span></span></li>
-        <li>${icon("bateria")}<span><b>Baterías</b><span>Almacenamiento de litio para tener energía de noche o durante cortes.</span></span></li>
+        <li>${icon("bateria")}<span><b>Baterías</b><span>Almacenamiento para tener energía de noche o durante cortes.</span></span></li>
         <li>${icon("torre")}<span><b>Estructuras de montaje</b><span>Para techo, suelo o cubiertas industriales.</span></span></li>
         <li>${icon("ajustes")}<span><b>Protecciones y tableros</b><span>Seguridad eléctrica en cada punto del sistema.</span></span></li>
-        <li>${icon("idea")}<span><b>Monitoreo</b><span>Seguimiento de la producción de energía desde el celular.</span></span></li>
+        <li>${icon("idea")}<span><b>Monitoreo</b><span>Seguimiento de la producción de energía, según el equipo elegido.</span></span></li>
         <li>${icon("escudo")}<span><b>Marcas y garantía</b><span>Equipos Huawei y Lumosenergy, con 2 años de garantía.</span></span></li>
       </ul>
       <div class="chips" data-reveal><span>Conectado a la red</span><span>Híbrido con baterías</span><span>Huawei</span><span>Lumosenergy</span></div>
@@ -598,7 +599,7 @@ ${escena()}
   <div class="wrap">
     <div class="head head-split">
       <h2 id="lumos-t" class="d2" data-lines>${lines("Cargadores", "<span class=\"c\">Lumosenergy</span>")}</h2>
-      <p class="lead" data-reveal>Trabajamos con equipos Lumosenergy, uno de los tres mayores fabricantes de cargadores de China, con más de 200.000 puntos de carga instalados en más de 40 países.</p>
+      <p class="lead" data-reveal>Trabajamos con equipos Lumosenergy. Según el fabricante, es uno de los tres mayores fabricantes de cargadores de China y ha entregado más de 200.000 puntos de carga en más de 40 países.</p>
     </div>
     <ul class="eqs">
       <li class="eq" data-reveal>
@@ -708,8 +709,10 @@ ${contacto("ct")}
 
 <section class="sec-tight mist" style="padding-top:0" aria-label="Ubicación">
   <div class="wrap">
-    <div class="mapframe" data-reveal><iframe title="Mapa: ${SITE.addr1}, ${SITE.addr2}" src="https://www.google.com/maps?q=${encodeURIComponent("Avenida Montecristo 205, Santa Cruz de la Sierra, Bolivia")}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-    <p class="note">${SITE.addr1}, ${SITE.addr2}. <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.addr1 + ", " + SITE.addr2)}" target="_blank" rel="noopener">Abrir en Google Maps</a></p>
+    <div class="mapframe" data-reveal><iframe title="Mapa con la ubicación de E.F.O. Ltda. en ${SITE.addr1}, ${SITE.addr2}" data-consent-src="${SITE.mapsEmbed}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="map-ph"><p>El mapa se muestra con Google Maps, que puede guardar cookies en tu navegador.</p><div class="btns"><button type="button" class="btn btn-cyan" data-map-load>Mostrar mapa</button><a class="btn btn-line" href="${SITE.maps}" target="_blank" rel="noopener">Abrir en Google Maps</a></div></div>
+    </div>
+    <p class="note">${SITE.addr1}, ${SITE.addr2}. <a href="${SITE.maps}" target="_blank" rel="noopener">Ver la ubicación de E.F.O. en Google Maps</a></p>
   </div>
 </section>`,
   },
@@ -717,25 +720,195 @@ ${contacto("ct")}
   {
     path: "/privacidad/", file: "privacidad/index.html", light: true,
     title: "Política de privacidad | E.F.O. Ltda.",
-    desc: "Cómo E.F.O. Ltda. usa y protege los datos que envías por el formulario de consulta, WhatsApp o correo.",
+    desc: "Cómo E.F.O. Ltda. trata los datos que envías por el formulario, WhatsApp o correo, con quién se comparten y cómo ejercer tus derechos.",
     body: `
 <section class="sec" style="padding-top:calc(var(--header) + 72px)">
   <div class="wrap legal">
     <h1 class="d2">Política de privacidad</h1>
-    <p>Vigente desde octubre de 2026.</p>
-    <h2>Responsable</h2>
-    <p>${SITE.legal} (E.F.O.), NIT ${SITE.nit}, ${SITE.addr1}, ${SITE.addr2}. Contacto: <a href="mailto:${SITE.mail}">${SITE.mail}</a> o WhatsApp ${SITE.waDisplay}.</p>
-    <h2>Qué datos recibimos</h2>
-    <p>Los que nos envías: nombre, empresa, teléfono, correo, tipo de consulta y mensaje. El sitio no guarda estos datos: al enviar el formulario se abre WhatsApp o tu correo con la consulta escrita, y nos llega solo si tú la envías.</p>
-    <h2>Para qué los usamos</h2>
-    <ul><li>Responder tu consulta.</li><li>Preparar una propuesta o cotización si la pides.</li><li>Dar seguimiento a esa conversación.</li></ul>
-    <p>No vendemos ni compartimos tus datos con terceros para publicidad.</p>
-    <h2>Servicios de terceros</h2>
-    <p>Los mensajes por WhatsApp pasan por los servicios de WhatsApp (Meta). La página de contacto muestra un mapa de Google Maps y en todas las páginas se carga un reproductor de YouTube (modo de privacidad mejorada) para la música de fondo. Las tipografías se cargan desde Google Fonts, por lo que Google recibe la dirección IP del visitante. El sitio no usa cookies de publicidad ni herramientas de medición de visitas.</p>
-    <h2>Tus derechos</h2>
-    <p>Puedes pedirnos saber qué datos tenemos, corregirlos o eliminarlos, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>. Respondemos en un plazo máximo de 10 días hábiles.</p>
-    <h2>Cambios</h2>
+    <p>Última actualización: 5 de noviembre de 2026.</p>
+    <h2>1. Responsable</h2>
+    <div class="datos">
+      <p><b>${SITE.legal}</b> (nombre comercial: E.F.O. Ltda.)</p>
+      <p>NIT ${SITE.nit} · Registro ANH ${SITE.anh}</p>
+      <p>${SITE.addr1}, ${SITE.addr2}</p>
+      <p>WhatsApp ${SITE.waDisplay} · <a href="mailto:${SITE.mail}">${SITE.mail}</a></p>
+      <p>Horario de atención: ${SITE.horario}</p>
+    </div>
+    <h2>2. Marco legal</h2>
+    <p>Tratamos tus datos según la Constitución Política del Estado (artículo 21, derecho a la privacidad e intimidad, y artículo 130, Acción de Protección de Privacidad), la Ley N.° 164 General de Telecomunicaciones, Tecnologías de Información y Comunicación, su reglamento, y la Ley N.° 453 General de los Derechos de las Usuarias y los Usuarios y de las Consumidoras y los Consumidores.</p>
+    <h2>3. Qué datos recibimos</h2>
+    <ul>
+      <li><b>Formulario de consulta:</b> nombre, empresa (opcional), teléfono, correo (opcional), tipo de consulta y mensaje. El sitio no guarda estos datos: al enviar se abre WhatsApp o tu correo con la consulta escrita, y nos llega solo si tú la envías.</li>
+      <li><b>Mensajes directos:</b> lo que nos escribas por WhatsApp o correo.</li>
+      <li><b>Datos técnicos:</b> el servidor del sitio (Hostinger) y el servicio de seguridad (Cloudflare) registran datos como la dirección IP, el navegador y la fecha de visita, para que el sitio funcione y para protegerlo de ataques.</li>
+    </ul>
+    <p>No pedimos datos sensibles ni datos de tarjetas. El sitio no cobra pagos.</p>
+    <h2>4. Para qué los usamos y con qué base</h2>
+    <ul><li>Responder tu consulta y preparar una cotización si la pides (tu consentimiento, que das al marcar la casilla del formulario, y los pasos previos a un contrato).</li><li>Dar seguimiento a esa conversación y, si compras, cumplir el contrato y las obligaciones tributarias.</li><li>Mantener el sitio seguro (interés legítimo).</li></ul>
+    <p>No vendemos ni cedemos tus datos, y no los usamos para publicidad.</p>
+    <h2>5. Con quién se comparten</h2>
+    <table>
+      <thead><tr><th>Servicio</th><th>Para qué</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td>WhatsApp (Meta)</td><td>Recibir las consultas que envías por WhatsApp</td><td>Cuando nos escribes por WhatsApp</td></tr>
+        <tr><td>Hostinger</td><td>Alojamiento del sitio y del correo</td><td>Siempre</td></tr>
+        <tr><td>Cloudflare</td><td>DNS, conexión segura y protección contra ataques</td><td>Siempre</td></tr>
+        <tr><td>YouTube (Google)</td><td>Música de fondo</td><td>Solo si aceptas el contenido de terceros</td></tr>
+        <tr><td>Google Maps</td><td>Mapa de la página de Contacto</td><td>Solo si aceptas, o si tocas «Mostrar mapa»</td></tr>
+      </tbody>
+    </table>
+    <p>Estos proveedores pueden tratar datos fuera de Bolivia, con sus propias políticas de privacidad. La tipografía del sitio está alojada en nuestro propio servidor: no se carga desde Google Fonts.</p>
+    <h2>6. Cuánto tiempo los guardamos</h2>
+    <p>El tiempo necesario para atender tu consulta y la relación comercial, y el que exijan las normas tributarias y comerciales. Después los eliminamos.</p>
+    <h2>7. Tus derechos</h2>
+    <p>Puedes pedirnos saber qué datos tenemos sobre ti, corregirlos, actualizarlos o eliminarlos, y retirar tu consentimiento en cualquier momento, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>. Respondemos en un plazo máximo de 10 días hábiles. También puedes acudir a la Acción de Protección de Privacidad prevista en la Constitución.</p>
+    <h2>8. Seguridad y menores</h2>
+    <p>El sitio funciona con conexión cifrada (HTTPS). El sitio está dirigido a empresas y personas adultas; no recogemos a sabiendas datos de menores de edad.</p>
+    <h2>9. Cookies</h2>
+    <p>Lo explicamos en la <a href="/cookies/">Política de cookies</a>.</p>
+    <h2>10. Cambios</h2>
     <p>Si cambiamos esta política, publicaremos la nueva versión en esta página con su fecha.</p>
+  </div>
+</section>`,
+  },
+
+  {
+    path: "/terminos/", file: "terminos/index.html", light: true,
+    title: "Términos y condiciones | E.F.O. Ltda.",
+    desc: "Condiciones de uso del sitio de E.F.O. Ltda.: datos de la empresa, información de productos, cotizaciones, marcas, créditos de imágenes y ley aplicable.",
+    body: `
+<section class="sec" style="padding-top:calc(var(--header) + 72px)">
+  <div class="wrap legal">
+    <h1 class="d2">Términos y condiciones</h1>
+    <p>Última actualización: 5 de noviembre de 2026.</p>
+    <h2>1. Datos de la empresa</h2>
+    <div class="datos">
+      <p><b>${SITE.legal}</b> (nombre comercial: E.F.O. Ltda.)</p>
+      <p>NIT ${SITE.nit} · Registro ANH ${SITE.anh}</p>
+      <p>${SITE.addr1}, ${SITE.addr2}</p>
+      <p>WhatsApp ${SITE.waDisplay} · <a href="mailto:${SITE.mail}">${SITE.mail}</a></p>
+      <p>Horario de atención: ${SITE.horario}</p>
+    </div>
+    <h2>2. Uso del sitio</h2>
+    <p>Este sitio presenta los productos y servicios de E.F.O.: importación y venta de diésel ULSD, energía solar fotovoltaica, soluciones energéticas y electromovilidad. Al usarlo aceptas estos términos. Te pedimos usarlo de buena fe y no intentar dañarlo, copiarlo de forma masiva ni usarlo para fines ilícitos.</p>
+    <h2>3. Información de productos</h2>
+    <ul>
+      <li>La información del sitio es referencial y no es una oferta vinculante. El sitio no publica precios.</li>
+      <li>Precio, cantidades, plazos, lugar de entrega, forma de pago y garantía se fijan por escrito en cada cotización o contrato, que prevalece sobre lo que dice el sitio.</li>
+      <li>Las fichas técnicas de los equipos se traducen de los catálogos de sus fabricantes y pueden cambiar sin previo aviso.</li>
+      <li>Los resultados de laboratorio del diésel ULSD corresponden a un lote analizado y pueden variar entre importaciones. El certificado de cada lote está disponible a pedido.</li>
+    </ul>
+    <h2>4. Cotizaciones y contratación</h2>
+    <p>Las consultas enviadas por el sitio no obligan a ninguna de las partes. La venta se concreta cuando aceptas por escrito una cotización o firmas un contrato. Para el diésel ULSD, el pedido mínimo es de 10.000 litros (10 m³). Las devoluciones y reembolsos siguen la <a href="/devoluciones/">Política de devoluciones y reembolsos</a>.</p>
+    <h2>5. Fotografías y proyectos</h2>
+    <p>Varias fotografías del sitio son referenciales: provienen de bancos de imágenes y no muestran instalaciones, personal ni clientes de E.F.O. Los proyectos indican su estado; los marcados como «conceptuales» son propuestas, no obras terminadas.</p>
+    <h2>6. Propiedad intelectual y marcas</h2>
+    <p>Los textos, el diseño y el logotipo de E.F.O. pertenecen a E.F.O. Ltda. Lumosenergy, Huawei, YouTube, Google Maps y WhatsApp son marcas de sus respectivos titulares. Las mencionamos para identificar los equipos y servicios que usamos o comercializamos; su mención no significa que esas empresas respalden este sitio.</p>
+    <h2>7. Créditos de imágenes, música y mapas</h2>
+    <table>
+      <thead><tr><th>Contenido</th><th>Origen y licencia</th></tr></thead>
+      <tbody>
+        <tr><td>Fotografías y videos de ambiente</td><td>Pexels (pexels.com), licencia de uso libre de Pexels. Son imágenes referenciales.</td></tr>
+        <tr><td>Foto del minibús Toyota Coaster</td><td>Dinkun Chen, Wikimedia Commons, licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</td></tr>
+        <tr><td>Imágenes y datos de los cargadores</td><td>Catálogo del fabricante Lumosenergy, usado para presentar los equipos que comercializa E.F.O.</td></tr>
+        <tr><td>Mapas de Bolivia y del mundo</td><td>Elaborados con datos de Natural Earth (dominio público).</td></tr>
+        <tr><td>Música de fondo</td><td>«Patria Inmortal», Salomé Rock Band, reproducida con el reproductor oficial de YouTube. Los derechos pertenecen a sus autores.</td></tr>
+        <tr><td>Tipografía</td><td>Manrope, licencia SIL Open Font License.</td></tr>
+      </tbody>
+    </table>
+    <h2>8. Enlaces y servicios externos</h2>
+    <p>El sitio enlaza a WhatsApp, redes sociales, YouTube y Google Maps. No controlamos esos servicios ni respondemos por su contenido o sus políticas.</p>
+    <h2>9. Responsabilidad</h2>
+    <p>Cuidamos que la información sea correcta y esté actualizada, pero puede contener errores o quedar desactualizada; si encuentras uno, avísanos y lo corregimos. No garantizamos que el sitio esté disponible sin interrupciones. Nada de lo dicho aquí limita los derechos que la Ley N.° 453 reconoce a usuarios y consumidores.</p>
+    <h2>10. Ley aplicable</h2>
+    <p>Estos términos se rigen por las leyes del Estado Plurinacional de Bolivia. Cualquier controversia se tratará primero de forma directa y, si no hay acuerdo, ante las autoridades competentes de Santa Cruz de la Sierra, sin perjuicio de los derechos del consumidor.</p>
+    <h2>11. Cambios</h2>
+    <p>Podemos actualizar estos términos. La versión vigente es la publicada en esta página.</p>
+  </div>
+</section>`,
+  },
+
+  {
+    path: "/cookies/", file: "cookies/index.html", light: true,
+    title: "Política de cookies | E.F.O. Ltda.",
+    desc: "Qué guarda el sitio de E.F.O. en tu navegador, qué servicios de terceros usan cookies y cómo aceptar o rechazar su uso.",
+    body: `
+<section class="sec" style="padding-top:calc(var(--header) + 72px)">
+  <div class="wrap legal">
+    <h1 class="d2">Política de cookies</h1>
+    <p>Última actualización: 5 de noviembre de 2026.</p>
+    <h2>1. Qué son</h2>
+    <p>Las cookies y el almacenamiento local son pequeños datos que un sitio guarda en tu navegador para recordar información entre visitas o entre páginas.</p>
+    <h2>2. ¿Hace falta tu consentimiento?</h2>
+    <p>En Bolivia no existe por ahora una ley específica de cookies. Aun así, por respeto a tu privacidad y para cumplir también con las reglas de otros países, no cargamos ningún servicio de terceros que pueda usar cookies hasta que lo aceptas. Puedes aceptar o rechazar con la misma facilidad.</p>
+    <h2>3. Lo que guarda este sitio</h2>
+    <p>E.F.O. no usa cookies propias de publicidad ni de medición de visitas. Solo guarda en tu navegador:</p>
+    <table>
+      <thead><tr><th>Nombre</th><th>Tipo</th><th>Para qué</th><th>Duración</th></tr></thead>
+      <tbody>
+        <tr><td>efo-consent</td><td>Almacenamiento local</td><td>Recordar si aceptaste o rechazaste el contenido de terceros</td><td>Hasta que lo borres</td></tr>
+        <tr><td>efo-musica-t, efo-musica-mute</td><td>Almacenamiento de sesión</td><td>Seguir la música en el mismo minuto al cambiar de página y recordar si la silenciaste</td><td>Hasta cerrar la pestaña</td></tr>
+        <tr><td>__cf_bm u otras de Cloudflare</td><td>Cookie técnica</td><td>Seguridad: distinguir personas de robots y frenar ataques. Solo aparece si Cloudflare la necesita</td><td>Hasta 30 minutos</td></tr>
+      </tbody>
+    </table>
+    <p>Estas son necesarias para que el sitio funcione y sea seguro, y no requieren consentimiento.</p>
+    <h2>4. Servicios de terceros (solo si aceptas)</h2>
+    <table>
+      <thead><tr><th>Servicio</th><th>Dónde</th><th>Qué puede guardar</th></tr></thead>
+      <tbody>
+        <tr><td>YouTube, en modo de privacidad mejorada (youtube-nocookie.com)</td><td>Música de fondo, en todas las páginas</td><td>Al reproducir, datos en tu navegador para el funcionamiento y las estadísticas del reproductor</td></tr>
+        <tr><td>Google Maps</td><td>Mapa de la página de Contacto</td><td>Cookies de Google, como NID, para preferencias y seguridad</td></tr>
+      </tbody>
+    </table>
+    <p>Google explica su uso de cookies en <a href="https://policies.google.com/technologies/cookies?hl=es" target="_blank" rel="noopener">policies.google.com/technologies/cookies</a>.</p>
+    <h2>5. Medición de visitas</h2>
+    <p>Por ahora el sitio no usa Google Analytics ni otra herramienta de medición. Si en el futuro activamos una, lo indicaremos en esta página antes de hacerlo.</p>
+    <h2>6. Cómo cambiar tu elección</h2>
+    <p>Puedes cambiarla cuando quieras con el botón «Configurar cookies» del pie de página, o aquí mismo:</p>
+    <p><button type="button" class="btn btn-cyan" data-consent-open>Configurar cookies</button></p>
+    <p>También puedes borrar las cookies y el almacenamiento del sitio desde la configuración de tu navegador.</p>
+  </div>
+</section>`,
+  },
+
+  {
+    path: "/devoluciones/", file: "devoluciones/index.html", light: true,
+    title: "Devoluciones y reembolsos | E.F.O. Ltda.",
+    desc: "Condiciones de E.F.O. Ltda. para reclamos, garantías, cancelaciones, devoluciones y reembolsos de diésel ULSD, equipos e instalaciones.",
+    body: `
+<section class="sec" style="padding-top:calc(var(--header) + 72px)">
+  <div class="wrap legal">
+    <h1 class="d2">Política de devoluciones y reembolsos</h1>
+    <p>Última actualización: 5 de noviembre de 2026.</p>
+    <h2>1. Alcance</h2>
+    <p>Esta política se aplica a las compras de diésel ULSD, equipos (cargadores para vehículos eléctricos, sistemas solares y baterías) y servicios de instalación de E.F.O. El sitio no vende en línea ni cobra pagos: cada compra se hace con una cotización aceptada o un contrato, que puede fijar condiciones particulares. Lo que diga la cotización o el contrato prevalece, sin reducir tus derechos según la Ley N.° 453.</p>
+    <h2>2. Diésel ULSD</h2>
+    <ul>
+      <li>Revisa la cantidad y el estado del producto al momento de la entrega, y anota cualquier observación en la nota de entrega.</li>
+      <li>Por ser un combustible entregado a granel, no se aceptan devoluciones por cambio de opinión una vez descargado en tus tanques.</li>
+      <li>Si la cantidad entregada es menor a la facturada, o la calidad no cumple las especificaciones acordadas, avísanos de inmediato y antes de usar o mezclar el producto. Tomaremos muestras, revisaremos el caso y, si corresponde, repondremos la diferencia o te devolveremos el importe proporcional.</li>
+    </ul>
+    <h2>3. Equipos e instalaciones</h2>
+    <ul>
+      <li>Los equipos de energía solar tienen 2 años de garantía. Los demás equipos tienen la garantía del fabricante que se indique en la cotización.</li>
+      <li>Si un equipo llega dañado o presenta una falla de fábrica dentro de la garantía, lo reparamos, lo reemplazamos o te devolvemos lo pagado por él.</li>
+      <li>Los defectos de instalación hechos por E.F.O. se corrigen sin costo durante el plazo de garantía de la instalación indicado en la cotización.</li>
+      <li>La garantía no cubre el mal uso, las modificaciones o instalaciones hechas por terceros, ni los daños por causas externas (golpes, agua o fallas de la red eléctrica), salvo que la cotización diga otra cosa.</li>
+    </ul>
+    <h2>4. Cancelaciones</h2>
+    <p>Puedes cancelar un pedido antes de su despacho. Te devolvemos lo pagado, descontando solo los costos ya realizados y justificados con documentos, como el transporte o la importación de equipos traídos a pedido, según la cotización.</p>
+    <h2>5. Reembolsos</h2>
+    <p>Cuando corresponda un reembolso, lo haremos por el mismo medio de pago o por transferencia bancaria, en un plazo máximo de 15 días hábiles desde que aprobemos el caso.</p>
+    <h2>6. Cómo hacer un reclamo</h2>
+    <p>Escríbenos por WhatsApp al ${SITE.waDisplay} o a <a href="mailto:${SITE.mail}">${SITE.mail}</a> con tu factura o número de pedido, una descripción del problema y fotos si es posible. Te respondemos en un plazo máximo de 10 días hábiles. Si no quedas conforme, puedes acudir al Viceministerio de Defensa de los Derechos del Usuario y del Consumidor.</p>
+    <h2>7. Datos de la empresa</h2>
+    <div class="datos">
+      <p><b>${SITE.legal}</b> (nombre comercial: E.F.O. Ltda.)</p>
+      <p>NIT ${SITE.nit} · Registro ANH ${SITE.anh}</p>
+      <p>${SITE.addr1}, ${SITE.addr2}</p>
+      <p>WhatsApp ${SITE.waDisplay} · <a href="mailto:${SITE.mail}">${SITE.mail}</a></p>
+      <p>Horario de atención: ${SITE.horario}</p>
+    </div>
   </div>
 </section>`,
   },

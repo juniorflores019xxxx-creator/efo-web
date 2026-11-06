@@ -52,6 +52,38 @@
     v.addEventListener("canplay", tryPlay);
   });
 
+  /* ---------- Permiso para contenido de terceros (YouTube y Google Maps) ----------
+     Nada de Google se carga hasta que la persona acepta. La elección se guarda en este navegador
+     ("efo-consent": "all" o "none") y se puede cambiar con «Configurar cookies» en el pie. */
+  var consent = (function () {
+    var KEY = "efo-consent", box = $("#consent"), waiting = [];
+    function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function put(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function open() { if (!box) return; box.hidden = false; var b = $("[data-consent=all]", box); if (b) b.focus(); }
+    function run() { var list = waiting; waiting = []; list.forEach(function (cb) { try { cb(); } catch (e) { console.error(e); } }); }
+    if (box) {
+      $$("[data-consent]", box).forEach(function (b) {
+        b.addEventListener("click", function () {
+          var before = get(), v = b.getAttribute("data-consent");
+          put(v); box.hidden = true;
+          if (v === "all") run();
+          else if (before === "all") location.reload(); // retira YouTube y Maps ya cargados
+        });
+      });
+      if (!get()) box.hidden = false;
+    }
+    $$("[data-consent-open]").forEach(function (b) { b.addEventListener("click", open); });
+    return { ok: function () { return get() === "all"; }, on: function (cb) { if (get() === "all") cb(); else waiting.push(cb); }, open: open };
+  })();
+
+  /* Mapa de Google: se carga con permiso, o solo esta vez con el botón «Mostrar mapa» */
+  $$("iframe[data-consent-src]").forEach(function (f) {
+    var ph = f.parentNode.querySelector(".map-ph");
+    function load() { if (f.src) return; f.src = f.getAttribute("data-consent-src"); if (ph) ph.hidden = true; }
+    consent.on(load);
+    if (ph) { var b = ph.querySelector("[data-map-load]"); if (b) b.addEventListener("click", load); }
+  });
+
   /* ---------- Música de fondo: «Patria Inmortal» desde el segundo 35, en todas las páginas ----------
      Se intenta sonar al entrar. Si el navegador lo bloquea (exigen un toque previo), arranca en
      silencio y suena con el primer toque/clic/tecla en cualquier parte. La nota musical, con su X roja,
@@ -65,9 +97,10 @@
     function showError(msg) { if (errorBox) { errorBox.textContent = msg; errorBox.hidden = false; } }
     function audible() { try { return ready && playing && !player.isMuted(); } catch (e) { return false; } }
     function ui() {
-      mBtn.classList.toggle("muted", userMute);
+      var off = userMute || !consent.ok();
+      mBtn.classList.toggle("muted", off);
       mBtn.classList.toggle("playing", audible());
-      var t = userMute ? "Activar música" : "Silenciar música";
+      var t = off ? "Activar música" : "Silenciar música";
       mBtn.setAttribute("aria-label", t); mBtn.title = t; if (tip) tip.textContent = t;
     }
     function hint() { mBtn.classList.add("hint"); clearTimeout(hint.t); hint.t = setTimeout(function () { mBtn.classList.remove("hint"); }, 5000); }
@@ -86,6 +119,7 @@
     }
     EV.forEach(function (ev) { document.addEventListener(ev, gesture, true); });
     mBtn.addEventListener("click", function () {
+      if (!consent.ok()) { consent.open(); return; } // la música usa YouTube: primero se pide permiso
       userMute = !userMute; ss.set(KM, userMute ? "1" : "0");
       if (userMute) { try { player.mute(); } catch (e) {} } else sound();
       ui(); hint();
@@ -124,9 +158,13 @@
       setInterval(function () { try { var c = player.getCurrentTime(); if (c) ss.set(KT, String(c)); } catch (e) {} ui(); }, 1500);
     };
     window.addEventListener("pagehide", function () { try { ss.set(KT, String(player.getCurrentTime())); } catch (e) {} });
-    var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true;
-    s.onerror = function () { showError("No se pudo cargar la música. Revisa tu conexión e inténtalo nuevamente."); };
-    document.head.appendChild(s);
+    consent.on(function () {
+      box.classList.add("on");
+      var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true;
+      s.onerror = function () { showError("No se pudo cargar la música. Revisa tu conexión e inténtalo nuevamente."); };
+      document.head.appendChild(s);
+      ui();
+    });
     ui();
   })();
 
@@ -354,7 +392,8 @@
       function valid() {
         var ok = true, first = null;
         [["nombre", val("nombre").length >= 2], ["telefono", val("telefono").replace(/\D/g, "").length >= 7],
-         ["correo", !val("correo") || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("correo"))], ["tipo", !!val("tipo")], ["mensaje", val("mensaje").length >= 10]
+         ["correo", !val("correo") || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("correo"))], ["tipo", !!val("tipo")], ["mensaje", val("mensaje").length >= 10],
+         ["acepto", !form.elements.acepto || form.elements.acepto.checked]
         ].forEach(function (c) { bad(c[0], !c[1]); if (!c[1]) { ok = false; if (!first) first = form.elements[c[0]]; } });
         if (first) first.focus();
         return ok;
@@ -366,6 +405,7 @@
         ].filter(function (x) { return x !== null; }).join("\n");
       }
       form.addEventListener("input", function (e) { var f = e.target.closest(".field"); if (f) f.classList.remove("bad"); });
+      form.addEventListener("change", function (e) { var f = e.target.closest(".field"); if (f) f.classList.remove("bad"); });
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (form.elements.web_empresa && form.elements.web_empresa.value) return;

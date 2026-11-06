@@ -12,6 +12,10 @@ export const SITE = {
   nit: "710528026",
   anh: "ANH15196",
   horario: "Lunes a viernes, de 8:30 a 16:30",
+  maps: "https://maps.app.goo.gl/QxnyoJD3i1cC6VEr5",
+  lat: -17.7628127,
+  lng: -63.1114668,
+  mapsEmbed: "https://maps.google.com/maps?q=Energ%C3%ADa+y+Fuerza+del+Oriente+E.F.O.+Ltda,+Santa+Cruz+de+la+Sierra&ftid=0x93f1e7000f1efadf:0xe01388ee9b6e1ff8&z=16&hl=es&output=embed",
   waText: "Hola E.F.O., estoy interesado en conocer sus soluciones energéticas y quisiera solicitar información/cotización.",
 };
 export const WA_URL = `https://wa.me/${SITE.wa}?text=${encodeURIComponent(SITE.waText)}`;
@@ -99,12 +103,13 @@ export const contactForm = (id = "f") => `
   <div class="field"><label for="${id}-correo">Correo electrónico <span class="opt">(opcional)</span></label><input id="${id}-correo" name="correo" type="email" autocomplete="email"><span class="err">Revisa el correo.</span></div>
   <div class="field full"><label for="${id}-tipo">Tipo de consulta</label><select id="${id}-tipo" name="tipo" required><option value="">Elige una opción</option>${TIPOS.map((t) => `<option>${t}</option>`).join("")}</select><span class="err">Elige el tipo de consulta.</span></div>
   <div class="field full"><label for="${id}-msg">Mensaje</label><textarea id="${id}-msg" name="mensaje" rows="5" maxlength="1500" placeholder="Cuéntanos qué necesitas: tipo de operación, ubicación, plazos…" required></textarea><span class="err">Cuéntanos un poco más (al menos 10 caracteres).</span></div>
+  <div class="field full chk-field"><label class="chk" for="${id}-acepto"><input id="${id}-acepto" name="acepto" type="checkbox" required><span>He leído y acepto la <a href="/privacidad/">Política de privacidad</a> y los <a href="/terminos/">Términos y condiciones</a>, y autorizo a E.F.O. a usar mis datos para responder esta consulta.</span></label><span class="err">Para enviar la consulta, marca esta casilla.</span></div>
   <div class="form-foot full">
     <div class="btns">
       <button class="btn btn-wa btn-lg" type="submit" value="whatsapp">${icon("whatsapp")} Enviar consulta</button>
       <button class="btn btn-line btn-lg" type="submit" value="correo">${icon("mail")} Enviar por correo</button>
     </div>
-    <p class="note">Al enviar se abre WhatsApp o tu correo con la consulta ya escrita. Usamos tus datos solo para responderte (<a href="/privacidad/">Política de privacidad</a>).</p>
+    <p class="note">Al enviar se abre WhatsApp o tu correo con la consulta ya escrita; el sitio no guarda tus datos. Los usamos solo para responderte.</p>
     <p class="status" role="status" aria-live="polite"></p>
   </div>
 </form>`;
@@ -113,7 +118,7 @@ export const contactData = () => `
 <div class="card-data" data-reveal>
   <a href="${WA_URL}" target="_blank" rel="noopener"><span class="ci">${icon("whatsapp")}</span><span><small>WhatsApp</small><strong>${SITE.waDisplay}</strong></span></a>
   <a href="mailto:${SITE.mail}"><span class="ci">${icon("mail")}</span><span><small>Correo</small><strong>${SITE.mail}</strong></span></a>
-  <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.addr1 + ", " + SITE.addr2)}" target="_blank" rel="noopener"><span class="ci">${icon("pin")}</span><span><small>Dirección</small><strong>${SITE.addr1}<br>${SITE.addr2}</strong></span></a>
+  <a href="${SITE.maps}" target="_blank" rel="noopener"><span class="ci">${icon("pin")}</span><span><small>Dirección</small><strong>${SITE.addr1}<br>${SITE.addr2}</strong></span></a>
   <div><span class="ci">${icon("reloj")}</span><span><small>Horario de atención</small><strong>${SITE.horario}</strong></span></div>
 </div>`;
 
@@ -172,10 +177,8 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/efo.css?v=25">
+<link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/efo.css?v=27">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -228,10 +231,11 @@ ${body}
   </div>
   <div class="wrap foot-bottom">
     <span>© <span data-year>2026</span> E.F.O. Ltda. · NIT ${SITE.nit} · Todos los derechos reservados.</span>
-    <span><a href="/privacidad/">Política de privacidad</a></span>
+    <nav class="legal-links" aria-label="Información legal"><a href="/privacidad/">Privacidad</a><a href="/terminos/">Términos y condiciones</a><a href="/cookies/">Cookies</a><a href="/devoluciones/">Devoluciones y reembolsos</a><button type="button" class="linkbtn" data-consent-open>Configurar cookies</button></nav>
     <span class="made">Sitio web creado por <a href="https://sibnova.com.bo" target="_blank" rel="noopener">SIBNOVA LTDA.</a> · <a href="https://sibnova.com.bo" target="_blank" rel="noopener">sibnova.com.bo</a></span>
   </div>
 </footer>
+<aside class="floats" aria-label="Música y contacto rápido">
 <div class="player" id="player" aria-label="Música de fondo">
   <div class="player-frame"><div id="yt"></div></div>
   <a class="player-link" href="https://youtu.be/hbCTWzxubbU?si=-p4NW8wQTXVIAHj-" target="_blank" rel="noopener"><b>Patria Inmortal</b> · Salomé Rock Band ${icon("flecha")}</a>
@@ -239,10 +243,18 @@ ${body}
 </div>
 <button class="music" type="button" aria-label="Silenciar música">${icon("musica")}<span class="music-x" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3.2 3.2l5.6 5.6M8.8 3.2l-5.6 5.6"/></svg></span><span class="music-tip" aria-hidden="true">Silenciar música</span></button>
 <a class="wa" href="${WA_URL}" target="_blank" rel="noopener" aria-label="Escribir a E.F.O. por WhatsApp">${icon("whatsapp")}</a>
+</aside>
+<section class="consent" id="consent" aria-labelledby="consent-t" hidden>
+  <div class="consent-in">
+    <h2 id="consent-t" class="consent-h">Contenido de terceros y cookies</h2>
+    <p>Este sitio no usa cookies de publicidad ni de medición. La música de fondo (YouTube) y el mapa (Google Maps) son servicios de Google que pueden guardar cookies en tu navegador. ¿Los permites? <a href="/cookies/">Política de cookies</a></p>
+    <div class="consent-b"><button type="button" class="btn btn-cyan" data-consent="all">Aceptar</button><button type="button" class="btn btn-line" data-consent="none">Rechazar</button></div>
+  </div>
+</section>
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=21" defer></script>
+<script src="/assets/js/efo.js?v=22" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>
