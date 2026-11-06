@@ -5,8 +5,14 @@ DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # Una sola dirección: https://efo.com.bo (www → sin www). HTTPS lo fuerza Cloudflare (Always Use HTTPS).
+  # Una sola dirección: https://efo.com.bo (www → sin www, http → https).
   RewriteCond %{HTTP_HOST} ^www\.efo\.com\.bo$ [NC]
+  RewriteRule ^(.*)$ https://efo.com.bo/$1 [R=301,L]
+  # http → https (también detrás de Cloudflare, sin bucles)
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteCond %{HTTP:CF-Visitor} !https [NC]
+  RewriteCond %{HTTP_HOST} ^efo\.com\.bo$ [NC]
   RewriteRule ^(.*)$ https://efo.com.bo/$1 [R=301,L]
 </IfModule>
 

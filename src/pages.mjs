@@ -898,7 +898,7 @@ ${contacto("ct")}
     <h2>4. Cancelaciones</h2>
     <p>Puedes cancelar un pedido antes de su despacho. Te devolvemos lo pagado, descontando solo los costos ya realizados y justificados con documentos, como el transporte o la importación de equipos traídos a pedido, según la cotización.</p>
     <h2>5. Reembolsos</h2>
-    <p>Cuando corresponda un reembolso, lo haremos por el mismo medio de pago o por transferencia bancaria, en un plazo máximo de 15 días hábiles desde que aprobemos el caso.</p>
+    <p>Cuando corresponda un reembolso, lo haremos por el mismo medio de pago o por transferencia bancaria, en un plazo máximo de 30 días calendario (un mes) desde que aprobemos el caso.</p>
     <h2>6. Cómo hacer un reclamo</h2>
     <p>Escríbenos por WhatsApp al ${SITE.waDisplay} o a <a href="mailto:${SITE.mail}">${SITE.mail}</a> con tu factura o número de pedido, una descripción del problema y fotos si es posible. Te respondemos en un plazo máximo de 10 días hábiles. Si no quedas conforme, puedes acudir al Viceministerio de Defensa de los Derechos del Usuario y del Consumidor.</p>
     <h2>7. Datos de la empresa</h2>
