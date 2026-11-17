@@ -94,22 +94,69 @@ export const words = (html) => html.replace(/(<[^>]+>)|([^\s<]+)/g, (m, tag, w) 
 /* ---------- Componentes ---------- */
 export const TIPOS = ["Combustibles", "Diésel ULSD", "Importación", "Energía solar", "Soluciones energéticas", "Electromovilidad", "Electrolineras", "Cargadores", "Conversión de vehículos", "Proyectos", "Otro"];
 
+const DEPTOS = ["Santa Cruz", "La Paz", "Cochabamba", "Chuquisaca", "Oruro", "Potosí", "Tarija", "Beni", "Pando"];
+export const CARGADORES = ["AC22 Turbo (7, 11 o 22 kW)", "DA30 Compact (30 kW DC)", "DA60 Fast (60 kW DC)", "DA180 Fast (180 kW DC)", "DA240 Fast (240 kW DC)", "DA480 Ultra-fast (480 kW DC)", "DC480 Cabinet + DD300 (carga distribuida)", "Almacenamiento de energía (baterías)", "No sé, necesito asesoría"];
+// Campos extra que pide cada tipo de consulta (grupo -> tipos). El CRM (crm/_lib.php) usa los mismos grupos.
+export const GRUPOS = { diesel: ["Combustibles", "Diésel ULSD", "Importación"], solar: ["Energía solar"], cargadores: ["Electromovilidad", "Electrolineras", "Cargadores"], conversion: ["Conversión de vehículos"] };
+const opts = (a, ph = "Elige una opción") => `<option value="">${ph}</option>` + a.map((t) => `<option>${t}</option>`).join("");
+const fld = (id, name, label, input, { full = false, opt = false, err = "" } = {}) =>
+  `<div class="field${full ? " full" : ""}"><label for="${id}-${name}">${label}${opt ? ' <span class="opt">(opcional)</span>' : ""}</label>${input}${err ? `<span class="err">${err}</span>` : ""}</div>`;
+
 export const contactForm = (id = "f") => `
-<form class="form" data-reveal data-contact novalidate aria-label="Formulario de consulta">
+<form class="form" data-reveal data-contact novalidate aria-label="Formulario de solicitud de cotización" enctype="multipart/form-data">
   <div class="hp" aria-hidden="true"><label>No completar <input name="web_empresa" tabindex="-1" autocomplete="off"></label></div>
-  <div class="field"><label for="${id}-nombre">Nombre</label><input id="${id}-nombre" name="nombre" autocomplete="name" required><span class="err">Escribe tu nombre.</span></div>
-  <div class="field"><label for="${id}-empresa">Empresa <span class="opt">(opcional)</span></label><input id="${id}-empresa" name="empresa" autocomplete="organization"></div>
-  <div class="field"><label for="${id}-tel">Teléfono o WhatsApp</label><input id="${id}-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="+591 7…" required><span class="err">Escribe un número válido.</span></div>
-  <div class="field"><label for="${id}-correo">Correo electrónico <span class="opt">(opcional)</span></label><input id="${id}-correo" name="correo" type="email" autocomplete="email"><span class="err">Revisa el correo.</span></div>
-  <div class="field full"><label for="${id}-tipo">Tipo de consulta</label><select id="${id}-tipo" name="tipo" required><option value="">Elige una opción</option>${TIPOS.map((t) => `<option>${t}</option>`).join("")}</select><span class="err">Elige el tipo de consulta.</span></div>
-  <div class="field full"><label for="${id}-msg">Mensaje</label><textarea id="${id}-msg" name="mensaje" rows="5" maxlength="1500" placeholder="Cuéntanos qué necesitas: tipo de operación, ubicación, plazos…" required></textarea><span class="err">Cuéntanos un poco más (al menos 10 caracteres).</span></div>
-  <div class="field full chk-field"><label class="chk" for="${id}-acepto"><input id="${id}-acepto" name="acepto" type="checkbox" required><span>He leído y acepto la <a href="/privacidad/">Política de privacidad</a> y los <a href="/terminos/">Términos y condiciones</a>, y autorizo a E.F.O. a usar mis datos para responder esta consulta.</span></label><span class="err">Para enviar la consulta, marca esta casilla.</span></div>
+  <div class="field"><label for="${id}-nombre">Nombre</label><input id="${id}-nombre" name="nombre" autocomplete="name" maxlength="120" required><span class="err">Escribe tu nombre.</span></div>
+  <div class="field"><label for="${id}-empresa">Empresa <span class="opt">(opcional)</span></label><input id="${id}-empresa" name="empresa" autocomplete="organization" maxlength="120"></div>
+  <div class="field"><label for="${id}-tel">Teléfono o WhatsApp</label><input id="${id}-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="+591 7…" maxlength="30" required><span class="err">Escribe un número válido.</span></div>
+  <div class="field"><label for="${id}-correo">Correo electrónico <span class="opt">(opcional)</span></label><input id="${id}-correo" name="correo" type="email" autocomplete="email" maxlength="120"><span class="err">Revisa el correo.</span></div>
+  <div class="field"><label for="${id}-tipo">Tipo de consulta</label><select id="${id}-tipo" name="tipo" required>${opts(TIPOS)}</select><span class="err">Elige el tipo de consulta.</span></div>
+  <div class="field"><label for="${id}-ciudad">Departamento</label><select id="${id}-ciudad" name="ciudad" required>${opts(DEPTOS)}</select><span class="err">Elige el departamento.</span></div>
+
+  <fieldset class="grupo full" data-grupo="diesel" hidden><legend>Datos para cotizar diésel ULSD</legend><div class="grupo-in">
+    ${fld(id, "d_litros", "Litros por mes", `<input id="${id}-d_litros" name="d_litros" type="number" inputmode="numeric" min="1" step="1" placeholder="Ej.: 20000" data-req>`, { err: "Escribe los litros que necesitas por mes." })}
+    ${fld(id, "d_frecuencia", "Frecuencia de compra", `<select id="${id}-d_frecuencia" name="d_frecuencia" data-req>${opts(["Compra única", "Semanal", "Quincenal", "Mensual"])}</select>`, { err: "Elige la frecuencia." })}
+    ${fld(id, "d_uso", "Uso principal", `<select id="${id}-d_uso" name="d_uso">${opts(["Transporte y flotas", "Maquinaria agrícola o de construcción", "Minería", "Generación eléctrica", "Industria", "Otro"])}</select>`, { opt: true })}
+    ${fld(id, "d_tanque", "¿Tienes tanque propio?", `<select id="${id}-d_tanque" name="d_tanque">${opts(["Sí", "No"])}</select>`, { opt: true })}
+    ${fld(id, "d_lugar", "Lugar de entrega (localidad o dirección)", `<input id="${id}-d_lugar" name="d_lugar" maxlength="200" placeholder="Ej.: Parque Industrial, Santa Cruz">`, { full: true, opt: true })}
+    <p class="note full">Pedido mínimo: 10.000 litros (10 m³).</p>
+  </div></fieldset>
+
+  <fieldset class="grupo full" data-grupo="solar" hidden><legend>Datos de tu factura de luz</legend><div class="grupo-in">
+    ${fld(id, "s_kwh", "Consumo mensual (kWh)", `<input id="${id}-s_kwh" name="s_kwh" type="number" inputmode="decimal" min="1" step="any" placeholder="Ej.: 650" data-req>`, { err: "Escribe el consumo en kWh que dice tu factura." })}
+    ${fld(id, "s_dias", "Días del período facturado", `<input id="${id}-s_dias" name="s_dias" type="number" inputmode="numeric" min="1" max="62" step="1" value="30">`, { opt: true })}
+    ${fld(id, "s_distribuidora", "Distribuidora", `<select id="${id}-s_distribuidora" name="s_distribuidora">${opts(["CRE", "DELAPAZ", "ELFEC", "ENDE", "SEPSA", "SETAR", "Otra"])}</select>`, { opt: true })}
+    ${fld(id, "s_modalidad", "Tipo de sistema", `<select id="${id}-s_modalidad" name="s_modalidad">${opts(["On-Grid (conectado a la red, sin baterías)", "Híbrido (red + baterías de respaldo)", "Off-Grid (aislado, sin red eléctrica)", "No sé, necesito asesoría"])}</select>`, { opt: true })}
+    ${fld(id, "s_inmueble", "Tipo de inmueble", `<select id="${id}-s_inmueble" name="s_inmueble">${opts(["Vivienda", "Comercio u oficina", "Industria", "Propiedad rural o agrícola", "Otro"])}</select>`, { opt: true })}
+    ${fld(id, "s_techo", "Dónde se instalarían los paneles", `<select id="${id}-s_techo" name="s_techo">${opts(["Techo de losa", "Techo de calamina", "Techo de teja", "En el suelo", "No sé"])}</select>`, { opt: true })}
+    <div class="field full"><label for="${id}-factura">Foto o PDF de tu factura de luz <span class="opt">(opcional, recomendado)</span></label><input id="${id}-factura" name="factura" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"><span class="err">El archivo debe ser JPG, PNG, WEBP o PDF de hasta 8 MB.</span></div>
+    <p class="note full">El consumo en kWh aparece en tu factura como «Consumo» o «Energía consumida».</p>
+  </div></fieldset>
+
+  <fieldset class="grupo full" data-grupo="cargadores" hidden><legend>Datos para tu proyecto de carga</legend><div class="grupo-in">
+    ${fld(id, "c_equipo", "Equipo de interés", `<select id="${id}-c_equipo" name="c_equipo" data-req>${opts(CARGADORES)}</select>`, { err: "Elige un equipo." })}
+    ${fld(id, "c_cantidad", "Cantidad de cargadores", `<input id="${id}-c_cantidad" name="c_cantidad" type="number" inputmode="numeric" min="1" step="1" value="1">`, { opt: true })}
+    ${fld(id, "c_lugar", "Dónde se instalaría", `<select id="${id}-c_lugar" name="c_lugar">${opts(["Vivienda", "Empresa u oficina", "Flota de vehículos", "Estación de carga pública", "Hotel o comercio", "Otro"])}</select>`, { opt: true })}
+    ${fld(id, "c_vehiculo", "Vehículo(s) a cargar", `<input id="${id}-c_vehiculo" name="c_vehiculo" maxlength="160" placeholder="Ej.: BYD Dolphin, buses eléctricos…">`, { opt: true })}
+    ${fld(id, "c_distancia", "Distancia aproximada al tablero eléctrico (m)", `<input id="${id}-c_distancia" name="c_distancia" type="number" inputmode="numeric" min="0" step="1">`, { opt: true })}
+    ${fld(id, "c_red", "Conexión eléctrica disponible", `<select id="${id}-c_red" name="c_red">${opts(["Monofásica (220 V)", "Trifásica (380 V)", "No sé"])}</select>`, { opt: true })}
+  </div></fieldset>
+
+  <fieldset class="grupo full" data-grupo="conversion" hidden><legend>Datos de tu vehículo</legend><div class="grupo-in">
+    ${fld(id, "v_marca", "Marca y modelo", `<input id="${id}-v_marca" name="v_marca" maxlength="120" placeholder="Ej.: Toyota Hiace" data-req>`, { err: "Escribe la marca y el modelo." })}
+    ${fld(id, "v_anio", "Año", `<input id="${id}-v_anio" name="v_anio" type="number" inputmode="numeric" min="1950" max="2030" step="1">`, { opt: true })}
+    ${fld(id, "v_uso", "Uso del vehículo", `<select id="${id}-v_uso" name="v_uso">${opts(["Particular", "Flota de empresa", "Transporte público", "Carga o reparto", "Otro"])}</select>`, { opt: true })}
+    ${fld(id, "v_km", "Kilómetros por día (aprox.)", `<input id="${id}-v_km" name="v_km" type="number" inputmode="numeric" min="0" step="1">`, { opt: true })}
+    ${fld(id, "v_cantidad", "Cantidad de vehículos", `<input id="${id}-v_cantidad" name="v_cantidad" type="number" inputmode="numeric" min="1" step="1" value="1">`, { opt: true })}
+  </div></fieldset>
+
+  <div class="field full"><label for="${id}-msg">Mensaje <span class="opt" data-msg-opt hidden>(opcional)</span></label><textarea id="${id}-msg" name="mensaje" rows="4" maxlength="1500" placeholder="Cuéntanos qué necesitas: tipo de operación, ubicación, plazos…"></textarea><span class="err">Cuéntanos un poco más (al menos 10 caracteres).</span></div>
+  <div class="field full chk-field"><label class="chk" for="${id}-acepto"><input id="${id}-acepto" name="acepto" type="checkbox" value="1" required><span>He leído y acepto la <a href="/privacidad/">Política de privacidad</a> y los <a href="/terminos/">Términos y condiciones</a>, y autorizo a E.F.O. a guardar y usar mis datos para responder esta solicitud.</span></label><span class="err">Para enviar la solicitud, marca esta casilla.</span></div>
   <div class="form-foot full">
     <div class="btns">
-      <button class="btn btn-wa btn-lg" type="submit" value="whatsapp">${icon("whatsapp")} Enviar consulta</button>
-      <button class="btn btn-line btn-lg" type="submit" value="correo">${icon("mail")} Enviar por correo</button>
+      <button class="btn btn-cyan btn-lg" type="submit" value="web">Enviar solicitud ${icon("flecha")}</button>
+      <button class="btn btn-wa btn-lg" type="submit" value="whatsapp">${icon("whatsapp")} Enviar y abrir WhatsApp</button>
     </div>
-    <p class="note">Al enviar se abre WhatsApp o tu correo con la consulta ya escrita; el sitio no guarda tus datos. Los usamos solo para responderte.</p>
+    <p class="note">Tu solicitud llega directo al equipo comercial de E.F.O. Guardamos tus datos solo para responderte y preparar tu cotización.</p>
     <p class="status" role="status" aria-live="polite"></p>
   </div>
 </form>`;
@@ -178,7 +225,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/efo.css?v=27">
+<link rel="stylesheet" href="/assets/css/efo.css?v=28">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 ${ld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
@@ -254,7 +301,7 @@ ${body}
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=22" defer></script>
+<script src="/assets/js/efo.js?v=23" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>

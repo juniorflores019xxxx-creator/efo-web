@@ -725,7 +725,7 @@ ${contacto("ct")}
 <section class="sec" style="padding-top:calc(var(--header) + 72px)">
   <div class="wrap legal">
     <h1 class="d2">Política de privacidad</h1>
-    <p>Última actualización: 5 de noviembre de 2026.</p>
+    <p>Última actualización: 17 de noviembre de 2026.</p>
     <h2>1. Responsable</h2>
     <div class="datos">
       <p><b>${SITE.legal}</b> (nombre comercial: E.F.O. Ltda.)</p>
@@ -738,20 +738,20 @@ ${contacto("ct")}
     <p>Tratamos tus datos según la Constitución Política del Estado (artículo 21, derecho a la privacidad e intimidad, y artículo 130, Acción de Protección de Privacidad), la Ley N.° 164 General de Telecomunicaciones, Tecnologías de Información y Comunicación, su reglamento, y la Ley N.° 453 General de los Derechos de las Usuarias y los Usuarios y de las Consumidoras y los Consumidores.</p>
     <h2>3. Qué datos recibimos</h2>
     <ul>
-      <li><b>Formulario de consulta:</b> nombre, empresa (opcional), teléfono, correo (opcional), tipo de consulta y mensaje. El sitio no guarda estos datos: al enviar se abre WhatsApp o tu correo con la consulta escrita, y nos llega solo si tú la envías.</li>
+      <li><b>Formulario de solicitud:</b> nombre, empresa (opcional), teléfono, correo (opcional), tipo de consulta, departamento y mensaje, más los datos del servicio que pidas: litros de diésel y lugar de entrega; consumo, distribuidora y la foto o PDF de tu factura de luz si la adjuntas; equipo de carga y datos de instalación; o marca, modelo y uso de tu vehículo. Estos datos se guardan en el sistema de gestión de clientes de E.F.O., junto con la fecha, la página desde la que enviaste y la dirección IP (para evitar envíos abusivos). Solo puede verlos el personal autorizado de E.F.O., con usuario y contraseña.</li>
       <li><b>Mensajes directos:</b> lo que nos escribas por WhatsApp o correo.</li>
       <li><b>Datos técnicos:</b> el servidor del sitio (Hostinger) y el servicio de seguridad (Cloudflare) registran datos como la dirección IP, el navegador y la fecha de visita, para que el sitio funcione y para protegerlo de ataques.</li>
     </ul>
     <p>No pedimos datos sensibles ni datos de tarjetas. El sitio no cobra pagos.</p>
     <h2>4. Para qué los usamos y con qué base</h2>
-    <ul><li>Responder tu consulta y preparar una cotización si la pides (tu consentimiento, que das al marcar la casilla del formulario, y los pasos previos a un contrato).</li><li>Dar seguimiento a esa conversación y, si compras, cumplir el contrato y las obligaciones tributarias.</li><li>Mantener el sitio seguro (interés legítimo).</li></ul>
+    <ul><li>Responder tu solicitud, preparar la cotización (por ejemplo, calcular un sistema solar con el consumo de tu factura) y enviártela por WhatsApp o correo (tu consentimiento, que das al marcar la casilla del formulario, y los pasos previos a un contrato).</li><li>Dar seguimiento a esa conversación y, si compras, cumplir el contrato y las obligaciones tributarias.</li><li>Mantener el sitio seguro (interés legítimo).</li></ul>
     <p>No vendemos ni cedemos tus datos, y no los usamos para publicidad.</p>
     <h2>5. Con quién se comparten</h2>
     <table>
       <thead><tr><th>Servicio</th><th>Para qué</th><th>Cuándo</th></tr></thead>
       <tbody>
         <tr><td>WhatsApp (Meta)</td><td>Recibir las consultas que envías por WhatsApp</td><td>Cuando nos escribes por WhatsApp</td></tr>
-        <tr><td>Hostinger</td><td>Alojamiento del sitio y del correo</td><td>Siempre</td></tr>
+        <tr><td>Hostinger</td><td>Alojamiento del sitio, del correo y del sistema donde se guardan las solicitudes</td><td>Siempre</td></tr>
         <tr><td>Cloudflare</td><td>DNS, conexión segura y protección contra ataques</td><td>Siempre</td></tr>
         <tr><td>YouTube (Google)</td><td>Música de fondo</td><td>Solo si aceptas el contenido de terceros</td></tr>
         <tr><td>Google Maps</td><td>Mapa de la página de Contacto</td><td>Solo si aceptas, o si tocas «Mostrar mapa»</td></tr>
@@ -763,7 +763,7 @@ ${contacto("ct")}
     <h2>7. Tus derechos</h2>
     <p>Puedes pedirnos saber qué datos tenemos sobre ti, corregirlos, actualizarlos o eliminarlos, y retirar tu consentimiento en cualquier momento, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>. Respondemos en un plazo máximo de 10 días hábiles. También puedes acudir a la Acción de Protección de Privacidad prevista en la Constitución.</p>
     <h2>8. Seguridad y menores</h2>
-    <p>El sitio funciona con conexión cifrada (HTTPS). El sitio está dirigido a empresas y personas adultas; no recogemos a sabiendas datos de menores de edad.</p>
+    <p>El sitio funciona con conexión cifrada (HTTPS). Las solicitudes se guardan en un sistema protegido con contraseña, al que solo accede el personal autorizado de E.F.O. Si pides que borremos tus datos, eliminamos tu solicitud, tus archivos y tus cotizaciones. El sitio está dirigido a empresas y personas adultas; no recogemos a sabiendas datos de menores de edad.</p>
     <h2>9. Cookies</h2>
     <p>Lo explicamos en la <a href="/cookies/">Política de cookies</a>.</p>
     <h2>10. Cambios</h2>
@@ -836,7 +836,7 @@ ${contacto("ct")}
 <section class="sec" style="padding-top:calc(var(--header) + 72px)">
   <div class="wrap legal">
     <h1 class="d2">Política de cookies</h1>
-    <p>Última actualización: 5 de noviembre de 2026.</p>
+    <p>Última actualización: 17 de noviembre de 2026.</p>
     <h2>1. Qué son</h2>
     <p>Las cookies y el almacenamiento local son pequeños datos que un sitio guarda en tu navegador para recordar información entre visitas o entre páginas.</p>
     <h2>2. ¿Hace falta tu consentimiento?</h2>
@@ -849,6 +849,7 @@ ${contacto("ct")}
         <tr><td>efo-consent</td><td>Almacenamiento local</td><td>Recordar si aceptaste o rechazaste el contenido de terceros</td><td>Hasta que lo borres</td></tr>
         <tr><td>efo-musica-t, efo-musica-mute</td><td>Almacenamiento de sesión</td><td>Seguir la música en el mismo minuto al cambiar de página y recordar si la silenciaste</td><td>Hasta cerrar la pestaña</td></tr>
         <tr><td>__cf_bm u otras de Cloudflare</td><td>Cookie técnica</td><td>Seguridad: distinguir personas de robots y frenar ataques. Solo aparece si Cloudflare la necesita</td><td>Hasta 30 minutos</td></tr>
+        <tr><td>efo_crm</td><td>Cookie técnica</td><td>Mantener abierta la sesión del personal de E.F.O. en su sistema interno de solicitudes. Los visitantes del sitio no la reciben</td><td>Hasta cerrar el navegador</td></tr>
       </tbody>
     </table>
     <p>Estas son necesarias para que el sitio funcione y sea seguro, y no requieren consentimiento.</p>

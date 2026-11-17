@@ -12,6 +12,9 @@ const OUT = join(import.meta.dirname, "docs");
 rmSync(OUT, { recursive: true, force: true });
 cpSync(SRC, OUT, { recursive: true });
 rmSync(join(OUT, ".htaccess"), { force: true });
+// El CRM (PHP) solo funciona en Hostinger: no se publica en la vista previa
+rmSync(join(OUT, "crm"), { recursive: true, force: true });
+rmSync(join(OUT, "api"), { recursive: true, force: true });
 writeFileSync(join(OUT, ".nojekyll"), "");
 writeFileSync(join(OUT, "robots.txt"), "User-agent: *\nDisallow: /\n");
 rmSync(join(OUT, "sitemap.xml"), { force: true });

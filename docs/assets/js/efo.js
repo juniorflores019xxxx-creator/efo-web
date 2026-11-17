@@ -383,46 +383,97 @@
     $$(".scene-media img").forEach(function (im, k) { im.classList.toggle("on", k === 0); });
   }
 
-  /* ---------- Formulario: WhatsApp o correo ---------- */
+  /* ---------- Formulario: se guarda en el CRM de E.F.O. (api/lead.php); si falla, sigue por WhatsApp ---------- */
+  // (funciones, no variables: initForms() se llama antes de esta línea)
+  function apiUrl() { return "/api/lead.php"; }
+  function grupoDe(tipo) {
+    var G = { diesel: ["Combustibles", "Diésel ULSD", "Importación"], solar: ["Energía solar"], cargadores: ["Electromovilidad", "Electrolineras", "Cargadores"], conversion: ["Conversión de vehículos"] };
+    for (var g in G) if (G[g].indexOf(tipo) > -1) return g;
+    return "";
+  }
   function initForms() {
     $$("form[data-contact]").forEach(function (form) {
-      var status = $(".status", form);
-      function val(n) { var el = form.elements[n]; return el ? String(el.value || "").trim() : ""; }
-      function bad(name, on) { var f = form.elements[name] && form.elements[name].closest(".field"); if (f) f.classList.toggle("bad", on); }
+      var status = $(".status", form), sending = false;
+      function val(n) { var el = form.elements[n]; return el && !el.disabled ? String(el.value || "").trim() : ""; }
+      function bad(el, on) { var f = el && el.closest && el.closest(".field"); if (f) f.classList.toggle("bad", on); }
+      function grupo() { return grupoDe(val("tipo")); }
+      function sync() {
+        var g = grupo();
+        $$("fieldset[data-grupo]", form).forEach(function (fs) {
+          var on = fs.getAttribute("data-grupo") === g;
+          fs.hidden = !on;
+          $$("input,select,textarea", fs).forEach(function (el) { el.disabled = !on; if (!on) bad(el, false); });
+        });
+        var mo = $("[data-msg-opt]", form); if (mo) mo.hidden = !g;
+      }
       function valid() {
         var ok = true, first = null;
-        [["nombre", val("nombre").length >= 2], ["telefono", val("telefono").replace(/\D/g, "").length >= 7],
-         ["correo", !val("correo") || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("correo"))], ["tipo", !!val("tipo")], ["mensaje", val("mensaje").length >= 10],
-         ["acepto", !form.elements.acepto || form.elements.acepto.checked]
-        ].forEach(function (c) { bad(c[0], !c[1]); if (!c[1]) { ok = false; if (!first) first = form.elements[c[0]]; } });
+        function chk(el, cond) { if (!el) return; bad(el, !cond); if (!cond) { ok = false; if (!first) first = el; } }
+        var E = form.elements;
+        chk(E.nombre, val("nombre").length >= 2);
+        chk(E.telefono, val("telefono").replace(/\D/g, "").length >= 7);
+        chk(E.correo, !val("correo") || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("correo")));
+        chk(E.tipo, !!val("tipo"));
+        chk(E.ciudad, !!val("ciudad"));
+        var g = grupo();
+        if (g) {
+          $$("fieldset[data-grupo=" + g + "] [data-req]", form).forEach(function (el) { chk(el, String(el.value || "").trim() !== "" && (el.type !== "number" || Number(el.value) > 0)); });
+          var f = E.factura;
+          if (f && !f.disabled && f.files && f.files[0]) chk(f, f.files[0].size <= 8 * 1024 * 1024 && /^(image\/(jpeg|png|webp)|application\/pdf)$/.test(f.files[0].type));
+        } else chk(E.mensaje, val("mensaje").length >= 10);
+        chk(E.acepto, !E.acepto || E.acepto.checked);
         if (first) first.focus();
         return ok;
       }
-      function texto() {
-        return ["Hola E.F.O., quisiera solicitar información / cotización.", "", "Nombre: " + val("nombre"),
-          val("empresa") ? "Empresa: " + val("empresa") : null, "Teléfono: " + val("telefono"),
-          val("correo") ? "Correo: " + val("correo") : null, "Tipo de consulta: " + val("tipo"), "", val("mensaje")
-        ].filter(function (x) { return x !== null; }).join("\n");
+      function texto(codigo) {
+        var L = ["Hola E.F.O., quisiera solicitar una cotización." + (codigo ? " (Solicitud " + codigo + ")" : ""), "",
+          "Nombre: " + val("nombre"), val("empresa") ? "Empresa: " + val("empresa") : null, "Teléfono: " + val("telefono"),
+          val("correo") ? "Correo: " + val("correo") : null, "Tipo de consulta: " + val("tipo"), "Departamento: " + val("ciudad")];
+        var g = grupo();
+        if (g) $$("fieldset[data-grupo=" + g + "] .field", form).forEach(function (fd) {
+          var el = $("input,select", fd), lb = $("label", fd);
+          if (!el || el.type === "file" || !String(el.value || "").trim()) return;
+          L.push(lb.childNodes[0].textContent.trim() + ": " + String(el.value).trim());
+        });
+        if (val("mensaje")) L.push("", val("mensaje"));
+        return L.filter(function (x) { return x !== null; }).join("\n");
       }
-      form.addEventListener("input", function (e) { var f = e.target.closest(".field"); if (f) f.classList.remove("bad"); });
-      form.addEventListener("change", function (e) { var f = e.target.closest(".field"); if (f) f.classList.remove("bad"); });
+      form.addEventListener("input", function (e) { bad(e.target, false); });
+      form.addEventListener("change", function (e) { bad(e.target, false); if (e.target.name === "tipo") sync(); });
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+        if (sending) return;
         if (form.elements.web_empresa && form.elements.web_empresa.value) return;
         if (!valid()) return;
-        var via = (e.submitter && e.submitter.value) || "whatsapp", url;
-        if (via === "correo") {
-          url = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Consulta web: " + val("tipo")) + "&body=" + encodeURIComponent(texto());
-          window.location.href = url;
-          status.innerHTML = "Abrimos tu aplicación de correo con la consulta escrita. Si no se abrió, escríbenos a <a href=\"mailto:" + MAIL + "\">" + MAIL + "</a>.";
-        } else {
-          url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(texto());
-          window.open(url, "_blank", "noopener");
-          status.innerHTML = "Abrimos WhatsApp con tu consulta escrita: solo presiona <b>Enviar</b>. Si no se abrió, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">toca aquí</a>.";
-        }
+        var via = (e.submitter && e.submitter.value) || "web";
+        var win = via === "whatsapp" ? window.open("about:blank", "_blank") : null; // se abre ya para que el navegador no la bloquee
+        var btns = $$("button[type=submit]", form);
+        sending = true; btns.forEach(function (b) { b.disabled = true; });
+        status.textContent = "Enviando tu solicitud…";
+        var fd = new FormData(form); fd.append("origen", location.pathname);
+        fetch(apiUrl(), { method: "POST", body: fd, headers: { Accept: "application/json" } })
+          .then(function (r) { return r.json().catch(function () { return { ok: false, net: true }; }).then(function (j) { if (!r.ok && !j.error) j.net = true; return j; }); }, function () { return { ok: false, net: true }; })
+          .then(function (j) {
+            sending = false; btns.forEach(function (b) { b.disabled = false; });
+            if (j.ok) {
+              var wa = "https://wa.me/" + WA + "?text=" + encodeURIComponent(texto(j.codigo));
+              if (win) { win.opener = null; win.location.href = wa; }
+              status.innerHTML = "<b>¡Listo! Recibimos tu solicitud " + j.codigo + ".</b> El equipo de E.F.O. te responderá en horario de atención. " +
+                (win ? "También abrimos WhatsApp con tu solicitud escrita." : "Si quieres, también puedes <a href=\"" + wa + "\" target=\"_blank\" rel=\"noopener\">escribirnos por WhatsApp</a>.");
+              form.reset(); sync();
+            } else if (j.error && !j.net) {
+              if (win) win.close();
+              status.textContent = j.error;
+            } else {
+              var url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(texto());
+              if (win) { win.opener = null; win.location.href = url; } else window.open(url, "_blank", "noopener");
+              status.innerHTML = "No pudimos guardar la solicitud en este momento, así que abrimos WhatsApp con tu solicitud escrita: solo presiona <b>Enviar</b>. Si no se abrió, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">toca aquí</a>.";
+            }
+          });
       });
+      var q = new URLSearchParams(location.search).get("tipo");
+      if (q && form.elements.tipo) Array.prototype.forEach.call(form.elements.tipo.options, function (o) { if (o.value === q) form.elements.tipo.value = q; });
+      sync();
     });
-    var q = new URLSearchParams(location.search).get("tipo");
-    if (q) $$("select[name=tipo]").forEach(function (s) { Array.prototype.forEach.call(s.options, function (o) { if (o.value === q) s.value = q; }); });
   }
 })();

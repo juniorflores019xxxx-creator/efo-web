@@ -1,0 +1,12 @@
+# CRM de E.F.O. — privado
+DirectoryIndex index.php
+Options -Indexes
+# Los archivos internos (_lib.php, _config.php, carpeta _data) no se abren desde el navegador
+<FilesMatch "^_">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/crm/_data(/.*)?$
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+  Header always set Cache-Control "no-store, private"
+</IfModule>

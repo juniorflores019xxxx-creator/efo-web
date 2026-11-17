@@ -619,3 +619,14 @@ main { position: relative; overflow-x: clip; }
 .legal .datos { background: var(--mist); border-radius: var(--r); padding: 18px 22px; margin: 12px 0 20px; }
 .legal .datos p { margin: 4px 0; }
 @media (max-width: 600px) { .legal table { font-size: 0.88rem; } .legal th, .legal td { padding: 8px; } }
+
+/* Formulario por servicio: campos extra según el tipo de consulta */
+.grupo { margin: 4px 0 0; padding: 18px 18px 20px; border: 1.5px solid #cfdbe6; border-radius: 16px; background: var(--mist); min-width: 0; }
+.grupo[hidden] { display: none; }
+.grupo legend { padding: 0 8px; font-weight: 800; font-size: 0.95rem; color: var(--ink); }
+.grupo-in { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .grupo-in { grid-template-columns: 1fr 1fr; } .grupo-in .full { grid-column: 1 / -1; } }
+.grupo .field input, .grupo .field select { background: var(--paper); }
+.grupo .note { margin: 0; }
+.field input[type="file"] { padding: 12px; min-height: 0; cursor: pointer; }
+.form button[disabled] { opacity: 0.6; cursor: progress; }
