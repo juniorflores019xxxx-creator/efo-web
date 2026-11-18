@@ -23,7 +23,6 @@ ${indexables.map((p) => `  <url><loc>${SITE.url}${p.path}</loc><lastmod>${today}
 
 writeFileSync(join(OUT, "robots.txt"), `User-agent: *
 Allow: /
-Disallow: /crm/
 Disallow: /api/
 
 Sitemap: ${SITE.url}/sitemap.xml

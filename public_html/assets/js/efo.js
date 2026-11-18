@@ -385,7 +385,16 @@
 
   /* ---------- Formulario: se guarda en el CRM de E.F.O. (api/lead.php); si falla, sigue por WhatsApp ---------- */
   // (funciones, no variables: initForms() se llama antes de esta línea)
-  function apiUrl() { return "/api/lead.php"; }
+  function apiUrl() { return "/api/enviar.php"; }
+  // Estimado solar con las fórmulas del Excel de E.F.O. (HSP 5, rendimiento 0,75, panel 550 W, DC/AC 1,2, baterías 5,12 kWh)
+  function estimadoSolar(kwh, dias, mod) {
+    if (!(kwh > 0)) return null;
+    var diario = kwh / (dias > 0 ? dias : 30), r6 = function (x) { return Math.ceil(Math.round(x * 1e6) / 1e6); };
+    var paneles = r6(diario / (5 * 0.75) * 1000 / 550), kwp = paneles * 0.55;
+    var bat = /^(Híbrido|Off)/.test(mod || "") ? r6((diario * 0.5 / (0.8 * 0.9)) / 5.12) : 0;
+    return { paneles: paneles, kwp: kwp, inv: kwp / 1.2, bat: bat };
+  }
+  function nf(n, d) { return n.toLocaleString("es-BO", { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function grupoDe(tipo) {
     var G = { diesel: ["Combustibles", "Diésel ULSD", "Importación"], solar: ["Energía solar"], cargadores: ["Electromovilidad", "Electrolineras", "Cargadores"], conversion: ["Conversión de vehículos"] };
     for (var g in G) if (G[g].indexOf(tipo) > -1) return g;
@@ -405,6 +414,17 @@
           $$("input,select,textarea", fs).forEach(function (el) { el.disabled = !on; if (!on) bad(el, false); });
         });
         var mo = $("[data-msg-opt]", form); if (mo) mo.hidden = !g;
+        estimar();
+      }
+      function est() { return grupo() === "solar" ? estimadoSolar(Number(val("s_kwh").replace(",", ".")), Number(val("s_dias")), val("s_modalidad")) : null; }
+      function estimar() {
+        var box = $("[data-estimado]", form); if (!box) return;
+        var e = est(); box.hidden = !e; if (!e) return;
+        $("[data-e=paneles]", box).textContent = e.paneles;
+        $("[data-e=kwp]", box).textContent = nf(e.kwp, 2);
+        $("[data-e=inv]", box).textContent = "~" + nf(e.inv, 1);
+        $("[data-e=bat]", box).textContent = e.bat;
+        $("[data-e-bat]", box).hidden = !e.bat;
       }
       function valid() {
         var ok = true, first = null;
@@ -435,11 +455,13 @@
           if (!el || el.type === "file" || !String(el.value || "").trim()) return;
           L.push(lb.childNodes[0].textContent.trim() + ": " + String(el.value).trim());
         });
+        var e = est();
+        if (e) L.push("", "Sistema estimado en la web: " + e.paneles + " paneles de 550 W, " + nf(e.kwp, 2) + " kWp" + (e.bat ? ", " + e.bat + " baterías" : "") + ".");
         if (val("mensaje")) L.push("", val("mensaje"));
         return L.filter(function (x) { return x !== null; }).join("\n");
       }
-      form.addEventListener("input", function (e) { bad(e.target, false); });
-      form.addEventListener("change", function (e) { bad(e.target, false); if (e.target.name === "tipo") sync(); });
+      form.addEventListener("input", function (e) { bad(e.target, false); if (/^s_/.test(e.target.name || "")) estimar(); });
+      form.addEventListener("change", function (e) { bad(e.target, false); if (e.target.name === "tipo") sync(); else if (/^s_/.test(e.target.name || "")) estimar(); });
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (sending) return;
@@ -458,7 +480,7 @@
             if (j.ok) {
               var wa = "https://wa.me/" + WA + "?text=" + encodeURIComponent(texto(j.codigo));
               if (win) { win.opener = null; win.location.href = wa; }
-              status.innerHTML = "<b>¡Listo! Recibimos tu solicitud " + j.codigo + ".</b> El equipo de E.F.O. te responderá en horario de atención. " +
+              status.innerHTML = "<b>¡Listo! Recibimos tu solicitud " + j.codigo + ".</b> E.F.O. revisará tus datos y te enviará tu cotización por WhatsApp o correo, en horario de atención. " +
                 (win ? "También abrimos WhatsApp con tu solicitud escrita." : "Si quieres, también puedes <a href=\"" + wa + "\" target=\"_blank\" rel=\"noopener\">escribirnos por WhatsApp</a>.");
               form.reset(); sync();
             } else if (j.error && !j.net) {
@@ -467,7 +489,7 @@
             } else {
               var url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(texto());
               if (win) { win.opener = null; win.location.href = url; } else window.open(url, "_blank", "noopener");
-              status.innerHTML = "No pudimos guardar la solicitud en este momento, así que abrimos WhatsApp con tu solicitud escrita: solo presiona <b>Enviar</b>. Si no se abrió, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">toca aquí</a>.";
+              status.innerHTML = "No pudimos enviar la solicitud en este momento, así que abrimos WhatsApp con tu solicitud escrita: solo presiona <b>Enviar</b>. Si no se abrió, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">toca aquí</a>.";
             }
           });
       });

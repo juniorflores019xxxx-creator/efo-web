@@ -1,5 +1,5 @@
 .impeccable/review/
 node_modules/
-public_html/crm/_config.php
-public_html/crm/_data/
+crm-futuro/crm/_config.php
+crm-futuro/crm/_data/
 efo-data/

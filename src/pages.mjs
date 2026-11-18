@@ -540,9 +540,26 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
         <li>${icon("escudo")}<span><b>Marcas y garantía</b><span>Equipos Huawei y Lumosenergy, con 2 años de garantía.</span></span></li>
       </ul>
       <div class="chips" data-reveal><span>Conectado a la red</span><span>Híbrido con baterías</span><span>Huawei</span><span>Lumosenergy</span></div>
-      <a class="btn btn-cyan btn-lg" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar" data-reveal>Cotizar sistema solar ${icon("flecha")}</a>
+      <a class="btn btn-cyan btn-lg" href="#cotiza-solar" data-reveal>Cotizar sistema solar ${icon("flecha")}</a>
       <p class="note">Fotografías referenciales.</p>
     </div>
+  </div>
+</section>
+
+<section class="sec mist cotiza-solar" id="cotiza-solar" aria-labelledby="cs-t">
+  <div class="wrap contact">
+    <div class="copy" style="align-content:start">
+      <span class="kicker">Cotización solar</span>
+      <h2 id="cs-t" class="d2" data-lines>${lines("Cotiza tu", "<span class=\"c\">sistema solar</span>")}</h2>
+      <p class="lead" data-reveal>Con los datos de tu factura de luz te decimos qué sistema necesitas y cuánto cuesta. Es gratis y sin compromiso.</p>
+      <ol class="cs-pasos" data-reveal>
+        <li><b>1</b><span><strong>Escribe tu consumo</strong>Lo encuentras en tu factura de luz, en kWh. Si puedes, adjunta una foto de la factura.</span></li>
+        <li><b>2</b><span><strong>Mira tu sistema estimado</strong>Al instante ves cuántos paneles y qué potencia necesitarías.</span></li>
+        <li><b>3</b><span><strong>Recibe tu cotización</strong>E.F.O. revisa tus datos y te envía la propuesta por WhatsApp o correo.</span></li>
+      </ol>
+      ${contactData()}
+    </div>
+    ${contactForm("cs", { tipo: "Energía solar" })}
   </div>
 </section>
 
@@ -558,7 +575,7 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
         <div class="step-in"><h3>${t}</h3><p>${d}</p></div>
       </li>`).join("\n      ")}
       <li class="step step-cta" data-reveal>
-        <div class="step-in">${icon("sol")}<h3>¿Listo para generar tu propia energía?</h3><p>Agenda una visita técnica y recibe tu propuesta. Te explicamos las condiciones de la visita al coordinarla.</p><a class="btn btn-cyan" href="/contacto/?tipo=Energ%C3%ADa%20solar#cotizar">Cotizar ahora ${icon("flecha")}</a></div>
+        <div class="step-in">${icon("sol")}<h3>¿Listo para generar tu propia energía?</h3><p>Agenda una visita técnica y recibe tu propuesta. Te explicamos las condiciones de la visita al coordinarla.</p><a class="btn btn-cyan" href="#cotiza-solar">Cotizar ahora ${icon("flecha")}</a></div>
       </li>
     </ol>
     <p class="note">Fotografías referenciales.</p>
@@ -725,7 +742,7 @@ ${contacto("ct")}
 <section class="sec" style="padding-top:calc(var(--header) + 72px)">
   <div class="wrap legal">
     <h1 class="d2">Política de privacidad</h1>
-    <p>Última actualización: 17 de noviembre de 2026.</p>
+    <p>Última actualización: 18 de noviembre de 2026.</p>
     <h2>1. Responsable</h2>
     <div class="datos">
       <p><b>${SITE.legal}</b> (nombre comercial: E.F.O. Ltda.)</p>
@@ -738,7 +755,7 @@ ${contacto("ct")}
     <p>Tratamos tus datos según la Constitución Política del Estado (artículo 21, derecho a la privacidad e intimidad, y artículo 130, Acción de Protección de Privacidad), la Ley N.° 164 General de Telecomunicaciones, Tecnologías de Información y Comunicación, su reglamento, y la Ley N.° 453 General de los Derechos de las Usuarias y los Usuarios y de las Consumidoras y los Consumidores.</p>
     <h2>3. Qué datos recibimos</h2>
     <ul>
-      <li><b>Formulario de solicitud:</b> nombre, empresa (opcional), teléfono, correo (opcional), tipo de consulta, departamento y mensaje, más los datos del servicio que pidas: litros de diésel y lugar de entrega; consumo, distribuidora y la foto o PDF de tu factura de luz si la adjuntas; equipo de carga y datos de instalación; o marca, modelo y uso de tu vehículo. Estos datos se guardan en el sistema de gestión de clientes de E.F.O., junto con la fecha, la página desde la que enviaste y la dirección IP (para evitar envíos abusivos). Solo puede verlos el personal autorizado de E.F.O., con usuario y contraseña.</li>
+      <li><b>Formulario de solicitud:</b> nombre, empresa (opcional), teléfono, correo (opcional), tipo de consulta, departamento y mensaje, más los datos del servicio que pidas: litros de diésel y lugar de entrega; consumo, distribuidora y la foto o PDF de tu factura de luz si la adjuntas; equipo de carga y datos de instalación; o marca, modelo y uso de tu vehículo. Al enviar, estos datos (y la factura, si la adjuntas) llegan por correo electrónico al equipo comercial de E.F.O.; el sitio no los guarda en una base de datos. Para evitar envíos abusivos, el servidor guarda por una hora una huella cifrada de tu dirección IP. Si eliges «Enviar y abrir WhatsApp», también se abre WhatsApp con tu solicitud escrita.</li>
       <li><b>Mensajes directos:</b> lo que nos escribas por WhatsApp o correo.</li>
       <li><b>Datos técnicos:</b> el servidor del sitio (Hostinger) y el servicio de seguridad (Cloudflare) registran datos como la dirección IP, el navegador y la fecha de visita, para que el sitio funcione y para protegerlo de ataques.</li>
     </ul>
@@ -751,7 +768,7 @@ ${contacto("ct")}
       <thead><tr><th>Servicio</th><th>Para qué</th><th>Cuándo</th></tr></thead>
       <tbody>
         <tr><td>WhatsApp (Meta)</td><td>Recibir las consultas que envías por WhatsApp</td><td>Cuando nos escribes por WhatsApp</td></tr>
-        <tr><td>Hostinger</td><td>Alojamiento del sitio, del correo y del sistema donde se guardan las solicitudes</td><td>Siempre</td></tr>
+        <tr><td>Hostinger</td><td>Alojamiento del sitio y del correo donde llegan las solicitudes</td><td>Siempre</td></tr>
         <tr><td>Cloudflare</td><td>DNS, conexión segura y protección contra ataques</td><td>Siempre</td></tr>
         <tr><td>YouTube (Google)</td><td>Música de fondo</td><td>Solo si aceptas el contenido de terceros</td></tr>
         <tr><td>Google Maps</td><td>Mapa de la página de Contacto</td><td>Solo si aceptas, o si tocas «Mostrar mapa»</td></tr>
@@ -763,7 +780,7 @@ ${contacto("ct")}
     <h2>7. Tus derechos</h2>
     <p>Puedes pedirnos saber qué datos tenemos sobre ti, corregirlos, actualizarlos o eliminarlos, y retirar tu consentimiento en cualquier momento, escribiendo a <a href="mailto:${SITE.mail}">${SITE.mail}</a>. Respondemos en un plazo máximo de 10 días hábiles. También puedes acudir a la Acción de Protección de Privacidad prevista en la Constitución.</p>
     <h2>8. Seguridad y menores</h2>
-    <p>El sitio funciona con conexión cifrada (HTTPS). Las solicitudes se guardan en un sistema protegido con contraseña, al que solo accede el personal autorizado de E.F.O. Si pides que borremos tus datos, eliminamos tu solicitud, tus archivos y tus cotizaciones. El sitio está dirigido a empresas y personas adultas; no recogemos a sabiendas datos de menores de edad.</p>
+    <p>El sitio funciona con conexión cifrada (HTTPS). Las solicitudes llegan al correo de E.F.O., al que solo accede su personal autorizado. Si pides que borremos tus datos, eliminamos tu solicitud, tus archivos y tus cotizaciones. El sitio está dirigido a empresas y personas adultas; no recogemos a sabiendas datos de menores de edad.</p>
     <h2>9. Cookies</h2>
     <p>Lo explicamos en la <a href="/cookies/">Política de cookies</a>.</p>
     <h2>10. Cambios</h2>
@@ -836,7 +853,7 @@ ${contacto("ct")}
 <section class="sec" style="padding-top:calc(var(--header) + 72px)">
   <div class="wrap legal">
     <h1 class="d2">Política de cookies</h1>
-    <p>Última actualización: 17 de noviembre de 2026.</p>
+    <p>Última actualización: 18 de noviembre de 2026.</p>
     <h2>1. Qué son</h2>
     <p>Las cookies y el almacenamiento local son pequeños datos que un sitio guarda en tu navegador para recordar información entre visitas o entre páginas.</p>
     <h2>2. ¿Hace falta tu consentimiento?</h2>
@@ -849,7 +866,6 @@ ${contacto("ct")}
         <tr><td>efo-consent</td><td>Almacenamiento local</td><td>Recordar si aceptaste o rechazaste el contenido de terceros</td><td>Hasta que lo borres</td></tr>
         <tr><td>efo-musica-t, efo-musica-mute</td><td>Almacenamiento de sesión</td><td>Seguir la música en el mismo minuto al cambiar de página y recordar si la silenciaste</td><td>Hasta cerrar la pestaña</td></tr>
         <tr><td>__cf_bm u otras de Cloudflare</td><td>Cookie técnica</td><td>Seguridad: distinguir personas de robots y frenar ataques. Solo aparece si Cloudflare la necesita</td><td>Hasta 30 minutos</td></tr>
-        <tr><td>efo_crm</td><td>Cookie técnica</td><td>Mantener abierta la sesión del personal de E.F.O. en su sistema interno de solicitudes. Los visitantes del sitio no la reciben</td><td>Hasta cerrar el navegador</td></tr>
       </tbody>
     </table>
     <p>Estas son necesarias para que el sitio funcione y sea seguro, y no requieren consentimiento.</p>

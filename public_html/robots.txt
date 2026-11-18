@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /crm/
 Disallow: /api/
 
 Sitemap: https://efo.com.bo/sitemap.xml
