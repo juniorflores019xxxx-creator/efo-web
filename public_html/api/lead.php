@@ -72,6 +72,7 @@ try {
     if (!move_uploaded_file($archivo['tmp'], data_dir() . '/' . $rel)) throw new RuntimeException('No se pudo guardar el archivo');
     q('INSERT INTO archivos (lead_id, nombre, ruta, mime, tamano, creado) VALUES (?, ?, ?, ?, ?, ?)', [$id, $archivo['nombre'] ?: 'factura.' . $archivo['ext'], $rel, $archivo['mime'], $archivo['tam'], $t]);
   }
+  registrar($id, 'creado', 'Solicitud recibida desde el formulario web' . ($archivo ? ', con la factura adjunta.' : '.'));
   $pdo->commit();
 
   // Aviso por correo a E.F.O. (si falla, la solicitud igual queda guardada)

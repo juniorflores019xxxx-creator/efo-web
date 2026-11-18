@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . '/_lib.php';
 requiere_login();
+requiere('cotizar');
 
 $lid = (int)($_GET['lead'] ?? $_POST['lead'] ?? 0);
 $lead = q('SELECT * FROM leads WHERE id = ?', [$lid])->fetch();
@@ -35,8 +36,18 @@ if ($post) {
   foreach (['alcance', 'notas'] as $k) if (isset($_POST['com'][$k])) $com[$k] = texto_largo((string)$_POST['com'][$k], 1500);
 }
 
+// Duplicar una cotización anterior del mismo cliente
+$base = !$post && isset($_GET['desde']) ? q('SELECT datos FROM cotizaciones WHERE id = ? AND lead_id = ?', [(int)$_GET['desde'], $lid])->fetchColumn() : false;
+$base = $base ? json_decode((string)$base, true) : null;
+if ($base) {
+  if ($solarOn && !empty($base['parametros'])) { $ps = array_merge($ps, $base['parametros']); $solar = calculo_solar($ps); }
+  $com = array_merge($com, (array)($base['comercial'] ?? []));
+}
+
 // Líneas: sugeridas al entrar o al recalcular el sistema solar; si no, las que se editaron
-if (!$post || $acc === 'calcular') {
+if ($base) {
+  $lineas = (array)$base['lineas'];
+} elseif (!$post || $acc === 'calcular') {
   $lineas = lineas_sugeridas($lead, $solar, $ps);
 } else {
   $lineas = [];
@@ -57,9 +68,11 @@ if ($acc === 'guardar') {
     $numero = siguiente_numero();
     $snap = ['cliente' => array_intersect_key($lead, array_flip(['codigo', 'nombre', 'empresa', 'telefono', 'correo', 'ciudad', 'tipo'])),
       'grupo' => $lead['grupo'], 'parametros' => $solarOn ? $ps : null, 'solar' => $solar, 'lineas' => $lineas, 'comercial' => $com, 'totales' => $tot];
-    q('INSERT INTO cotizaciones (lead_id, numero, creado, datos, total) VALUES (?, ?, ?, ?, ?)', [$lid, $numero, ahora(), json_encode($snap, JSON_UNESCAPED_UNICODE), $tot['total']]);
+    q("INSERT INTO cotizaciones (lead_id, numero, creado, datos, total, estado, usuario_id) VALUES (?, ?, ?, ?, ?, 'borrador', ?)", [$lid, $numero, ahora(), json_encode($snap, JSON_UNESCAPED_UNICODE), $tot['total'], uid()]);
     $cid = (int)db()->lastInsertId();
-    q("UPDATE leads SET estado = CASE WHEN estado IN ('nuevo','contactado') THEN 'cotizado' ELSE estado END, actualizado = ? WHERE id = ?", [ahora(), $lid]);
+    q("UPDATE leads SET estado = CASE WHEN estado IN ('nuevo','contactado') THEN 'cotizado' ELSE estado END, valor = ?, actualizado = ? WHERE id = ?", [$tot['total'], ahora(), $lid]);
+    registrar($lid, 'cotizacion', "Cotización $numero preparada por Bs " . bs($tot['total']) . '.');
+    if (in_array($lead['estado'], ['nuevo', 'contactado'], true)) registrar($lid, 'estado', 'Estado: ' . ESTADOS[$lead['estado']] . ' → Cotizado');
     aviso("Cotización $numero guardada.");
     redirigir('cotizacion.php?id=' . $cid);
   }
@@ -68,7 +81,7 @@ if ($acc === 'guardar') {
 $cat = catalogo();
 $filas = array_merge($lineas, array_fill(0, 4, ['cod' => '', 'desc' => '', 'unidad' => 'unidad', 'cant' => '', 'precio' => '']));
 $n = fn($v, $d = 2) => rtrim(rtrim(number_format((float)$v, $d, '.', ''), '0'), '.');
-cabecera('Cotizar ' . $lead['codigo']);
+cabecera('Cotizar ' . $lead['codigo'], 'cotizaciones.php');
 ?>
 <p class="migas"><a href="ver.php?id=<?= $lid ?>">← <?= h($lead['codigo']) ?> · <?= h($lead['nombre']) ?></a></p>
 <h1>Preparar cotización <small><?= h($lead['tipo']) ?></small></h1>

@@ -3,7 +3,7 @@ declare(strict_types=1);
 require __DIR__ . '/_lib.php';
 requiere_login();
 
-$c = q('SELECT c.*, l.id AS lid, l.telefono AS tel_actual FROM cotizaciones c JOIN leads l ON l.id = c.lead_id WHERE c.id = ?', [(int)($_GET['id'] ?? 0)])->fetch();
+$c = q('SELECT c.*, l.id AS lid, c.estado, l.telefono AS tel_actual FROM cotizaciones c JOIN leads l ON l.id = c.lead_id WHERE c.id = ?', [(int)($_GET['id'] ?? 0)])->fetch();
 if (!$c) { http_response_code(404); exit('Cotización no encontrada.'); }
 $d = json_decode((string)$c['datos'], true);
 $cli = $d['cliente']; $com = $d['comercial']; $tot = $d['totales']; $m = 1 + (float)$com['margen'] / 100;
@@ -45,6 +45,7 @@ footer { margin-top: 8mm; padding-top: 3mm; border-top: 1px solid #E3EBF2; font-
 <div class="barra">
   <a href="ver.php?id=<?= (int)$c['lid'] ?>">← Volver</a>
   <button class="pri" type="button" onclick="window.print()">Imprimir / Guardar PDF</button>
+  <?php if (puede('cotizar') && $c['estado'] === 'borrador'): ?><form method="post" action="ver.php?id=<?= (int)$c['lid'] ?>" style="margin:0"><?= csrf_campo() ?><input type="hidden" name="accion" value="cot_estado"><input type="hidden" name="cot" value="<?= (int)$c['id'] ?>"><input type="hidden" name="estado" value="enviada"><button type="submit">Marcar como enviada</button></form><?php endif; ?>
   <?php if ($wa): ?><a class="wa" href="https://wa.me/<?= h($wa) ?>?text=<?= rawurlencode($msg) ?>" target="_blank" rel="noopener">Enviar por WhatsApp</a><?php endif; ?>
   <?php if ($cli['correo']): ?><a href="mailto:<?= h($cli['correo']) ?>?subject=<?= rawurlencode('Cotización ' . $c['numero'] . ' · E.F.O. Ltda.') ?>&body=<?= rawurlencode($msg) ?>">Enviar por correo</a><?php endif; ?>
   <span><?= $aviso ? h($aviso) . ' ' : '' ?>Primero guarda el PDF («Guardar como PDF» en la ventana de impresión) y luego adjúntalo en WhatsApp o en el correo.</span>

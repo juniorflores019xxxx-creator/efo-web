@@ -97,6 +97,43 @@ function db(): PDO {
   $pdo->exec('CREATE TABLE IF NOT EXISTS intentos (id INTEGER PRIMARY KEY AUTOINCREMENT, tipo TEXT, ip TEXT, ts INTEGER)');
   $pdo->exec('CREATE INDEX IF NOT EXISTS i_leads_estado ON leads(estado)');
   $pdo->exec('CREATE INDEX IF NOT EXISTS i_intentos ON intentos(tipo, ip, ts)');
+  // Versión 2: usuarios, historial, tareas, accesos y campos comerciales
+  $pdo->exec('CREATE TABLE IF NOT EXISTS usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT UNIQUE NOT NULL, nombre TEXT NOT NULL, correo TEXT,
+    rol TEXT NOT NULL DEFAULT \'ventas\', hash TEXT NOT NULL, activo INTEGER NOT NULL DEFAULT 1, creado TEXT, ultimo TEXT)');
+  $pdo->exec('CREATE TABLE IF NOT EXISTS actividad (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, lead_id INTEGER REFERENCES leads(id) ON DELETE CASCADE,
+    usuario_id INTEGER, creado TEXT NOT NULL, tipo TEXT NOT NULL, texto TEXT)');
+  $pdo->exec('CREATE TABLE IF NOT EXISTS tareas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, lead_id INTEGER REFERENCES leads(id) ON DELETE CASCADE,
+    titulo TEXT NOT NULL, vence TEXT, usuario_id INTEGER, hecha INTEGER NOT NULL DEFAULT 0, creado TEXT, creador_id INTEGER)');
+  $pdo->exec('CREATE TABLE IF NOT EXISTS accesos (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT, usuario_id INTEGER, ts TEXT, ip TEXT, ok INTEGER)');
+  $pdo->exec('CREATE INDEX IF NOT EXISTS i_act_lead ON actividad(lead_id, id)');
+  $pdo->exec('CREATE INDEX IF NOT EXISTS i_tareas ON tareas(hecha, vence)');
+  $col = function (string $t, string $c, string $def) use ($pdo) {
+    $cols = array_column($pdo->query("PRAGMA table_info($t)")->fetchAll(), 'name');
+    if (!in_array($c, $cols, true)) $pdo->exec("ALTER TABLE $t ADD COLUMN $c $def");
+  };
+  $col('leads', 'prioridad', "TEXT NOT NULL DEFAULT 'media'");
+  $col('leads', 'asignado', 'INTEGER');
+  $col('leads', 'valor', 'REAL NOT NULL DEFAULT 0');
+  $col('leads', 'proximo', 'TEXT');
+  $col('leads', 'fuente', "TEXT NOT NULL DEFAULT 'Formulario web'");
+  $col('cotizaciones', 'estado', "TEXT NOT NULL DEFAULT 'borrador'");
+  $col('cotizaciones', 'usuario_id', 'INTEGER');
+  // Notas de la versión 1 pasan al historial (una sola vez)
+  if (!$pdo->query("SELECT 1 FROM ajustes WHERE clave = 'migr_notas'")->fetchColumn()) {
+    $pdo->exec("INSERT INTO actividad (lead_id, creado, tipo, texto) SELECT lead_id, creado, 'nota', texto FROM notas");
+    $pdo->exec("INSERT INTO ajustes (clave, valor) VALUES ('migr_notas', '1')");
+  }
+  // Primer usuario: administrador con la contraseña inicial de _config.php
+  if ((int)$pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn() === 0) {
+    $h = (string)cfg('clave_hash', '');
+    $v = $pdo->query("SELECT valor FROM ajustes WHERE clave = 'clave_hash'")->fetchColumn();
+    if ($v !== false) $h = (string)json_decode((string)$v, true);
+    if ($h !== '') $pdo->prepare('INSERT INTO usuarios (usuario, nombre, correo, rol, hash, creado) VALUES (?, ?, ?, ?, ?, ?)')
+      ->execute(['admin', 'Administrador', (string)cfg('correo_aviso', ''), 'admin', $h, date('Y-m-d H:i:s')]);
+  }
   return $pdo;
 }
 function q(string $sql, array $p = []): PDOStatement { $s = db()->prepare($sql); $s->execute($p); return $s; }
@@ -135,13 +172,47 @@ function sesion(): void {
   session_set_cookie_params(['lifetime' => 0, 'path' => '/crm/', 'secure' => es_https(), 'httponly' => true, 'samesite' => 'Lax']);
   session_start();
 }
-function clave_hash(): string { return (string)ajuste('clave_hash', cfg('clave_hash', '')); }
+/* Usuarios y roles */
+const ROLES = ['admin' => 'Administrador', 'ventas' => 'Ventas', 'lectura' => 'Solo lectura'];
+const PERMISOS = [
+  'admin' => ['ver', 'editar', 'cotizar', 'tareas', 'eliminar', 'precios', 'usuarios', 'respaldo'],
+  'ventas' => ['ver', 'editar', 'cotizar', 'tareas'],
+  'lectura' => ['ver'],
+];
+const PRIORIDADES = ['alta' => 'Alta', 'media' => 'Media', 'baja' => 'Baja'];
+const FUENTES = ['Formulario web', 'WhatsApp', 'Llamada', 'Visita a oficina', 'Correo', 'Referido', 'Feria o evento', 'Redes sociales', 'Otro'];
+const ESTADOS_COT = ['borrador' => 'Borrador', 'enviada' => 'Enviada', 'aceptada' => 'Aceptada', 'rechazada' => 'Rechazada'];
+
+function huella(string $hash): string { return substr(hash('sha256', $hash), 0, 16); }
+function usuario(): ?array { return $GLOBALS['USUARIO'] ?? null; }
+function uid(): ?int { $u = usuario(); return $u ? (int)$u['id'] : null; }
+function puede(string $p): bool { $u = usuario(); return $u && in_array($p, PERMISOS[$u['rol']] ?? [], true); }
 function requiere_login(): void {
   cabeceras_crm();
   sesion();
-  $ok = !empty($_SESSION['ok']) && ($_SESSION['t'] ?? 0) > time() - 8 * 3600 && ($_SESSION['h'] ?? '') === substr(hash('sha256', clave_hash()), 0, 16);
+  $u = !empty($_SESSION['uid']) ? q('SELECT * FROM usuarios WHERE id = ? AND activo = 1', [(int)$_SESSION['uid']])->fetch() : false;
+  $ok = $u && ($_SESSION['t'] ?? 0) > time() - 8 * 3600 && ($_SESSION['h'] ?? '') === huella($u['hash']);
   if (!$ok) { $_SESSION = []; redirigir('login.php'); }
   $_SESSION['t'] = time();
+  $GLOBALS['USUARIO'] = $u;
+}
+function requiere(string $p): void {
+  if (puede($p)) return;
+  http_response_code(403);
+  cabecera('Sin permiso');
+  echo '<div class="vacio"><h2>No tienes permiso para esta sección</h2><p>Pide a un administrador que te dé acceso.</p><p><a class="btn" href="index.php">Volver al inicio</a></p></div>';
+  pie(); exit;
+}
+function usuarios_activos(): array { return q('SELECT id, nombre FROM usuarios WHERE activo = 1 ORDER BY nombre')->fetchAll(); }
+function nombre_usuario(?int $id): string {
+  static $c = null;
+  if ($c === null) { $c = []; foreach (q('SELECT id, nombre FROM usuarios')->fetchAll() as $r) $c[(int)$r['id']] = $r['nombre']; }
+  return $id ? ($c[$id] ?? '—') : '';
+}
+/* Historial de cada cliente */
+function registrar(?int $lead, string $tipo, string $texto): void {
+  q('INSERT INTO actividad (lead_id, usuario_id, creado, tipo, texto) VALUES (?, ?, ?, ?, ?)', [$lead, uid(), ahora(), $tipo, $texto]);
+  if ($lead) q('UPDATE leads SET actualizado = ? WHERE id = ?', [ahora(), $lead]);
 }
 function csrf(): string { sesion(); if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16)); return $_SESSION['csrf']; }
 function csrf_campo(): string { return '<input type="hidden" name="csrf" value="' . h(csrf()) . '">'; }
@@ -302,14 +373,77 @@ function siguiente_numero(): string {
 }
 
 /* ---------- Plantilla de las páginas del CRM ---------- */
+function ico(string $n): string {
+  $p = [
+    'inicio' => '<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+    'embudo' => '<path d="M3 4h18l-7 8v6l-4 2v-8z"/>',
+    'clientes' => '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.6.2 4.4 1.9 5 5.4"/>',
+    'tareas' => '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+    'cotiz' => '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h4"/>',
+    'precios' => '<path d="M20 12 12 20l-8-8V4h8z"/><circle cx="8.5" cy="8.5" r="1.5"/>',
+    'usuarios' => '<circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.4 4-7 8-7s7.2 2.6 8 7"/>',
+    'cuenta' => '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+    'salir' => '<path d="M15 4h4v16h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h10"/>',
+    'mas' => '<path d="M12 5v14M5 12h14"/>',
+    'buscar' => '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    'menu' => '<path d="M4 7h16M4 12h16M4 17h16"/>',
+    'wa' => '<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 1.8.8-.3 1.5c-3.8.4-7.5-3.3-7.1-7.1l1.5-.3.8 1.8z"/>',
+    'mail' => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
+    'tel' => '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+    'respaldo' => '<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>',
+    'sol' => '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    'gota' => '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+    'rayo' => '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+    'auto' => '<path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="16" r="1.5"/><circle cx="16.5" cy="16" r="1.5"/>',
+    'chat' => '<path d="M4 5h16v11H8l-4 4z"/>',
+    'editar' => '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+    'copiar' => '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+  ][$n] ?? '';
+  return '<svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $p . '</svg>';
+}
+function ico_grupo(string $g): string { return ico(['solar' => 'sol', 'diesel' => 'gota', 'cargadores' => 'rayo', 'conversion' => 'auto'][$g] ?? 'chat'); }
 function cabecera(string $titulo, string $activo = ''): void {
-  $menu = ['index.php' => 'Solicitudes', 'catalogo.php' => 'Precios y parámetros', 'cuenta.php' => 'Cuenta'];
+  $u = usuario();
+  $nuevas = $u ? (int)q("SELECT COUNT(*) FROM leads WHERE estado = 'nuevo'")->fetchColumn() : 0;
+  $vencidas = $u ? (int)q('SELECT COUNT(*) FROM tareas WHERE hecha = 0 AND vence IS NOT NULL AND vence <= ?', [date('Y-m-d')])->fetchColumn() : 0;
+  $menu = [
+    ['index.php', 'Inicio', 'inicio', 0, 'ver'], ['embudo.php', 'Embudo de ventas', 'embudo', 0, 'ver'],
+    ['solicitudes.php', 'Solicitudes y clientes', 'clientes', $nuevas, 'ver'], ['tareas.php', 'Tareas y seguimientos', 'tareas', $vencidas, 'ver'],
+    ['cotizaciones.php', 'Cotizaciones', 'cotiz', 0, 'ver'], ['catalogo.php', 'Precios y parámetros', 'precios', 0, 'precios'],
+    ['usuarios.php', 'Usuarios', 'usuarios', 0, 'usuarios'], ['cuenta.php', 'Mi cuenta', 'cuenta', 0, 'ver'],
+  ];
   echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">';
-  echo '<meta name="robots" content="noindex,nofollow"><title>' . h($titulo) . ' · CRM E.F.O.</title>';
-  echo '<link rel="icon" href="/assets/img/favicon-192.png"><link rel="stylesheet" href="crm.css?v=1"></head><body>';
-  echo '<header class="top"><a class="logo" href="index.php"><img src="/assets/img/logo-efo.webp" alt="E.F.O." width="90" height="36"><span>CRM</span></a><nav>';
-  foreach ($menu as $u => $t) echo '<a href="' . $u . '"' . ($activo === $u ? ' aria-current="page"' : '') . '>' . $t . '</a>';
-  echo '<a href="salir.php">Salir</a></nav></header><main class="wrap">';
+  echo '<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#031F36"><title>' . h($titulo) . ' · CRM E.F.O.</title>';
+  echo '<link rel="icon" href="/assets/img/favicon-192.png"><link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="crm.css?v=2"></head><body class="app">';
+  echo '<aside class="side" id="side"><a class="marca" href="index.php"><img src="/assets/img/logo-efo-claro.webp" alt="E.F.O. Ltda." width="120" height="48"><span>CRM comercial</span></a><nav aria-label="Menú del CRM">';
+  foreach ($menu as [$url, $txt, $ic, $badge, $perm]) {
+    if (!puede($perm)) continue;
+    echo '<a href="' . $url . '"' . ($activo === $url ? ' aria-current="page"' : '') . '>' . ico($ic) . '<span>' . $txt . '</span>' . ($badge ? '<b class="badge">' . $badge . '</b>' : '') . '</a>';
+  }
+  echo '</nav>';
+  if ($u) echo '<div class="yo"><span class="avatar">' . h(mb_strtoupper(mb_substr($u['nombre'], 0, 1))) . '</span><span><b>' . h($u['nombre']) . '</b><small>' . h(ROLES[$u['rol']] ?? $u['rol']) . '</small></span><a href="salir.php" title="Cerrar sesión" aria-label="Cerrar sesión">' . ico('salir') . '</a></div>';
+  echo '</aside><div class="velo" id="velo" hidden></div><div class="principal"><header class="barra">';
+  echo '<button class="menu-btn" type="button" id="menu-btn" aria-label="Abrir menú" aria-controls="side" aria-expanded="false">' . ico('menu') . '</button>';
+  echo '<form class="busca" action="solicitudes.php" method="get" role="search">' . ico('buscar') . '<label class="sr" for="busca-q">Buscar clientes</label><input id="busca-q" name="q" placeholder="Buscar cliente, empresa, teléfono o código" value="' . h(is_string($_GET['q'] ?? null) ? $_GET['q'] : '') . '"></form>';
+  if (puede('editar')) echo '<a class="btn btn-cyan" href="cliente.php">' . ico('mas') . '<span>Nuevo cliente</span></a>';
+  echo '</header><main class="wrap" id="contenido">';
   if ($a = aviso()) echo '<p class="aviso" role="status">' . h($a) . '</p>';
 }
-function pie(): void { echo '</main></body></html>'; }
+function pie(): void {
+  echo '</main><footer class="pie">E.F.O. Ltda. · CRM comercial · <a href="/" target="_blank" rel="noopener">efo.com.bo</a></footer></div>';
+  echo '<script>(function(){var b=document.getElementById("menu-btn"),s=document.getElementById("side"),v=document.getElementById("velo");if(!b)return;function t(o){s.classList.toggle("abierto",o);v.hidden=!o;b.setAttribute("aria-expanded",o?"true":"false");}b.addEventListener("click",function(){t(!s.classList.contains("abierto"));});v.addEventListener("click",function(){t(false);});})();</script>';
+  echo '</body></html>';
+}
+/* Insignias reutilizables */
+function chip_estado(string $e): string { return '<span class="estado e-' . h($e) . '">' . h(ESTADOS[$e] ?? $e) . '</span>'; }
+function chip_prioridad(string $p): string { return '<span class="prio p-' . h($p) . '">' . h(PRIORIDADES[$p] ?? $p) . '</span>'; }
+function chip_cot(string $e): string { return '<span class="estado c-' . h($e) . '">' . h(ESTADOS_COT[$e] ?? $e) . '</span>'; }
+function hace(string $f): string {
+  $s = time() - (strtotime($f) ?: time());
+  if ($s < 60) return 'hace un momento';
+  if ($s < 3600) return 'hace ' . (int)floor($s / 60) . ' min';
+  if ($s < 86400) return 'hace ' . (int)floor($s / 3600) . ' h';
+  if ($s < 86400 * 30) { $d = (int)floor($s / 86400); return $d === 1 ? 'ayer' : "hace $d días"; }
+  return date('d/m/Y', strtotime($f));
+}
+function texto_get(string $k, int $max = 80): string { $v = $_GET[$k] ?? ''; return is_string($v) ? una_linea($v, $max) : ''; }

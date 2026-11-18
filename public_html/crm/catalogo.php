@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . '/_lib.php';
 requiere_login();
+requiere('precios');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
   csrf_ok();
