@@ -34,4 +34,10 @@ for (const file of walk(OUT).filter((f) => f.endsWith(".html") || f.endsWith(".w
   writeFileSync(file, h);
   n++;
 }
+// Las hojas de estilo usan rutas absolutas a /assets/: en la vista previa necesitan la base
+for (const file of walk(OUT).filter((f) => f.endsWith(".css"))) {
+  const c = readFileSync(file, "utf8");
+  const n2 = c.replace(/url\((["']?)\/assets\//g, `url($1${BASE}/assets/`).replace(new RegExp(`${BASE}${BASE}/`, "g"), `${BASE}/`);
+  if (n2 !== c) writeFileSync(file, n2);
+}
 console.log(`vista previa: ${n} archivos en docs/ con base ${BASE}`);
