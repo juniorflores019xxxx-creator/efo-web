@@ -551,15 +551,15 @@ ${pageHero({ title: lines("Soluciones", "<span class=\"c\">energéticas</span>")
     <div class="copy" style="align-content:start">
       <span class="kicker">Cotización solar</span>
       <h2 id="cs-t" class="d2" data-lines>${lines("Cotiza tu", "<span class=\"c\">sistema solar</span>")}</h2>
-      <p class="lead" data-reveal>Con los datos de tu factura de luz te decimos qué sistema necesitas y cuánto cuesta. Es gratis y sin compromiso.</p>
+      <p class="lead" data-reveal>Envíanos los datos de tu factura de luz y el equipo de E.F.O. te prepara una cotización a tu medida. Es gratis y sin compromiso.</p>
       <ol class="cs-pasos" data-reveal>
         <li><b>1</b><span><strong>Escribe tu consumo</strong>Lo encuentras en tu factura de luz, en kWh. Si puedes, adjunta una foto de la factura.</span></li>
-        <li><b>2</b><span><strong>Mira tu sistema estimado</strong>Al instante ves cuántos paneles y qué potencia necesitarías.</span></li>
-        <li><b>3</b><span><strong>Recibe tu cotización</strong>E.F.O. revisa tus datos y te envía la propuesta por WhatsApp o correo.</span></li>
+        <li><b>2</b><span><strong>Cuéntanos tu proyecto</strong>Dinos dónde se instalaría y qué tipo de sistema te interesa. Si no sabes, te asesoramos.</span></li>
+        <li><b>3</b><span><strong>Recibe tu cotización</strong>E.F.O. analiza tus datos y te envía la propuesta por WhatsApp o correo.</span></li>
       </ol>
       ${contactData()}
     </div>
-    ${contactForm("cs", { tipo: "Energía solar" })}
+    ${contactForm("cs", { tipo: "Energía solar", soloSolar: true })}
   </div>
 </section>
 

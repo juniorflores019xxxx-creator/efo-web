@@ -82,7 +82,7 @@ if (!$err && $grupo === 'solar' && $f && ($f['error'] ?? UPLOAD_ERR_NO_FILE) !==
   else {
     $mime = (new finfo(FILEINFO_MIME_TYPE))->file($f['tmp_name']) ?: '';
     if (!isset($tipos[$mime])) $err = 'La factura debe ser una foto (JPG, PNG o WEBP) o un PDF.';
-    else $adj = ['mime' => $mime, 'nombre' => 'factura-' . preg_replace('/[^a-z0-9]+/i', '-', mb_strtolower($nombre)) . '.' . $tipos[$mime], 'datos' => (string)file_get_contents($f['tmp_name'])];
+    else $adj = ['mime' => $mime, 'nombre' => 'factura-' . trim(preg_replace('/[^a-z0-9]+/', '-', strtr(mb_strtolower($nombre), ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n'])) ?? '', '-') . '.' . $tipos[$mime], 'datos' => (string)file_get_contents($f['tmp_name'])];
   }
 }
 if ($err) responder(422, ['ok' => false, 'error' => $err]);
@@ -90,17 +90,6 @@ if (demasiados()) responder(429, ['ok' => false, 'error' => 'Recibimos varias so
 
 // Código para que el cliente y E.F.O. identifiquen la solicitud
 $codigo = 'EFO-' . date('ymd') . '-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 4));
-
-// Estimado del sistema solar (mismas fórmulas del Excel de E.F.O.; referencial)
-$est = '';
-if ($grupo === 'solar') {
-  $kwh = num($datos['s_kwh'] ?? '0'); $dias = num($datos['s_dias'] ?? '30') ?: 30;
-  $mod = str_starts_with((string)($datos['s_modalidad'] ?? ''), 'Híbrido') ? 'Híbrido' : (str_starts_with((string)($datos['s_modalidad'] ?? ''), 'Off') ? 'Off-Grid' : 'On-Grid');
-  $diario = $kwh / $dias; $kwpReq = $diario / (5 * 0.75); $paneles = (int)ceil(round($kwpReq * 1000 / 550, 6));
-  $kwp = $paneles * 0.55; $kwAc = $kwp / 1.2;
-  $bat = $mod === 'On-Grid' ? 0 : (int)ceil(round(($diario * 0.5 / (0.8 * 0.9)) / 5.12, 6));
-  $est = "Estimado referencial ($mod): $paneles paneles de 550 W · " . number_format($kwp, 2, ',', '.') . ' kWp · inversor de ~' . number_format($kwAc, 1, ',', '.') . ' kW' . ($bat ? " · $bat baterías de 5,12 kWh" : '') . '.';
-}
 
 // Correo a E.F.O.
 $L = ["Nueva solicitud desde efo.com.bo — $codigo", '', "Tipo: $tipo", "Nombre: $nombre"];
@@ -112,7 +101,6 @@ if (strlen($wa) >= 8) $L[] = "Responder por WhatsApp: https://wa.me/$wa";
 if ($correo !== '') $L[] = "Correo: $correo";
 $L[] = "Departamento: $ciudad";
 foreach ($datos as $k => $v) $L[] = CAMPOS[$grupo][$k] . ": $v";
-if ($est !== '') { $L[] = ''; $L[] = $est; $L[] = 'Verificar con visita técnica antes de cotizar el diseño final.'; }
 if ($adj) { $L[] = ''; $L[] = 'Factura de luz adjunta a este correo.'; }
 if ($mensaje !== '') { $L[] = ''; $L[] = 'Mensaje:'; $L[] = $mensaje; }
 $L[] = ''; $L[] = 'Página: ' . $P('origen', 120) . ' · Fecha: ' . date('d/m/Y H:i');

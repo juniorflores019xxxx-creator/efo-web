@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/efo.css?v=29">
+<link rel="stylesheet" href="/assets/css/efo.css?v=30">
 <script>document.documentElement.classList.add("js");setTimeout(function(){var r=document.documentElement;r.classList.add("ready");if(!window.__efo)r.classList.add("nogsap")},2600)</script>
 <style>.nogsap [data-reveal]{opacity:1!important;transform:none!important}.nogsap .statement .w,.nogsap .scene-step{opacity:1!important}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Energía y Fuerza del Oriente Ltda.","alternateName":"E.F.O. Ltda.","url":"https://efo.com.bo","logo":"https://efo.com.bo/assets/img/logo-efo.webp","slogan":"Energía que mueve Bolivia","email":"gerencia@efo.com.bo","telephone":"+59169540072","taxID":"710528026","address":{"@type":"PostalAddress","streetAddress":"Av. Montecristo No. 205","addressLocality":"Santa Cruz de la Sierra","addressCountry":"BO"},"areaServed":{"@type":"Country","name":"Bolivia"},"knowsAbout":["Diésel ULSD","Combustibles","Energía solar fotovoltaica","Soluciones energéticas","Electromovilidad","Electrolineras","Cargadores para vehículos eléctricos","Conversión de vehículos eléctricos"],"sameAs":["https://www.facebook.com/share/18zpmEWnNK/","https://www.tiktok.com/@efoenergia","https://www.instagram.com/energiafuerzadeloriente"]}</script>
@@ -119,11 +119,11 @@
     <div class="copy" style="align-content:start">
       <span class="kicker">Cotización solar</span>
       <h2 id="cs-t" class="d2" data-lines><span class="ln"><span>Cotiza tu</span></span><span class="ln"><span><span class="c">sistema solar</span></span></span></h2>
-      <p class="lead" data-reveal>Con los datos de tu factura de luz te decimos qué sistema necesitas y cuánto cuesta. Es gratis y sin compromiso.</p>
+      <p class="lead" data-reveal>Envíanos los datos de tu factura de luz y el equipo de E.F.O. te prepara una cotización a tu medida. Es gratis y sin compromiso.</p>
       <ol class="cs-pasos" data-reveal>
         <li><b>1</b><span><strong>Escribe tu consumo</strong>Lo encuentras en tu factura de luz, en kWh. Si puedes, adjunta una foto de la factura.</span></li>
-        <li><b>2</b><span><strong>Mira tu sistema estimado</strong>Al instante ves cuántos paneles y qué potencia necesitarías.</span></li>
-        <li><b>3</b><span><strong>Recibe tu cotización</strong>E.F.O. revisa tus datos y te envía la propuesta por WhatsApp o correo.</span></li>
+        <li><b>2</b><span><strong>Cuéntanos tu proyecto</strong>Dinos dónde se instalaría y qué tipo de sistema te interesa. Si no sabes, te asesoramos.</span></li>
+        <li><b>3</b><span><strong>Recibe tu cotización</strong>E.F.O. analiza tus datos y te envía la propuesta por WhatsApp o correo.</span></li>
       </ol>
       
 <div class="card-data" data-reveal>
@@ -140,17 +140,10 @@
   <div class="field"><label for="cs-empresa">Empresa <span class="opt">(opcional)</span></label><input id="cs-empresa" name="empresa" autocomplete="organization" maxlength="120"></div>
   <div class="field"><label for="cs-tel">Teléfono o WhatsApp</label><input id="cs-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="+591 7…" maxlength="30" required><span class="err">Escribe un número válido.</span></div>
   <div class="field"><label for="cs-correo">Correo electrónico <span class="opt">(opcional)</span></label><input id="cs-correo" name="correo" type="email" autocomplete="email" maxlength="120"><span class="err">Revisa el correo.</span></div>
-  <div class="field"><label for="cs-tipo">Tipo de consulta</label><select id="cs-tipo" name="tipo" required><option value="">Elige una opción</option><option>Combustibles</option><option>Diésel ULSD</option><option>Importación</option><option selected>Energía solar</option><option>Soluciones energéticas</option><option>Electromovilidad</option><option>Electrolineras</option><option>Cargadores</option><option>Conversión de vehículos</option><option>Proyectos</option><option>Otro</option></select><span class="err">Elige el tipo de consulta.</span></div>
+  <input type="hidden" name="tipo" value="Energía solar">
   <div class="field"><label for="cs-ciudad">Departamento</label><select id="cs-ciudad" name="ciudad" required><option value="">Elige una opción</option><option>Santa Cruz</option><option>La Paz</option><option>Cochabamba</option><option>Chuquisaca</option><option>Oruro</option><option>Potosí</option><option>Tarija</option><option>Beni</option><option>Pando</option></select><span class="err">Elige el departamento.</span></div>
 
-  <fieldset class="grupo full" data-grupo="diesel" hidden><legend>Datos para cotizar diésel ULSD</legend><div class="grupo-in">
-    <div class="field"><label for="cs-d_litros">Litros por mes</label><input id="cs-d_litros" name="d_litros" type="number" inputmode="numeric" min="1" step="1" placeholder="Ej.: 20000" data-req><span class="err">Escribe los litros que necesitas por mes.</span></div>
-    <div class="field"><label for="cs-d_frecuencia">Frecuencia de compra</label><select id="cs-d_frecuencia" name="d_frecuencia" data-req><option value="">Elige una opción</option><option>Compra única</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option></select><span class="err">Elige la frecuencia.</span></div>
-    <div class="field"><label for="cs-d_uso">Uso principal <span class="opt">(opcional)</span></label><select id="cs-d_uso" name="d_uso"><option value="">Elige una opción</option><option>Transporte y flotas</option><option>Maquinaria agrícola o de construcción</option><option>Minería</option><option>Generación eléctrica</option><option>Industria</option><option>Otro</option></select></div>
-    <div class="field"><label for="cs-d_tanque">¿Tienes tanque propio? <span class="opt">(opcional)</span></label><select id="cs-d_tanque" name="d_tanque"><option value="">Elige una opción</option><option>Sí</option><option>No</option></select></div>
-    <div class="field full"><label for="cs-d_lugar">Lugar de entrega (localidad o dirección) <span class="opt">(opcional)</span></label><input id="cs-d_lugar" name="d_lugar" maxlength="200" placeholder="Ej.: Parque Industrial, Santa Cruz"></div>
-    <p class="note full">Pedido mínimo: 10.000 litros (10 m³).</p>
-  </div></fieldset>
+  
 
   <fieldset class="grupo full" data-grupo="solar" hidden><legend>Datos de tu factura de luz</legend><div class="grupo-in">
     <div class="field"><label for="cs-s_kwh">Consumo mensual (kWh)</label><input id="cs-s_kwh" name="s_kwh" type="number" inputmode="decimal" min="1" step="any" placeholder="Ej.: 650" data-req><span class="err">Escribe el consumo en kWh que dice tu factura.</span></div>
@@ -161,29 +154,11 @@
     <div class="field"><label for="cs-s_techo">Dónde se instalarían los paneles <span class="opt">(opcional)</span></label><select id="cs-s_techo" name="s_techo"><option value="">Elige una opción</option><option>Techo de losa</option><option>Techo de calamina</option><option>Techo de teja</option><option>En el suelo</option><option>No sé</option></select></div>
     <div class="field full"><label for="cs-factura">Foto o PDF de tu factura de luz <span class="opt">(opcional, recomendado)</span></label><input id="cs-factura" name="factura" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"><span class="err">El archivo debe ser JPG, PNG, WEBP o PDF de hasta 8 MB.</span></div>
     <p class="note full">El consumo en kWh aparece en tu factura como «Consumo» o «Energía consumida».</p>
-    <div class="estimado full" data-estimado hidden aria-live="polite">
-      <p class="est-t"><svg class="ico  " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg> Tu sistema estimado</p>
-      <ul class="est-d"><li><b data-e="paneles">—</b><span>paneles de 550 W</span></li><li><b data-e="kwp">—</b><span>kWp de potencia</span></li><li><b data-e="inv">—</b><span>kW de inversor</span></li><li data-e-bat><b data-e="bat">—</b><span>baterías de respaldo</span></li></ul>
-      <p class="est-n">Estimado referencial calculado con tu consumo. E.F.O. confirma el diseño y el precio final con una visita técnica.</p>
-    </div>
   </div></fieldset>
 
-  <fieldset class="grupo full" data-grupo="cargadores" hidden><legend>Datos para tu proyecto de carga</legend><div class="grupo-in">
-    <div class="field"><label for="cs-c_equipo">Equipo de interés</label><select id="cs-c_equipo" name="c_equipo" data-req><option value="">Elige una opción</option><option>AC22 Turbo (7, 11 o 22 kW)</option><option>DA30 Compact (30 kW DC)</option><option>DA60 Fast (60 kW DC)</option><option>DA180 Fast (180 kW DC)</option><option>DA240 Fast (240 kW DC)</option><option>DA480 Ultra-fast (480 kW DC)</option><option>DC480 Cabinet + DD300 (carga distribuida)</option><option>Almacenamiento de energía (baterías)</option><option>No sé, necesito asesoría</option></select><span class="err">Elige un equipo.</span></div>
-    <div class="field"><label for="cs-c_cantidad">Cantidad de cargadores <span class="opt">(opcional)</span></label><input id="cs-c_cantidad" name="c_cantidad" type="number" inputmode="numeric" min="1" step="1" value="1"></div>
-    <div class="field"><label for="cs-c_lugar">Dónde se instalaría <span class="opt">(opcional)</span></label><select id="cs-c_lugar" name="c_lugar"><option value="">Elige una opción</option><option>Vivienda</option><option>Empresa u oficina</option><option>Flota de vehículos</option><option>Estación de carga pública</option><option>Hotel o comercio</option><option>Otro</option></select></div>
-    <div class="field"><label for="cs-c_vehiculo">Vehículo(s) a cargar <span class="opt">(opcional)</span></label><input id="cs-c_vehiculo" name="c_vehiculo" maxlength="160" placeholder="Ej.: BYD Dolphin, buses eléctricos…"></div>
-    <div class="field"><label for="cs-c_distancia">Distancia aproximada al tablero eléctrico (m) <span class="opt">(opcional)</span></label><input id="cs-c_distancia" name="c_distancia" type="number" inputmode="numeric" min="0" step="1"></div>
-    <div class="field"><label for="cs-c_red">Conexión eléctrica disponible <span class="opt">(opcional)</span></label><select id="cs-c_red" name="c_red"><option value="">Elige una opción</option><option>Monofásica (220 V)</option><option>Trifásica (380 V)</option><option>No sé</option></select></div>
-  </div></fieldset>
+  
 
-  <fieldset class="grupo full" data-grupo="conversion" hidden><legend>Datos de tu vehículo</legend><div class="grupo-in">
-    <div class="field"><label for="cs-v_marca">Marca y modelo</label><input id="cs-v_marca" name="v_marca" maxlength="120" placeholder="Ej.: Toyota Hiace" data-req><span class="err">Escribe la marca y el modelo.</span></div>
-    <div class="field"><label for="cs-v_anio">Año <span class="opt">(opcional)</span></label><input id="cs-v_anio" name="v_anio" type="number" inputmode="numeric" min="1950" max="2030" step="1"></div>
-    <div class="field"><label for="cs-v_uso">Uso del vehículo <span class="opt">(opcional)</span></label><select id="cs-v_uso" name="v_uso"><option value="">Elige una opción</option><option>Particular</option><option>Flota de empresa</option><option>Transporte público</option><option>Carga o reparto</option><option>Otro</option></select></div>
-    <div class="field"><label for="cs-v_km">Kilómetros por día (aprox.) <span class="opt">(opcional)</span></label><input id="cs-v_km" name="v_km" type="number" inputmode="numeric" min="0" step="1"></div>
-    <div class="field"><label for="cs-v_cantidad">Cantidad de vehículos <span class="opt">(opcional)</span></label><input id="cs-v_cantidad" name="v_cantidad" type="number" inputmode="numeric" min="1" step="1" value="1"></div>
-  </div></fieldset>
+  
 
   <div class="field full"><label for="cs-msg">Mensaje <span class="opt" data-msg-opt hidden>(opcional)</span></label><textarea id="cs-msg" name="mensaje" rows="4" maxlength="1500" placeholder="Cuéntanos qué necesitas: tipo de operación, ubicación, plazos…"></textarea><span class="err">Cuéntanos un poco más (al menos 10 caracteres).</span></div>
   <div class="field full chk-field"><label class="chk" for="cs-acepto"><input id="cs-acepto" name="acepto" type="checkbox" value="1" required><span>He leído y acepto la <a href="/privacidad/">Política de privacidad</a> y los <a href="/terminos/">Términos y condiciones</a>, y autorizo a E.F.O. a usar mis datos para responder esta solicitud.</span></label><span class="err">Para enviar la solicitud, marca esta casilla.</span></div>
@@ -325,7 +300,7 @@
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/efo.js?v=24" defer></script>
+<script src="/assets/js/efo.js?v=25" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </body>
 </html>
