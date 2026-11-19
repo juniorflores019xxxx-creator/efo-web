@@ -425,6 +425,7 @@
         if (first) first.focus();
         return ok;
       }
+      function hayFoto() { var f = form.elements.factura; return !!(f && !f.disabled && f.files && f.files[0]); }
       function texto(codigo) {
         var L = ["Hola E.F.O., quisiera solicitar una cotización." + (codigo ? " (Solicitud " + codigo + ")" : ""), "",
           "Nombre: " + val("nombre"), val("empresa") ? "Empresa: " + val("empresa") : null, "Teléfono: " + val("telefono"),
@@ -435,6 +436,7 @@
           if (!el || el.type === "file" || !String(el.value || "").trim()) return;
           L.push(lb.childNodes[0].textContent.trim() + ": " + String(el.value).trim());
         });
+        if (hayFoto()) L.push("", codigo ? "La foto de mi factura ya la envié por el formulario de la web." : "Les envío la foto de mi factura de luz en este chat.");
         if (val("mensaje")) L.push("", val("mensaje"));
         return L.filter(function (x) { return x !== null; }).join("\n");
       }
@@ -465,9 +467,12 @@
               if (win) win.close();
               status.textContent = j.error;
             } else {
+              // Respaldo: WhatsApp con la solicitud escrita. WhatsApp no acepta archivos desde un enlace: la foto se adjunta en el chat.
               var url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(texto());
-              if (win) { win.opener = null; win.location.href = url; } else window.open(url, "_blank", "noopener");
-              status.innerHTML = "No pudimos enviar la solicitud en este momento, así que abrimos WhatsApp con tu solicitud escrita: solo presiona <b>Enviar</b>. Si no se abrió, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">toca aquí</a>.";
+              var foto = hayFoto() ? " WhatsApp no permite adjuntar archivos desde la web: <b>adjunta la foto de tu factura en el chat</b> (ícono del clip o la cámara)." : "";
+              status.innerHTML = "Te llevamos a WhatsApp con tu solicitud escrita: solo presiona <b>Enviar</b>." + foto + " Si no se abrió, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">toca aquí</a>.";
+              if (win) { win.opener = null; win.location.href = url; }
+              else setTimeout(function () { location.href = url; }, foto ? 2500 : 600); // en la misma pestaña: el navegador no lo bloquea
             }
           });
       });

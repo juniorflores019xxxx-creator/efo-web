@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#031F36"><title>Ingresar · CRM E.F.O.</title>
+<link rel="icon" href="/assets/img/favicon-192.png"><link rel="stylesheet" href="crm.css?v=2"></head>
+<body class="login">
+<div class="login-arte" aria-hidden="true"><img src="/assets/img/logo-efo-claro.webp" alt="" width="200" height="80"><p>Energía que mueve Bolivia</p></div>
+<main class="caja">
+  <img class="solo-movil" src="/assets/img/logo-efo.webp" alt="E.F.O. Ltda." width="150" height="60">
+  <h1>CRM comercial</h1>
+  <p class="muted">Ingresa con tu usuario para ver solicitudes, cotizaciones y seguimientos.</p>
+  <form method="post">
+    <input type="hidden" name="csrf" value="43a3f5c0de1d018df9c4592037e1add7">    <label for="usuario">Usuario</label>
+    <input id="usuario" name="usuario" autocomplete="username" autocapitalize="none" value="" required autofocus>
+    <label for="clave">Contraseña</label>
+    <input id="clave" name="clave" type="password" autocomplete="current-password" required>
+        <button class="btn btn-cyan" type="submit">Ingresar</button>
+  </form>
+  <p class="muted pequeno">Acceso solo para el personal autorizado de E.F.O. Ltda.</p>
+</main>
+<div id="demo-aviso" style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99;max-width:calc(100% - 32px);padding:10px 16px;border-radius:12px;background:#031F36;color:#fff;font:600 13px/1.4 Manrope,Segoe UI,sans-serif;box-shadow:0 10px 30px rgba(3,31,54,.35);text-align:center">Demostración del CRM de E.F.O. con datos ficticios · los cambios no se guardan</div>
+<script>(function(){var av=document.getElementById("demo-aviso");function msg(t){av.textContent=t;av.style.background="#006CA6";clearTimeout(av._t);av._t=setTimeout(function(){av.textContent="Demostración del CRM de E.F.O. con datos ficticios · los cambios no se guardan";av.style.background="#031F36";},3500);}
+document.addEventListener("submit",function(e){var f=e.target;e.preventDefault();e.stopImmediatePropagation();if(f.closest(".caja")){location.href="index.html";return;}if(f.classList.contains("busca")){location.href="solicitudes.html";return;}msg("En la versión real, este botón guarda los cambios.");},true);
+document.addEventListener("click",function(e){var a=e.target.closest("a[href=\"#demo\"]");if(a){e.preventDefault();msg("En la versión real, aquí se descarga el archivo.");}},true);
+var f0=window.fetch;window.fetch=function(u,o){if(String(u).indexOf("accion.php")>-1)return Promise.resolve(new Response(JSON.stringify({ok:true,mensaje:"Movido (demostración: no se guarda)."}),{headers:{"Content-Type":"application/json"}}));return f0.apply(this,arguments);};})();</script></body></html>
